@@ -2,7 +2,13 @@
 
 Situs sekolah untuk domain **sdmuhammadiyah01kks.sch.id**.
 
-Pengunjung yang membuka alamat utama hanya melihat halaman sedang disiapkan. Situs lengkap ada di `/pratinjau` dan belum ditautkan dari halaman publik. Isi pratinjau diatur lewat **Panel kelola** di `/kelola`.
+Pengunjung yang membuka alamat utama melihat keterangan dasar sekolah. Pengumuman, berita, program, dan galeri ada di `/pratinjau`, belum ditautkan dari halaman publik. Isi itu diatur lewat **Panel kelola** di `/kelola`.
+
+## Berkas situs
+
+Seluruh berkas yang dipakai situs sudah ada di cabang `main`. Belum ada pengaturan Firebase, domain, atau hosting. Itu tahap berikutnya.
+
+Isi yang tampil (identitas, beranda, pengumuman, berita, program, galeri) ada di [src/lib/site/seed.ts](src/lib/site/seed.ts). Tanpa Firebase, salinan ini yang dibaca situs. Peta berkas ada di [STRUKTUR.md](STRUKTUR.md).
 
 ## Menjalankan
 
@@ -11,13 +17,8 @@ npm install
 npm run dev
 ```
 
-## Firebase
+Tidak perlu berkas `.env`.
 
-Tanpa konfigurasi, perubahan admin tersimpan di peramban yang dipakai. Agar semua pengunjung melihat isi yang sama, sambungkan Firestore:
+## Nanti
 
-- koleksi/dokumen: `site/public`
-- tempel konfigurasi web di tab Firebase pada panel kelola, atau set variabel `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_PROJECT_ID`, dan `VITE_FIREBASE_APP_ID` (plus `AUTH_DOMAIN`, `STORAGE_BUCKET`, `MESSAGING_SENDER_ID` bila ada)
-
-Aturan tulis Firestore harus dikunci sebelum situs dibuka untuk umum. Sandi admin awal tampil di halaman masuk selama belum diganti, dan hanya berlaku di peramban itu.
-
-Visi, misi, program, dan foto suasana masih naskah serta ilustrasi awal. Ganti dengan rumusan dan foto resmi sekolah.
+Firebase, aturan tulis Firestore, dan domain `sdmuhammadiyah01kks.sch.id` belum dikerjakan. Jangan diisi dulu.
