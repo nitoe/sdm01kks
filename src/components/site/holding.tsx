@@ -2,9 +2,25 @@ import { Link } from "@tanstack/react-router";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 
+const SCENES = [
+  {
+    src: "/media/kelas.jpg",
+    caption: "Ilustrasi ruang kelas. Foto resmi menyusul.",
+  },
+  {
+    src: "/media/musala.jpg",
+    caption: "Ilustrasi ruang ibadah. Foto resmi menyusul.",
+  },
+  {
+    src: "/media/pustaka.jpg",
+    caption: "Ilustrasi pojok baca. Foto resmi menyusul.",
+  },
+] as const;
+
 export function HoldingPage() {
   useBootSite();
   const identity = useSiteStore((state) => state.content.identity);
+  const hero = useSiteStore((state) => state.content.hero);
   const phone = identity.phone.replace(/[^\d+]/g, "");
 
   return (
@@ -13,74 +29,173 @@ export function HoldingPage() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-5 py-2 text-sm">
           <span>NPSN {identity.npsn}</span>
           <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
-          <span className="text-sheet/80">Kukusan, Depok</span>
+          <span className="text-sheet/80">Kukusan, Beji, Depok</span>
         </div>
       </div>
 
-      <header className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-5">
-        <Mark className="size-11" />
-        <div>
-          <p className="font-serif text-lg leading-tight font-semibold">{identity.name}</p>
-          <p className="text-sm text-muted">{identity.domain}</p>
+      <header className="sticky top-0 z-20 border-b border-line bg-sheet/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
+          <a href="#atas" className="flex min-w-0 items-center gap-3">
+            <Mark className="size-11 shrink-0" />
+            <span className="min-w-0">
+              <span className="block font-serif text-lg leading-tight font-semibold">{identity.shortName}</span>
+              <span className="block truncate text-sm text-muted">{identity.domain}</span>
+            </span>
+          </a>
+          <nav className="ml-auto flex items-center gap-1">
+            <a className="hidden rounded-full px-3 py-2 text-sm font-medium text-muted sm:inline" href="#sekolah">
+              Sekolah
+            </a>
+            <a className="hidden rounded-full px-3 py-2 text-sm font-medium text-muted sm:inline" href="#suasana">
+              Suasana
+            </a>
+            <a className="rounded-full bg-pine px-4 py-2 text-sm font-semibold text-sheet" href="#kontak">
+              Hubungi
+            </a>
+          </nav>
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-8 lg:grid-cols-12 lg:py-14">
-        <div className="lg:col-span-6">
-          <p className="text-sm font-semibold tracking-wide text-pine uppercase">Situs resmi</p>
-          <h1 className="mt-3 font-serif text-4xl text-ink md:text-6xl">Sedang disiapkan dengan saksama.</h1>
-          <p className="mt-5 max-w-xl text-lg text-muted">
-            {identity.name} sedang menyusun halaman resminya. Sampai naskah dan foto sekolah siap,
-            alamat ini sengaja masih ringkas agar tamu tidak membaca informasi yang belum final.
-          </p>
-          <p className="mt-4 max-w-xl text-muted">
-            Urusan sekolah tetap dilayani di tempat, {identity.hours.toLowerCase()}.
-          </p>
-
-          <dl className="mt-8 grid gap-4 rounded-card border border-line bg-sheet p-6">
-            <div>
-              <dt className="text-sm text-muted">Alamat</dt>
-              <dd className="mt-1">{identity.address}</dd>
+      <main id="atas">
+        <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 lg:grid-cols-12 lg:py-16">
+          <div className="lg:col-span-6">
+            <p className="text-sm font-semibold tracking-wide text-pine uppercase">{hero.kicker}</p>
+            <h1 className="mt-3 font-serif text-4xl text-ink md:text-6xl">{hero.title}</h1>
+            <p className="mt-5 max-w-xl text-lg text-muted">{hero.lead}</p>
+            <p className="mt-4 max-w-xl text-sm text-muted">
+              Halaman lain masih disusun. Yang ada di sini adalah keterangan dasar sekolah, bukan pengumuman.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#kontak"
+                className="inline-flex h-12 items-center rounded-full bg-pine px-5 font-semibold text-sheet"
+              >
+                Hubungi sekolah
+              </a>
+              <a
+                href="#sekolah"
+                className="inline-flex h-12 items-center rounded-full border border-line bg-sheet px-5 font-semibold text-ink"
+              >
+                Keterangan sekolah
+              </a>
             </div>
+          </div>
+          <figure className="lg:col-span-6">
+            <img
+              src={hero.image}
+              alt={hero.imageCaption}
+              className="aspect-16/10 w-full rounded-card object-cover"
+            />
+            <figcaption className="mt-3 text-sm text-muted">
+              Ilustrasi suasana halaman sekolah. Foto resmi akan dipasang kemudian.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="border-y border-line bg-sheet">
+          <dl className="mx-auto grid max-w-6xl gap-6 px-5 py-8 sm:grid-cols-2 lg:grid-cols-4">
+            <Fact term="Berdiri" detail={identity.founded} />
+            <Fact term="Akreditasi" detail={identity.accreditation} />
+            <Fact term="Kepala sekolah" detail={identity.principal} />
+            <Fact term="Belajar" detail={identity.hours} />
+          </dl>
+        </section>
+
+        <section id="sekolah" className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="text-sm font-semibold tracking-wide text-pine uppercase">Sekolah</p>
+            <h2 className="mt-2 font-serif text-4xl">{identity.name}</h2>
+            <p className="mt-4 text-muted">{identity.tagline}</p>
+          </div>
+          <dl className="overflow-hidden rounded-card border border-line bg-sheet lg:col-span-7">
+            <Row term="NPSN" detail={identity.npsn} />
+            <Row term="SK pendirian" detail={identity.skFounded} />
+            <Row term="Operasional" detail={identity.operational} />
+            <Row term="Peserta didik" detail={identity.studentsNote} />
+            <Row term="Naungan" detail={identity.foundation} />
+          </dl>
+        </section>
+
+        <section id="suasana" className="bg-pine-deep text-sheet">
+          <div className="mx-auto max-w-6xl px-5 py-16">
+            <p className="text-sm font-semibold tracking-wide text-brass-soft uppercase">Suasana</p>
+            <h2 className="mt-2 max-w-xl font-serif text-4xl">Yang ingin ditunjukkan, setelah fotonya resmi.</h2>
+            <p className="mt-4 max-w-2xl text-sheet/80">
+              Gambar di bawah masih ilustrasi. Foto kegiatan, kelas, dan halaman sekolah akan menggantikannya
+              begitu arsip resmi siap.
+            </p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {SCENES.map((scene) => (
+                <figure key={scene.src} className="overflow-hidden rounded-card bg-pine">
+                  <img src={scene.src} alt={scene.caption} className="aspect-3/2 w-full object-cover" />
+                  <figcaption className="px-4 py-3 text-sm text-sheet/80">{scene.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="kontak" className="mx-auto grid max-w-6xl gap-8 px-5 py-16 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="text-sm font-semibold tracking-wide text-pine uppercase">Hubungi</p>
+            <h2 className="mt-2 font-serif text-4xl">Datang atau telepon sekolah.</h2>
+            <p className="mt-4 text-muted">
+              Urusan peserta didik tetap dilayani di tempat, {identity.hours.toLowerCase()}.
+            </p>
+          </div>
+          <div className="grid gap-4 rounded-card border border-line bg-sheet p-6 lg:col-span-7">
             <div>
-              <dt className="text-sm text-muted">Telepon</dt>
-              <dd className="mt-1">
-                <a className="font-semibold text-pine" href={`tel:${phone}`}>
+              <p className="text-sm text-muted">Alamat</p>
+              <p className="mt-1">{identity.address}</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <p className="text-sm text-muted">Telepon</p>
+                <a className="mt-1 inline-flex font-semibold text-pine" href={`tel:${phone}`}>
                   {identity.phone}
                 </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Surel</dt>
-              <dd className="mt-1">
-                <a className="font-semibold text-pine" href={`mailto:${identity.email}`}>
+              </div>
+              <div>
+                <p className="text-sm text-muted">Surel</p>
+                <a className="mt-1 inline-flex break-all font-semibold text-pine" href={`mailto:${identity.email}`}>
                   {identity.email}
                 </a>
-              </dd>
+              </div>
             </div>
-          </dl>
-        </div>
-
-        <figure className="lg:col-span-6">
-          <img
-            src="/media/halaman.jpg"
-            alt="Ilustrasi halaman sekolah pada pagi hari"
-            className="aspect-16/10 w-full rounded-card object-cover"
-          />
-          <figcaption className="mt-3 text-sm text-muted">
-            Ilustrasi suasana. Foto resmi sekolah akan dipasang bersama situs yang sudah selesai.
-          </figcaption>
-        </figure>
+          </div>
+        </section>
       </main>
 
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6 text-sm text-muted">
-          <p>{identity.foundation}</p>
-          <Link to="/kelola" className="py-2 font-semibold text-pine">
+      <footer className="border-t border-line bg-pine-deep text-sheet">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-4 px-5 py-10">
+          <div>
+            <p className="font-serif text-2xl">{identity.name}</p>
+            <p className="mt-2 text-sm text-sheet/75">{identity.foundation}</p>
+            <p className="mt-1 text-sm text-sheet/75">{identity.domain}</p>
+          </div>
+          <Link to="/kelola" className="py-2 text-sm text-brass-soft">
             Petugas sekolah
           </Link>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function Fact({ term, detail }: { term: string; detail: string }) {
+  return (
+    <div>
+      <dt className="text-sm text-muted">{term}</dt>
+      <dd className="mt-1 font-serif text-2xl">{detail}</dd>
+    </div>
+  );
+}
+
+function Row({ term, detail }: { term: string; detail: string }) {
+  return (
+    <div className="grid gap-1 border-b border-line px-5 py-4 last:border-b-0 sm:grid-cols-3">
+      <dt className="text-sm font-semibold text-muted">{term}</dt>
+      <dd className="sm:col-span-2">{detail}</dd>
     </div>
   );
 }
