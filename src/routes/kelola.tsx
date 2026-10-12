@@ -10,9 +10,12 @@ import {
   writeStoredConfig,
 } from "@/lib/site/firebase";
 import { DEFAULT_PIN, currentPin, useSiteStore } from "@/lib/site/store";
+import { previewHead } from "@/lib/site/preview-head";
+
 import type { Article, GalleryItem, Program, SiteContent } from "@/lib/site/types";
 
 export const Route = createFileRoute("/kelola")({
+  head: previewHead,
   component: KelolaPage,
 });
 
@@ -42,9 +45,14 @@ function KelolaPage() {
             <p className="font-serif text-xl">Panel kelola</p>
             <p className="text-sm text-muted">SD Muhammadiyah 01 Kukusan</p>
           </div>
-          <Link to="/" className="ml-auto text-sm font-semibold text-pine">
-            Lihat situs tamu
-          </Link>
+          <div className="ml-auto flex gap-4">
+            <Link to="/" className="text-sm font-semibold text-muted">
+              Halaman publik
+            </Link>
+            <Link to="/pratinjau" className="text-sm font-semibold text-pine">
+              Buka pratinjau
+            </Link>
+          </div>
         </div>
       </header>
       <div className="mx-auto max-w-6xl px-5 py-8">{admin ? <Editor /> : <Gate />}</div>

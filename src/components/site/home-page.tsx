@@ -26,7 +26,7 @@ export function HomePage() {
               Pengumuman
             </a>
             <Link
-              to="/profil"
+              to="/pratinjau/profil"
               className="inline-flex h-12 items-center rounded-full border border-line bg-sheet px-5 font-semibold text-ink"
             >
               Profil sekolah
@@ -92,7 +92,7 @@ export function HomePage() {
                 </article>
               ))}
             </div>
-            <Link to="/program" className="mt-6 inline-flex h-11 items-center font-semibold text-brass-soft">
+            <Link to="/pratinjau/program" className="mt-6 inline-flex h-11 items-center font-semibold text-brass-soft">
               Semua program
             </Link>
           </div>
@@ -106,7 +106,7 @@ export function HomePage() {
             {news.map((item) => (
               <Link
                 key={item.id}
-                to="/berita/$id"
+                to="/pratinjau/berita/$id"
                 params={{ id: item.id }}
                 className="rounded-card border border-line bg-sheet p-6 transition-colors hover:border-pine"
               >

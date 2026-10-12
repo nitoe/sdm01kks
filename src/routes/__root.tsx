@@ -1,5 +1,6 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
+import { HoldingPage } from "@/components/site/holding";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
@@ -29,6 +30,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  notFoundComponent: HoldingPage,
   component: () => (
     <html lang="id" suppressHydrationWarning>
       <head>

@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 
-export const Route = createFileRoute("/program")({
+import { previewHead } from "@/lib/site/preview-head";
+
+export const Route = createFileRoute("/pratinjau/program")({
+  head: previewHead,
   component: ProgramPage,
 });
 

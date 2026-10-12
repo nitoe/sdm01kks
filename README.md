@@ -2,7 +2,7 @@
 
 Situs sekolah untuk domain **sdmuhammadiyah01kks.sch.id**.
 
-Pengunjung membuka situs tanpa akun. Isi halaman (pengumuman, berita, program, galeri, profil, dan bagian yang tampil) diatur lewat **Panel kelola** di `/kelola`.
+Pengunjung yang membuka alamat utama hanya melihat halaman sedang disiapkan. Situs lengkap ada di `/pratinjau` dan belum ditautkan dari halaman publik. Isi pratinjau diatur lewat **Panel kelola** di `/kelola`.
 
 ## Menjalankan
 

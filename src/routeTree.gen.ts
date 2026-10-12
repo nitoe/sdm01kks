@@ -10,27 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BeritaRouteImport } from './routes/berita'
-import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as KelolaRouteImport } from './routes/kelola'
-import { Route as KontakRouteImport } from './routes/kontak'
-import { Route as ProfilRouteImport } from './routes/profil'
-import { Route as ProgramRouteImport } from './routes/program'
-import { Route as BeritaIdRouteImport } from './routes/berita.$id'
+import { Route as PratinjauRouteImport } from './routes/pratinjau'
+import { Route as PratinjauBeritaRouteImport } from './routes/pratinjau.berita'
+import { Route as PratinjauGaleriRouteImport } from './routes/pratinjau.galeri'
+import { Route as PratinjauKontakRouteImport } from './routes/pratinjau.kontak'
+import { Route as PratinjauProfilRouteImport } from './routes/pratinjau.profil'
+import { Route as PratinjauProgramRouteImport } from './routes/pratinjau.program'
+import { Route as PratinjauBeritaIdRouteImport } from './routes/pratinjau.berita.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BeritaRoute = BeritaRouteImport.update({
-  id: '/berita',
-  path: '/berita',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GaleriRoute = GaleriRouteImport.update({
-  id: '/galeri',
-  path: '/galeri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KelolaRoute = KelolaRouteImport.update({
@@ -38,99 +29,116 @@ const KelolaRoute = KelolaRouteImport.update({
   path: '/kelola',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KontakRoute = KontakRouteImport.update({
+const PratinjauRoute = PratinjauRouteImport.update({
+  id: '/pratinjau',
+  path: '/pratinjau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PratinjauBeritaRoute = PratinjauBeritaRouteImport.update({
+  id: '/berita',
+  path: '/berita',
+  getParentRoute: () => PratinjauRoute,
+} as any)
+const PratinjauGaleriRoute = PratinjauGaleriRouteImport.update({
+  id: '/galeri',
+  path: '/galeri',
+  getParentRoute: () => PratinjauRoute,
+} as any)
+const PratinjauKontakRoute = PratinjauKontakRouteImport.update({
   id: '/kontak',
   path: '/kontak',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PratinjauRoute,
 } as any)
-const ProfilRoute = ProfilRouteImport.update({
+const PratinjauProfilRoute = PratinjauProfilRouteImport.update({
   id: '/profil',
   path: '/profil',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PratinjauRoute,
 } as any)
-const ProgramRoute = ProgramRouteImport.update({
+const PratinjauProgramRoute = PratinjauProgramRouteImport.update({
   id: '/program',
   path: '/program',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PratinjauRoute,
 } as any)
-const BeritaIdRoute = BeritaIdRouteImport.update({
+const PratinjauBeritaIdRoute = PratinjauBeritaIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => BeritaRoute,
+  getParentRoute: () => PratinjauBeritaRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/berita': typeof BeritaRouteWithChildren
-  '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
-  '/kontak': typeof KontakRoute
-  '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
-  '/berita/$id': typeof BeritaIdRoute
+  '/pratinjau': typeof PratinjauRouteWithChildren
+  '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+  '/pratinjau/galeri': typeof PratinjauGaleriRoute
+  '/pratinjau/kontak': typeof PratinjauKontakRoute
+  '/pratinjau/profil': typeof PratinjauProfilRoute
+  '/pratinjau/program': typeof PratinjauProgramRoute
+  '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/berita': typeof BeritaRouteWithChildren
-  '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
-  '/kontak': typeof KontakRoute
-  '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
-  '/berita/$id': typeof BeritaIdRoute
+  '/pratinjau': typeof PratinjauRouteWithChildren
+  '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+  '/pratinjau/galeri': typeof PratinjauGaleriRoute
+  '/pratinjau/kontak': typeof PratinjauKontakRoute
+  '/pratinjau/profil': typeof PratinjauProfilRoute
+  '/pratinjau/program': typeof PratinjauProgramRoute
+  '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/berita': typeof BeritaRouteWithChildren
-  '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
-  '/kontak': typeof KontakRoute
-  '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
-  '/berita/$id': typeof BeritaIdRoute
+  '/pratinjau': typeof PratinjauRouteWithChildren
+  '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+  '/pratinjau/galeri': typeof PratinjauGaleriRoute
+  '/pratinjau/kontak': typeof PratinjauKontakRoute
+  '/pratinjau/profil': typeof PratinjauProfilRoute
+  '/pratinjau/program': typeof PratinjauProgramRoute
+  '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/berita'
-    | '/galeri'
     | '/kelola'
-    | '/kontak'
-    | '/profil'
-    | '/program'
-    | '/berita/$id'
+    | '/pratinjau'
+    | '/pratinjau/berita'
+    | '/pratinjau/galeri'
+    | '/pratinjau/kontak'
+    | '/pratinjau/profil'
+    | '/pratinjau/program'
+    | '/pratinjau/berita/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/berita'
-    | '/galeri'
     | '/kelola'
-    | '/kontak'
-    | '/profil'
-    | '/program'
-    | '/berita/$id'
+    | '/pratinjau'
+    | '/pratinjau/berita'
+    | '/pratinjau/galeri'
+    | '/pratinjau/kontak'
+    | '/pratinjau/profil'
+    | '/pratinjau/program'
+    | '/pratinjau/berita/$id'
   id:
     | '__root__'
     | '/'
-    | '/berita'
-    | '/galeri'
     | '/kelola'
-    | '/kontak'
-    | '/profil'
-    | '/program'
-    | '/berita/$id'
+    | '/pratinjau'
+    | '/pratinjau/berita'
+    | '/pratinjau/galeri'
+    | '/pratinjau/kontak'
+    | '/pratinjau/profil'
+    | '/pratinjau/program'
+    | '/pratinjau/berita/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BeritaRoute: typeof BeritaRouteWithChildren
-  GaleriRoute: typeof GaleriRoute
   KelolaRoute: typeof KelolaRoute
-  KontakRoute: typeof KontakRoute
-  ProfilRoute: typeof ProfilRoute
-  ProgramRoute: typeof ProgramRoute
+  PratinjauRoute: typeof PratinjauRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -142,20 +150,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/berita': {
-      id: '/berita'
-      path: '/berita'
-      fullPath: '/berita'
-      preLoaderRoute: typeof BeritaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/galeri': {
-      id: '/galeri'
-      path: '/galeri'
-      fullPath: '/galeri'
-      preLoaderRoute: typeof GaleriRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/kelola': {
       id: '/kelola'
       path: '/kelola'
@@ -163,56 +157,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KelolaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/kontak': {
-      id: '/kontak'
+    '/pratinjau': {
+      id: '/pratinjau'
+      path: '/pratinjau'
+      fullPath: '/pratinjau'
+      preLoaderRoute: typeof PratinjauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pratinjau/berita': {
+      id: '/pratinjau/berita'
+      path: '/berita'
+      fullPath: '/pratinjau/berita'
+      preLoaderRoute: typeof PratinjauBeritaRouteImport
+      parentRoute: typeof PratinjauRoute
+    }
+    '/pratinjau/galeri': {
+      id: '/pratinjau/galeri'
+      path: '/galeri'
+      fullPath: '/pratinjau/galeri'
+      preLoaderRoute: typeof PratinjauGaleriRouteImport
+      parentRoute: typeof PratinjauRoute
+    }
+    '/pratinjau/kontak': {
+      id: '/pratinjau/kontak'
       path: '/kontak'
-      fullPath: '/kontak'
-      preLoaderRoute: typeof KontakRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/pratinjau/kontak'
+      preLoaderRoute: typeof PratinjauKontakRouteImport
+      parentRoute: typeof PratinjauRoute
     }
-    '/profil': {
-      id: '/profil'
+    '/pratinjau/profil': {
+      id: '/pratinjau/profil'
       path: '/profil'
-      fullPath: '/profil'
-      preLoaderRoute: typeof ProfilRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/pratinjau/profil'
+      preLoaderRoute: typeof PratinjauProfilRouteImport
+      parentRoute: typeof PratinjauRoute
     }
-    '/program': {
-      id: '/program'
+    '/pratinjau/program': {
+      id: '/pratinjau/program'
       path: '/program'
-      fullPath: '/program'
-      preLoaderRoute: typeof ProgramRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/pratinjau/program'
+      preLoaderRoute: typeof PratinjauProgramRouteImport
+      parentRoute: typeof PratinjauRoute
     }
-    '/berita/$id': {
-      id: '/berita/$id'
+    '/pratinjau/berita/$id': {
+      id: '/pratinjau/berita/$id'
       path: '/$id'
-      fullPath: '/berita/$id'
-      preLoaderRoute: typeof BeritaIdRouteImport
-      parentRoute: typeof BeritaRoute
+      fullPath: '/pratinjau/berita/$id'
+      preLoaderRoute: typeof PratinjauBeritaIdRouteImport
+      parentRoute: typeof PratinjauBeritaRoute
     }
   }
 }
 
-interface BeritaRouteChildren {
-  BeritaIdRoute: typeof BeritaIdRoute
+interface PratinjauBeritaRouteChildren {
+  PratinjauBeritaIdRoute: typeof PratinjauBeritaIdRoute
 }
 
-const BeritaRouteChildren: BeritaRouteChildren = {
-  BeritaIdRoute: BeritaIdRoute,
+const PratinjauBeritaRouteChildren: PratinjauBeritaRouteChildren = {
+  PratinjauBeritaIdRoute: PratinjauBeritaIdRoute,
 }
 
-const BeritaRouteWithChildren =
-  BeritaRoute._addFileChildren(BeritaRouteChildren)
+const PratinjauBeritaRouteWithChildren = PratinjauBeritaRoute._addFileChildren(
+  PratinjauBeritaRouteChildren,
+)
+
+interface PratinjauRouteChildren {
+  PratinjauBeritaRoute: typeof PratinjauBeritaRouteWithChildren
+  PratinjauGaleriRoute: typeof PratinjauGaleriRoute
+  PratinjauKontakRoute: typeof PratinjauKontakRoute
+  PratinjauProfilRoute: typeof PratinjauProfilRoute
+  PratinjauProgramRoute: typeof PratinjauProgramRoute
+}
+
+const PratinjauRouteChildren: PratinjauRouteChildren = {
+  PratinjauBeritaRoute: PratinjauBeritaRouteWithChildren,
+  PratinjauGaleriRoute: PratinjauGaleriRoute,
+  PratinjauKontakRoute: PratinjauKontakRoute,
+  PratinjauProfilRoute: PratinjauProfilRoute,
+  PratinjauProgramRoute: PratinjauProgramRoute,
+}
+
+const PratinjauRouteWithChildren = PratinjauRoute._addFileChildren(
+  PratinjauRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BeritaRoute: BeritaRouteWithChildren,
-  GaleriRoute: GaleriRoute,
   KelolaRoute: KelolaRoute,
-  KontakRoute: KontakRoute,
-  ProfilRoute: ProfilRoute,
-  ProgramRoute: ProgramRoute,
+  PratinjauRoute: PratinjauRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

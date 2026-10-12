@@ -3,7 +3,10 @@ import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
 import { formatDate } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
 
-export const Route = createFileRoute("/berita/$id")({
+import { previewHead } from "@/lib/site/preview-head";
+
+export const Route = createFileRoute("/pratinjau/berita/$id")({
+  head: previewHead,
   component: BeritaDetail,
 });
 
@@ -28,7 +31,7 @@ function BeritaDetail() {
         </>
       )}
       <p className="mx-auto max-w-3xl px-5 pt-8">
-        <Link to="/berita" className="font-semibold text-pine">
+        <Link to="/pratinjau/berita" className="font-semibold text-pine">
           Semua berita
         </Link>
       </p>

@@ -3,7 +3,10 @@ import { PageIntro, SiteFrame } from "@/components/site/shell";
 import { formatDate } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
 
-export const Route = createFileRoute("/berita")({
+import { previewHead } from "@/lib/site/preview-head";
+
+export const Route = createFileRoute("/pratinjau/berita")({
+  head: previewHead,
   component: BeritaPage,
 });
 
@@ -22,7 +25,7 @@ function BeritaPage() {
           {news.map((item) => (
             <Link
               key={item.id}
-              to="/berita/$id"
+              to="/pratinjau/berita/$id"
               params={{ id: item.id }}
               className="rounded-card border border-line bg-sheet p-6"
             >
