@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuruRouteImport } from './routes/guru'
 import { Route as KelolaRouteImport } from './routes/kelola'
 import { Route as PratinjauRouteImport } from './routes/pratinjau'
+import { Route as GuruProfilRouteImport } from './routes/guru_.profil'
 import { Route as PratinjauBeritaRouteImport } from './routes/pratinjau.berita'
 import { Route as PratinjauGaleriRouteImport } from './routes/pratinjau.galeri'
 import { Route as PratinjauKontakRouteImport } from './routes/pratinjau.kontak'
@@ -24,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuruRoute = GuruRouteImport.update({
+  id: '/guru',
+  path: '/guru',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KelolaRoute = KelolaRouteImport.update({
   id: '/kelola',
   path: '/kelola',
@@ -32,6 +39,11 @@ const KelolaRoute = KelolaRouteImport.update({
 const PratinjauRoute = PratinjauRouteImport.update({
   id: '/pratinjau',
   path: '/pratinjau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuruProfilRoute = GuruProfilRouteImport.update({
+  id: '/guru_/profil',
+  path: '/guru/profil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PratinjauBeritaRoute = PratinjauBeritaRouteImport.update({
@@ -67,8 +79,10 @@ const PratinjauBeritaIdRoute = PratinjauBeritaIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/guru/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
   '/pratinjau/galeri': typeof PratinjauGaleriRoute
   '/pratinjau/kontak': typeof PratinjauKontakRoute
@@ -78,8 +92,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/guru/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
   '/pratinjau/galeri': typeof PratinjauGaleriRoute
   '/pratinjau/kontak': typeof PratinjauKontakRoute
@@ -90,8 +106,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/guru_/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
   '/pratinjau/galeri': typeof PratinjauGaleriRoute
   '/pratinjau/kontak': typeof PratinjauKontakRoute
@@ -103,8 +121,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/guru'
     | '/kelola'
     | '/pratinjau'
+    | '/guru/profil'
     | '/pratinjau/berita'
     | '/pratinjau/galeri'
     | '/pratinjau/kontak'
@@ -114,8 +134,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/guru'
     | '/kelola'
     | '/pratinjau'
+    | '/guru/profil'
     | '/pratinjau/berita'
     | '/pratinjau/galeri'
     | '/pratinjau/kontak'
@@ -125,8 +147,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/guru'
     | '/kelola'
     | '/pratinjau'
+    | '/guru_/profil'
     | '/pratinjau/berita'
     | '/pratinjau/galeri'
     | '/pratinjau/kontak'
@@ -137,8 +161,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GuruRoute: typeof GuruRoute
   KelolaRoute: typeof KelolaRoute
   PratinjauRoute: typeof PratinjauRouteWithChildren
+  GuruProfilRoute: typeof GuruProfilRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guru': {
+      id: '/guru'
+      path: '/guru'
+      fullPath: '/guru'
+      preLoaderRoute: typeof GuruRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kelola': {
@@ -162,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/pratinjau'
       fullPath: '/pratinjau'
       preLoaderRoute: typeof PratinjauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guru_/profil': {
+      id: '/guru_/profil'
+      path: '/guru/profil'
+      fullPath: '/guru/profil'
+      preLoaderRoute: typeof GuruProfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pratinjau/berita': {
@@ -243,8 +283,10 @@ const PratinjauRouteWithChildren = PratinjauRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GuruRoute: GuruRoute,
   KelolaRoute: KelolaRoute,
   PratinjauRoute: PratinjauRouteWithChildren,
+  GuruProfilRoute: GuruProfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

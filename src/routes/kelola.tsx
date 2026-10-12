@@ -11,8 +11,10 @@ import {
 } from "@/lib/site/firebase";
 import { DEFAULT_PIN, currentPin, useSiteStore } from "@/lib/site/store";
 import { previewHead } from "@/lib/site/preview-head";
-
 import type { Article, GalleryItem, Program, SiteContent } from "@/lib/site/types";
+
+import { AdminGuruPanel } from "@/components/teachers/admin-panel";
+import { openAdminSession, rotateAdminPin } from "@/lib/teachers/api";
 
 export const Route = createFileRoute("/kelola")({
   head: previewHead,
@@ -20,6 +22,11 @@ export const Route = createFileRoute("/kelola")({
 });
 
 const GROUPS: { label: string; note: string; tabs: Tab[] }[] = [
+  {
+    label: "Guru",
+    note: "Akun, persetujuan, dan cadangan.",
+    tabs: ["Akun guru"],
+  },
   {
     label: "Tampil untuk tamu",
     note: "Perubahan langsung ada di halaman publik.",
@@ -47,7 +54,8 @@ type Tab =
   | "Visi"
   | "Tampilan"
   | "Firebase"
-  | "Sandi";
+  | "Sandi"
+  | "Akun guru";
 
 function KelolaPage() {
   useBootSite();
@@ -65,8 +73,11 @@ function KelolaPage() {
             <Link to="/" className="text-sm font-semibold text-muted">
               Halaman publik
             </Link>
-            <Link to="/pratinjau" className="text-sm font-semibold text-pine">
-              Buka pratinjau
+            <Link to="/pratinjau" className="text-sm font-semibold text-muted">
+              Pratinjau
+            </Link>
+            <Link to="/guru" className="text-sm font-semibold text-pine">
+              Akun guru
             </Link>
           </div>
         </div>
@@ -94,6 +105,7 @@ function Gate() {
         event.preventDefault();
         const ok = unlock(pin, persist);
         setError(ok ? "" : "Sandi tidak sesuai.");
+        if (ok) void openAdminSession({ data: { pin } });
       }}
     >
       <h1 className="font-serif text-3xl">Masuk sebagai admin</h1>
@@ -185,6 +197,7 @@ function Editor() {
         {tab === "Tampilan" ? <VisibilityPanel /> : null}
         {tab === "Firebase" ? <FirebasePanel /> : null}
         {tab === "Sandi" ? <PinPanel /> : null}
+        {tab === "Akun guru" ? <AdminGuruPanel /> : null}
       </section>
     </div>
   );
@@ -638,7 +651,13 @@ function PinPanel() {
           return;
         }
         changePin(next);
-        setMessage("Sandi diperbarui di peramban ini.");
+        void rotateAdminPin({ data: { next: next.trim() } }).then((result) => {
+          setMessage(
+            result.ok
+              ? "Sandi diperbarui di peramban ini dan untuk akun guru."
+              : "Sandi peramban diperbarui. Buka tab Akun guru dan masukkan sandi yang masih berlaku di sana.",
+          );
+        });
         setNext("");
         setAgain("");
       }}

@@ -30,6 +30,9 @@ export function HoldingPage() {
           <span>NPSN {identity.npsn}</span>
           <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
           <span className="text-sheet/80">Kukusan, Beji, Depok</span>
+          <Link to="/guru" className="ml-auto font-semibold text-brass-soft">
+            Akun guru
+          </Link>
         </div>
       </div>
 
