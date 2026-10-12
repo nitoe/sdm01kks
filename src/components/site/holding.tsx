@@ -86,9 +86,7 @@ export function HoldingPage() {
               alt={hero.imageCaption}
               className="aspect-16/10 w-full rounded-card object-cover"
             />
-            <figcaption className="mt-3 text-sm text-muted">
-              Ilustrasi suasana halaman sekolah. Foto resmi akan dipasang kemudian.
-            </figcaption>
+            <figcaption className="mt-3 text-sm text-muted">{hero.imageCaption}</figcaption>
           </figure>
         </section>
 

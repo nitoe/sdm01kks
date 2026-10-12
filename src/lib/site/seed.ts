@@ -25,7 +25,7 @@ export const seedContent: SiteContent = {
     title: "Mendidik anak Kukusan dengan adab dan ilmu.",
     lead: "SD Muhammadiyah 01 Kukusan adalah sekolah dasar swasta terakreditasi A. Sejak 1981, sekolah ini menemani anak-anak belajar, beribadah, dan tumbuh di lingkungan yang akrab — di bawah naungan Pimpinan Daerah Muhammadiyah Kota Depok.",
     image: "/media/halaman.jpg",
-    imageCaption: "Ilustrasi suasana halaman sekolah. Ganti dengan foto resmi lewat panel kelola.",
+    imageCaption: "Ilustrasi suasana halaman sekolah. Foto resmi akan dipasang kemudian.",
   },
   visi: "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
   misi: [

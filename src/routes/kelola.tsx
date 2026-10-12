@@ -19,19 +19,35 @@ export const Route = createFileRoute("/kelola")({
   component: KelolaPage,
 });
 
-const TABS = [
-  "Identitas",
-  "Beranda",
-  "Pengumuman",
-  "Berita",
-  "Program",
-  "Galeri",
-  "Tampilan",
-  "Firebase",
-  "Sandi",
-] as const;
+const GROUPS: { label: string; note: string; tabs: Tab[] }[] = [
+  {
+    label: "Tampil untuk tamu",
+    note: "Perubahan langsung ada di halaman publik.",
+    tabs: ["Identitas", "Beranda"],
+  },
+  {
+    label: "Hanya pratinjau",
+    note: "Belum dibuka untuk tamu.",
+    tabs: ["Pengumuman", "Berita", "Program", "Galeri", "Visi", "Tampilan"],
+  },
+  {
+    label: "Pengaturan",
+    note: "Tidak mengubah kalimat di halaman.",
+    tabs: ["Firebase", "Sandi"],
+  },
+];
 
-type Tab = (typeof TABS)[number];
+type Tab =
+  | "Identitas"
+  | "Beranda"
+  | "Pengumuman"
+  | "Berita"
+  | "Program"
+  | "Galeri"
+  | "Visi"
+  | "Tampilan"
+  | "Firebase"
+  | "Sandi";
 
 function KelolaPage() {
   useBootSite();
@@ -82,7 +98,7 @@ function Gate() {
     >
       <h1 className="font-serif text-3xl">Masuk sebagai admin</h1>
       <p className="mt-3 text-muted">
-        Tamu tetap melihat situs tanpa sandi. Panel ini hanya untuk mengubah isi yang tampil.
+        Tamu tetap melihat situs tanpa sandi. Identitas dan beranda mengubah halaman publik. Bagian lain hanya tersimpan di pratinjau.
       </p>
       <label className="mt-6 block text-sm font-semibold text-muted">
         Sandi
@@ -120,7 +136,7 @@ function Gate() {
 }
 
 function Editor() {
-  const [tab, setTab] = useState<Tab>("Identitas");
+  const [tab, setTab] = useState<Tab>("Beranda");
   const source = useSiteStore((state) => state.source);
   const firebaseStatus = useSiteStore((state) => state.firebaseStatus);
   const lock = useSiteStore((state) => state.lock);
@@ -132,22 +148,28 @@ function Editor() {
           Sumber: {source === "firebase" ? "Firebase" : source === "peramban" ? "peramban ini" : "naskah awal"} ·{" "}
           {firebaseStatus}
         </p>
-        <nav className="mt-3 grid gap-1">
-          {TABS.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setTab(item)}
-              className={
-                tab === item
-                  ? "h-11 rounded-xl bg-pine px-3 text-left font-semibold text-sheet"
-                  : "h-11 rounded-xl px-3 text-left font-medium text-ink hover:bg-sheet"
-              }
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
+        {GROUPS.map((group) => (
+          <div key={group.label} className="mt-5">
+            <p className="px-3 text-xs font-semibold tracking-wide text-pine uppercase">{group.label}</p>
+            <p className="mt-1 px-3 text-sm text-muted">{group.note}</p>
+            <nav className="mt-2 grid gap-1">
+              {group.tabs.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setTab(item)}
+                  className={
+                    tab === item
+                      ? "h-11 rounded-xl bg-pine px-3 text-left font-semibold text-sheet"
+                      : "h-11 rounded-xl px-3 text-left font-medium text-ink hover:bg-sheet"
+                  }
+                >
+                  {item === "Visi" ? "Visi dan misi" : item}
+                </button>
+              ))}
+            </nav>
+          </div>
+        ))}
         <button type="button" onClick={lock} className="mt-4 h-11 px-3 text-sm font-semibold text-muted">
           Keluar
         </button>
@@ -159,6 +181,7 @@ function Editor() {
         {tab === "Berita" ? <ArticlePanel kind="news" /> : null}
         {tab === "Program" ? <ProgramPanel /> : null}
         {tab === "Galeri" ? <GalleryPanel /> : null}
+        {tab === "Visi" ? <VisiPanel /> : null}
         {tab === "Tampilan" ? <VisibilityPanel /> : null}
         {tab === "Firebase" ? <FirebasePanel /> : null}
         {tab === "Sandi" ? <PinPanel /> : null}
@@ -223,6 +246,7 @@ function IdentityPanel() {
   return (
     <div className="grid gap-4">
       <h2 className="font-serif text-3xl">Identitas</h2>
+      <p className="text-muted">Nama, NPSN, alamat, telepon, dan keterangan lain di halaman publik mengikuti isian ini.</p>
       {keys.map((key) => (
         <Field
           key={key}
@@ -238,18 +262,30 @@ function IdentityPanel() {
 
 function HeroPanel() {
   const hero = useSiteStore((state) => state.content.hero);
+  const update = useSiteStore((state) => state.update);
+
+  return (
+    <div className="grid gap-4">
+      <h2 className="font-serif text-3xl">Beranda</h2>
+      <p className="text-muted">Bagian atas halaman publik. Judul, paragraf, dan gambar utama berubah begitu disimpan di peramban ini.</p>
+      <Field label="Baris kecil di atas judul" value={hero.kicker} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, kicker: value } }))} />
+      <Field label="Judul" value={hero.title} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, title: value } }))} />
+      <Field label="Paragraf" value={hero.lead} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, lead: value } }))} />
+      <Field label="Tautan gambar utama" value={hero.image} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, image: value } }))} />
+      <Field label="Keterangan gambar" value={hero.imageCaption} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, imageCaption: value } }))} />
+    </div>
+  );
+}
+
+function VisiPanel() {
   const visi = useSiteStore((state) => state.content.visi);
   const misi = useSiteStore((state) => state.content.misi);
   const update = useSiteStore((state) => state.update);
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-serif text-3xl">Beranda</h2>
-      <Field label="Kicker" value={hero.kicker} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, kicker: value } }))} />
-      <Field label="Judul" value={hero.title} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, title: value } }))} />
-      <Field label="Paragraf" value={hero.lead} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, lead: value } }))} />
-      <Field label="Tautan gambar utama" value={hero.image} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, image: value } }))} />
-      <Field label="Keterangan gambar" value={hero.imageCaption} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, imageCaption: value } }))} />
+      <h2 className="font-serif text-3xl">Visi dan misi</h2>
+      <p className="text-muted">Hanya tampil di pratinjau, bila sakelarnya menyala di tab Tampilan. Belum ada di halaman publik.</p>
       <Field label="Visi" value={visi} multiline onChange={(value) => update((c) => ({ ...c, visi: value }))} />
       <Field
         label="Misi, satu baris satu butir"
@@ -300,6 +336,7 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
           Tambah
         </button>
       </div>
+      <p className="text-muted">Isi ini hanya ada di pratinjau. Tamu di halaman publik belum membacanya.</p>
       {items.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
           <Field label="Judul" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
@@ -357,6 +394,7 @@ function ProgramPanel() {
           Tambah
         </button>
       </div>
+      <p className="text-muted">Hanya untuk pratinjau. Belum ditampilkan di halaman publik.</p>
       {programs.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
           <Field label="Nama" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
@@ -418,7 +456,8 @@ function GalleryPanel() {
         </button>
       </div>
       <p className="text-sm text-muted">
-        Tempel tautan gambar (https://...) atau path di situs seperti /media/kelas.jpg.
+        Galeri ini hanya untuk pratinjau. Tiga gambar di halaman publik belum diatur dari sini. Tempel tautan
+        gambar (https://...) atau path di situs seperti /media/kelas.jpg.
       </p>
       {gallery.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4 md:grid-cols-12">
@@ -464,8 +503,10 @@ function VisibilityPanel() {
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-serif text-3xl">Yang dilihat tamu</h2>
-      <p className="text-muted">Matikan bagian yang belum siap. Tautan menu tetap ada, tetapi isinya disembunyikan.</p>
+      <h2 className="font-serif text-3xl">Bagian pratinjau</h2>
+      <p className="text-muted">
+        Sakelar ini hanya menyembunyikan bagian di pratinjau. Halaman publik tidak berubah.
+      </p>
       {(Object.keys(labels) as Array<keyof SiteContent["show"]>).map((key) => (
         <label key={key} className="flex items-center justify-between gap-4 rounded-xl border border-line px-4 py-3">
           <span className="font-medium">{labels[key]}</span>
