@@ -87,12 +87,6 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             >
               Masuk
             </Link>
-            <Link
-              to="/kontak"
-              className="ml-2 inline-flex h-10 items-center rounded-full bg-pine px-4 text-sm font-semibold text-sheet transition-colors hover:bg-pine-deep"
-            >
-              Hubungi kami
-            </Link>
           </nav>
 
           <div className="ml-auto flex items-center gap-2 xl:hidden">
@@ -101,12 +95,6 @@ export function SiteFrame({ children }: { children: ReactNode }) {
               className="inline-flex h-10 items-center rounded-full border border-pine px-3 text-sm font-semibold text-pine"
             >
               Masuk
-            </Link>
-            <Link
-              to="/kontak"
-              className="hidden h-10 items-center rounded-full bg-pine px-3 text-sm font-semibold text-sheet sm:inline-flex"
-            >
-              Hubungi kami
             </Link>
             <button
               type="button"
@@ -142,15 +130,6 @@ export function SiteFrame({ children }: { children: ReactNode }) {
                   onClick={() => setOpen(false)}
                 >
                   Masuk
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/kontak"
-                  className="mt-1 block rounded-xl bg-pine px-3 py-3 text-center text-base font-semibold text-sheet"
-                  onClick={() => setOpen(false)}
-                >
-                  Hubungi kami
                 </Link>
               </li>
             </ul>

@@ -27,3 +27,8 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 - Sambutan kepala sekolah dan kartu nilai, keduanya dapat diubah admin beserta gambarnya.
 - Program dibagi tiga: Intrakurikuler, Kokurikuler, Ekstrakurikuler, masing-masing punya halaman.
 - Tautan Masuk berada di antara Kontak dan Hubungi kami.
+
+## 2026-10-19
+
+### Header
+- Tombol **Hubungi kami** dihapus dari header (desktop, bar atas layar sedang, dan menu geser di ponsel) karena fungsinya sama dengan menu **Kontak**. Menu Kontak, halaman `/kontak`, dan tautan **Masuk** tidak berubah.

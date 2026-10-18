@@ -32,3 +32,7 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Perubahan admin lewat `mergeContent`. Jangan timpa seluruh isi simpanan dengan data awal.
 - Contoh berita yang id-nya belum ada di simpanan ditambahkan lagi. Untuk menyembunyikan contoh, gunakan "Sembunyikan", jangan mengandalkan hapus bila id itu masih ada di data awal.
 - Foto unggahan admin tidak boleh ditimpa oleh gambar contoh selama path gambarnya tidak kosong.
+
+## Header (2026-10-19)
+- Jangan tambahkan lagi tombol "Hubungi kami" di header. Fungsinya sama dengan menu Kontak (`/kontak`).
+- Aturan lama "Tautan Masuk di desktop berada di antara Kontak dan Hubungi kami" diganti: Masuk kini berada tepat setelah Kontak, dan tetap kelihatan di layar kecil.
