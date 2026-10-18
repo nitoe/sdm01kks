@@ -15,7 +15,9 @@ import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as GuruRouteImport } from './routes/guru'
 import { Route as KelolaRouteImport } from './routes/kelola'
 import { Route as KontakRouteImport } from './routes/kontak'
+import { Route as MasukRouteImport } from './routes/masuk'
 import { Route as PratinjauRouteImport } from './routes/pratinjau'
+import { Route as PrestasiRouteImport } from './routes/prestasi'
 import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as ProgramRouteImport } from './routes/program'
 import { Route as BeritaIdRouteImport } from './routes/berita.$id'
@@ -59,9 +61,19 @@ const KontakRoute = KontakRouteImport.update({
   path: '/kontak',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MasukRoute = MasukRouteImport.update({
+  id: '/masuk',
+  path: '/masuk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PratinjauRoute = PratinjauRouteImport.update({
   id: '/pratinjau',
   path: '/pratinjau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrestasiRoute = PrestasiRouteImport.update({
+  id: '/prestasi',
+  path: '/prestasi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfilRoute = ProfilRouteImport.update({
@@ -132,7 +144,9 @@ export interface FileRoutesByFullPath {
   '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/masuk': typeof MasukRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/prestasi': typeof PrestasiRoute
   '/profil': typeof ProfilRoute
   '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
@@ -153,7 +167,9 @@ export interface FileRoutesByTo {
   '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/masuk': typeof MasukRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/prestasi': typeof PrestasiRoute
   '/profil': typeof ProfilRoute
   '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
@@ -175,7 +191,9 @@ export interface FileRoutesById {
   '/guru': typeof GuruRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/masuk': typeof MasukRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
+  '/prestasi': typeof PrestasiRoute
   '/profil': typeof ProfilRoute
   '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
@@ -198,7 +216,9 @@ export interface FileRouteTypes {
     | '/guru'
     | '/kelola'
     | '/kontak'
+    | '/masuk'
     | '/pratinjau'
+    | '/prestasi'
     | '/profil'
     | '/program'
     | '/berita/$id'
@@ -219,7 +239,9 @@ export interface FileRouteTypes {
     | '/guru'
     | '/kelola'
     | '/kontak'
+    | '/masuk'
     | '/pratinjau'
+    | '/prestasi'
     | '/profil'
     | '/program'
     | '/berita/$id'
@@ -240,7 +262,9 @@ export interface FileRouteTypes {
     | '/guru'
     | '/kelola'
     | '/kontak'
+    | '/masuk'
     | '/pratinjau'
+    | '/prestasi'
     | '/profil'
     | '/program'
     | '/berita/$id'
@@ -262,7 +286,9 @@ export interface RootRouteChildren {
   GuruRoute: typeof GuruRoute
   KelolaRoute: typeof KelolaRoute
   KontakRoute: typeof KontakRoute
+  MasukRoute: typeof MasukRoute
   PratinjauRoute: typeof PratinjauRouteWithChildren
+  PrestasiRoute: typeof PrestasiRoute
   ProfilRoute: typeof ProfilRoute
   ProgramRoute: typeof ProgramRouteWithChildren
   GuruProfilRoute: typeof GuruProfilRoute
@@ -313,11 +339,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontakRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/masuk': {
+      id: '/masuk'
+      path: '/masuk'
+      fullPath: '/masuk'
+      preLoaderRoute: typeof MasukRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pratinjau': {
       id: '/pratinjau'
       path: '/pratinjau'
       fullPath: '/pratinjau'
       preLoaderRoute: typeof PratinjauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prestasi': {
+      id: '/prestasi'
+      path: '/prestasi'
+      fullPath: '/prestasi'
+      preLoaderRoute: typeof PrestasiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profil': {
@@ -468,7 +508,9 @@ const rootRouteChildren: RootRouteChildren = {
   GuruRoute: GuruRoute,
   KelolaRoute: KelolaRoute,
   KontakRoute: KontakRoute,
+  MasukRoute: MasukRoute,
   PratinjauRoute: PratinjauRouteWithChildren,
+  PrestasiRoute: PrestasiRoute,
   ProfilRoute: ProfilRoute,
   ProgramRoute: ProgramRouteWithChildren,
   GuruProfilRoute: GuruProfilRoute,
