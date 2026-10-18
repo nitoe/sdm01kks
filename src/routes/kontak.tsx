@@ -10,7 +10,6 @@ function formatWhatsAppLabel(whatsapp: string) {
   const digits = whatsapp.replace(/\D/g, "");
   if (digits.startsWith("62") && digits.length >= 11) {
     const rest = digits.slice(2);
-    // +62 857-2084-8358 style
     if (rest.length === 11) return `+62 ${rest.slice(0, 3)}-${rest.slice(3, 7)}-${rest.slice(7)}`;
     if (rest.length === 10) return `+62 ${rest.slice(0, 3)}-${rest.slice(3, 6)}-${rest.slice(6)}`;
     return `+62 ${rest}`;
@@ -18,13 +17,24 @@ function formatWhatsAppLabel(whatsapp: string) {
   return whatsapp || "";
 }
 
+/** Embed resmi Google Maps: SD Muhammadiyah 1 Depok (maps.app.goo.gl/6Ae9iQqaqswDhEq9A) */
+const SCHOOL_MAP_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7931.0!2d106.8155345!3d-6.3665395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69eea7a02c5a21%3A0xb8dea59504561ff3!2sSD%20Muhammadiyah%201%20Depok!5e0!3m2!1sid!2sid!4v0";
+
 function mapEmbedSrc(identity: { mapLat?: string; mapLng?: string; address: string }) {
   const lat = identity.mapLat?.trim();
   const lng = identity.mapLng?.trim();
-  if (lat && lng && /^-?\d+(\.\d+)?$/.test(lat) && /^-?\d+(\.\d+)?$/.test(lng)) {
-    return `https://maps.google.com/maps?q=${encodeURIComponent(`${lat},${lng}`)}&z=17&output=embed`;
+  // Koordinat default sekolah (dari Google Maps resmi) → pakai embed place agar pin bernama sekolah
+  if (
+    lat === "-6.3665395" &&
+    lng === "106.8155345"
+  ) {
+    return SCHOOL_MAP_EMBED;
   }
-  return `https://maps.google.com/maps?q=${encodeURIComponent(identity.address)}&z=16&output=embed`;
+  if (lat && lng && /^-?\d+(\.\d+)?$/.test(lat) && /^-?\d+(\.\d+)?$/.test(lng)) {
+    return `https://www.google.com/maps?q=${encodeURIComponent(`${lat},${lng}`)}&z=17&output=embed`;
+  }
+  return SCHOOL_MAP_EMBED;
 }
 
 function KontakPage() {
@@ -77,12 +87,23 @@ function KontakPage() {
               </a>
             </p>
           ) : null}
+          <p className="mt-4">
+            <a
+              className="text-sm font-semibold text-pine underline-offset-2 hover:underline"
+              href="https://maps.app.goo.gl/6Ae9iQqaqswDhEq9A"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buka di Google Maps
+            </a>
+          </p>
         </div>
         <iframe
-          title="Peta lokasi sekolah"
+          title="Peta lokasi SD Muhammadiyah 01 Kukusan"
           className="min-h-80 w-full rounded-card border border-line"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
           src={mapEmbedSrc(identity)}
         />
       </div>
