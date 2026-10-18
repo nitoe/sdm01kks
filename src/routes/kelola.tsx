@@ -11,14 +11,11 @@ import {
   IdentityPanel,
   HeroPanel,
   VisiPanel,
-  ArticlePanel,
-} from "@/routes/kelola-panels-a";
-import {
-  ProgramPanel,
-  GalleryPanel,
-  VisibilityPanel,
-  AccountPanel,
-} from "@/routes/kelola-panels-b";
+} from "@/routes/kelola-panels-a1";
+import { ArticlePanel } from "@/routes/kelola-panels-a2";
+import { ProgramPanel } from "@/routes/kelola-panels-b1";
+import { GalleryPanel } from "@/routes/kelola-panels-b2a";
+import { VisibilityPanel, AccountPanel } from "@/routes/kelola-panels-b2b";
 import { getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
