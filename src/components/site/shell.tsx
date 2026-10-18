@@ -65,10 +65,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-5 py-2 text-sm">
           <span>NPSN {identity.npsn}</span>
           <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
-          <span className="text-sheet/80">Kukusan, Depok</span>
-          <Link to="/masuk" className="ml-auto font-semibold text-brass-soft">
-            Masuk
-          </Link>
+          <span className="ml-auto text-sheet/80">Kukusan, Depok</span>
         </div>
       </div>
 
