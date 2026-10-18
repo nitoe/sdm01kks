@@ -21,7 +21,7 @@
  */
 import { spawn } from "node:child_process";
 import { readFileSync, realpathSync } from "node:fs";
-import { constants as osConstants } from "node:os";
+import { constants as osConstants, platform } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -111,7 +111,14 @@ function main(argv) {
     process.exit(2);
   }
   const env = mergeAppEnv(readAppEnv(projectRoot()), process.env);
-  const child = spawn(command, args, { stdio: "inherit", env });
+  // On Windows, npm puts node_modules/.bin on PATH as .cmd shims. spawn() without
+  // a shell looks for vite.exe and fails with ENOENT. shell:true uses cmd.exe so
+  // the .cmd shim is found the same way a normal npm script would find it.
+  const child = spawn(command, args, {
+    stdio: "inherit",
+    env,
+    shell: platform() === "win32",
+  });
   // The dev server is long-running and is stopped by signalling this wrapper.
   for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
     process.on(signal, () => child.kill(signal));
