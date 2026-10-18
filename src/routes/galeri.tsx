@@ -24,7 +24,11 @@ function GaleriPage() {
         <div className="mx-auto grid max-w-6xl gap-4 px-5 sm:grid-cols-2">
           {items.map((item) => (
             <figure key={item.id} className="overflow-hidden rounded-card border border-line bg-sheet">
-              <img src={item.src} alt={item.caption} className="aspect-3/2 w-full object-cover" />
+              {item.src ? (
+                <img src={item.src} alt={item.caption} className="aspect-3/2 w-full object-cover" />
+              ) : (
+                <div className="grid aspect-3/2 place-items-center text-sm text-muted">Gambar belum dipasang</div>
+              )}
               <figcaption className="px-4 py-3 text-sm text-muted">
                 {!item.visible ? <span className="mr-2 text-brass">Tersembunyi.</span> : null}
                 {item.caption}

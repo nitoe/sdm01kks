@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { uid, todayIso } from "@/lib/site/format";
@@ -34,25 +34,39 @@ export const Route = createFileRoute("/kelola")({
   component: KelolaPage,
 });
 
-const GROUPS: { label: string; note: string; tabs: Tab[] }[] = [
+const GROUPS: { label: string; tabs: Tab[] }[] = [
   {
     label: "Tampil di halaman depan",
-    note: "Tersimpan di basis data. Pengunjung lain membaca isi yang sama.",
     tabs: ["Identitas", "Beranda", "Pengumuman", "Berita", "Program", "Galeri", "Visi", "Tampilan"],
   },
   {
     label: "Guru",
-    note: "Akun, persetujuan, dan cadangan.",
     tabs: ["Akun guru"],
   },
   {
     label: "Pengaturan",
-    note: "Akun yang boleh mengubah situs.",
     tabs: ["Sandi"],
   },
 ];
 
 type Tab = KelolaTab;
+
+const TAB_HELP: Record<Tab, string> = {
+  Identitas: "Nama, NPSN, alamat, dan telepon. Muncul di kepala situs, profil, dan kontak.",
+  Beranda: "Judul besar dan gambar di bagian atas halaman depan.",
+  Pengumuman: "Buka satu pengumuman untuk mengubahnya. Urutan atas tampil lebih dulu.",
+  Berita: "Buka satu berita. Gambar dan isi tampil di halaman berita.",
+  Program: "Kegiatan yang tampil di beranda dan halaman program.",
+  Galeri: "Foto suasana sekolah. Pilih berkas dari komputer.",
+  Visi: "Visi satu paragraf. Misi diisi satu baris untuk satu butir.",
+  Tampilan: "Sembunyikan bagian dari tamu tanpa menghapus isinya.",
+  Sandi: "Ganti sandi akun ini, atau tambah admin lain.",
+  "Akun guru": "Setujui guru, atur sandi, dan cadangkan data.",
+};
+
+function tabLabel(tab: Tab) {
+  return tab === "Visi" ? "Visi dan misi" : tab;
+}
 
 function KelolaPage() {
   useBootSite();
@@ -157,52 +171,71 @@ function Gate() {
 }
 
 function Editor() {
+  const navigate = useNavigate();
   const search = Route.useSearch();
   const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
-  const source = useSiteStore((state) => state.source);
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
+  const source = useSiteStore((state) => state.source);
   const lock = useSiteStore((state) => state.lock);
 
   useEffect(() => {
     if (search.tab) setTab(search.tab);
   }, [search.tab]);
 
+  function choose(next: Tab) {
+    setTab(next);
+    void navigate({ to: "/kelola", search: next === "Beranda" ? {} : { tab: next }, replace: true });
+  }
+
+  const status = saveError
+    ? saveError
+    : saving
+      ? "Menyimpan…"
+      : source === "basis"
+        ? "Tersimpan"
+        : "Siap diubah";
+
   return (
-    <div className="grid gap-6 lg:grid-cols-12">
-      <aside className="lg:col-span-3">
-        <p className="px-3 text-sm text-muted">
-          Sumber: {source === "basis" ? "basis data" : "naskah awal"}
-          {saving ? " · menyimpan…" : ""}
-        </p>
-        {saveError ? <p className="mt-2 px-3 text-sm text-pine-deep">{saveError}</p> : null}
-        {GROUPS.map((group) => (
-          <div key={group.label} className="mt-5">
-            <p className="px-3 text-xs font-semibold tracking-wide text-pine uppercase">{group.label}</p>
-            <p className="mt-1 px-3 text-sm text-muted">{group.note}</p>
-            <nav className="mt-2 grid gap-1">
+    <div className="grid gap-4">
+      <div className="sticky top-0 z-20 grid gap-3 rounded-card border border-line bg-paper/95 p-3 backdrop-blur-md">
+        <div className="flex flex-wrap items-center gap-3">
+          <p
+            className={
+              saveError
+                ? "inline-flex h-9 items-center rounded-full bg-brass-soft px-3 text-sm font-semibold text-pine-deep"
+                : "inline-flex h-9 items-center rounded-full bg-sheet px-3 text-sm font-semibold text-pine"
+            }
+          >
+            {status}
+          </p>
+          <p className="text-sm text-muted">{TAB_HELP[tab]}</p>
+          <button type="button" onClick={lock} className="ml-auto h-9 px-2 text-sm font-semibold text-muted">
+            Keluar
+          </button>
+        </div>
+        <nav className="flex gap-2 overflow-x-auto">
+          {GROUPS.map((group) => (
+            <div key={group.label} className="flex shrink-0 gap-2">
               {group.tabs.map((item) => (
                 <button
                   key={item}
                   type="button"
-                  onClick={() => setTab(item)}
+                  onClick={() => choose(item)}
                   className={
                     tab === item
-                      ? "h-11 rounded-xl bg-pine px-3 text-left font-semibold text-sheet"
-                      : "h-11 rounded-xl px-3 text-left font-medium text-ink hover:bg-sheet"
+                      ? "h-10 shrink-0 rounded-full bg-pine px-4 text-sm font-semibold text-sheet"
+                      : "h-10 shrink-0 rounded-full border border-line bg-sheet px-4 text-sm font-semibold text-ink"
                   }
                 >
-                  {item === "Visi" ? "Visi dan misi" : item}
+                  {tabLabel(item)}
                 </button>
               ))}
-            </nav>
-          </div>
-        ))}
-        <button type="button" onClick={lock} className="mt-4 h-11 px-3 text-sm font-semibold text-muted">
-          Keluar
-        </button>
-      </aside>
-      <section className="rounded-card border border-line bg-sheet p-5 lg:col-span-9">
+            </div>
+          ))}
+        </nav>
+      </div>
+      <section className="rounded-card border border-line bg-sheet p-5">
         {tab === "Identitas" ? <IdentityPanel /> : null}
         {tab === "Beranda" ? <HeroPanel /> : null}
         {tab === "Pengumuman" ? <ArticlePanel kind="announcements" /> : null}
@@ -263,48 +296,80 @@ function ImageField({
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
+  function readFile(file: File) {
+    if (file.size > 1_200_000) {
+      setError("Gambar maksimal 1,2 MB.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const reader = new FileReader();
+    reader.onload = () => {
+      const raw = typeof reader.result === "string" ? reader.result : "";
+      const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
+      void uploadSiteMedia({ data: { mime: file.type || "image/jpeg", data } }).then((result) => {
+        setBusy(false);
+        if (!result.ok) {
+          setError(result.message);
+          return;
+        }
+        onChange(result.url);
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+
   return (
-    <div className="grid gap-2">
-      <Field label={`${label} — tautan`} value={value} onChange={onChange} />
-      <label className="text-sm font-semibold text-muted">
-        {busy ? "Mengunggah…" : "atau pilih berkas (maks. 1,2 MB)"}
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif"
-          className="mt-1 block w-full text-sm font-normal"
-          disabled={busy}
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-            event.target.value = "";
-            if (!file) return;
-            if (file.size > 1_200_000) {
-              setError("Gambar maksimal 1,2 MB.");
-              return;
-            }
-            setBusy(true);
-            setError("");
-            const reader = new FileReader();
-            reader.onload = () => {
-              const raw = typeof reader.result === "string" ? reader.result : "";
-              const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
-              void uploadSiteMedia({ data: { mime: file.type || "image/jpeg", data } }).then((result) => {
-                setBusy(false);
-                if (!result.ok) {
-                  setError(result.message);
-                  return;
-                }
-                onChange(result.url);
-              });
-            };
-            reader.readAsDataURL(file);
-          }}
-        />
-      </label>
-      {value ? <img src={value} alt="" className="aspect-3/2 max-w-xs rounded-xl object-cover" /> : null}
+    <div className="grid gap-3">
+      <p className="text-sm font-semibold text-muted">{label}</p>
+      {value ? (
+        <img src={value} alt="" className="aspect-3/2 w-full max-w-sm rounded-xl object-cover" />
+      ) : (
+        <div className="grid h-32 max-w-sm place-items-center rounded-xl border border-dashed border-line text-sm text-muted">
+          Belum ada gambar
+        </div>
+      )}
+      <div className="flex flex-wrap gap-2">
+        <label className="inline-flex h-11 cursor-pointer items-center rounded-full bg-pine px-4 text-sm font-semibold text-sheet">
+          {busy ? "Mengunggah…" : value ? "Ganti gambar" : "Pilih gambar"}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="sr-only"
+            disabled={busy}
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              event.target.value = "";
+              if (file) readFile(file);
+            }}
+          />
+        </label>
+        {value ? (
+          <button type="button" className="h-11 rounded-full px-4 text-sm font-semibold text-muted" onClick={() => onChange("")}>
+            Lepas gambar
+          </button>
+        ) : null}
+      </div>
+      <p className="text-sm text-muted">JPG, PNG, WEBP, atau GIF. Maksimal 1,2 MB.</p>
+      <details>
+        <summary className="cursor-pointer text-sm font-semibold text-muted">Atau tempel tautan gambar</summary>
+        <div className="mt-2">
+          <Field label="Tautan" value={value} onChange={onChange} />
+        </div>
+      </details>
       {error ? <p className="text-sm text-pine-deep">{error}</p> : null}
     </div>
   );
 }
+
+const IDENTITY_GROUPS: { title: string; keys: Array<keyof SiteContent["identity"]> }[] = [
+  { title: "Nama di situs", keys: ["name", "shortName", "tagline", "domain"] },
+  {
+    title: "Keterangan sekolah",
+    keys: ["npsn", "accreditation", "founded", "skFounded", "operational", "principal", "foundation", "studentsNote", "hours"],
+  },
+  { title: "Yang dihubungi orang tua", keys: ["address", "phone", "email"] },
+];
 
 function IdentityPanel() {
   const identity = useSiteStore((state) => state.content.identity);
@@ -315,7 +380,6 @@ function IdentityPanel() {
       return content;
     });
   };
-  const keys = Object.keys(identity) as Array<keyof SiteContent["identity"]>;
   const labels: Record<keyof SiteContent["identity"], string> = {
     name: "Nama sekolah",
     shortName: "Nama singkat",
@@ -336,17 +400,21 @@ function IdentityPanel() {
   };
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-8">
       <h2 className="font-serif text-3xl">Identitas</h2>
-      <p className="text-muted">Nama, NPSN, alamat, telepon, dan keterangan lain di halaman depan mengikuti isian ini.</p>
-      {keys.map((key) => (
-        <Field
-          key={key}
-          label={labels[key]}
-          value={identity[key]}
-          multiline={key === "address" || key === "tagline"}
-          onChange={(value) => set(key, value)}
-        />
+      {IDENTITY_GROUPS.map((group) => (
+        <fieldset key={group.title} className="grid gap-4">
+          <legend className="font-semibold text-pine">{group.title}</legend>
+          {group.keys.map((key) => (
+            <Field
+              key={key}
+              label={labels[key]}
+              value={identity[key]}
+              multiline={key === "address" || key === "tagline"}
+              onChange={(value) => set(key, value)}
+            />
+          ))}
+        </fieldset>
       ))}
     </div>
   );
@@ -395,9 +463,20 @@ function VisiPanel() {
   );
 }
 
+function reorder<T>(list: T[], index: number, dir: -1 | 1): T[] {
+  const next = index + dir;
+  if (next < 0 || next >= list.length) return list;
+  const copy = list.slice();
+  const [item] = copy.splice(index, 1);
+  if (item === undefined) return list;
+  copy.splice(next, 0, item);
+  return copy;
+}
+
 function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
   const items = useSiteStore((state) => state.content[kind]);
   const update = useSiteStore((state) => state.update);
+  const [openId, setOpenId] = useState<string | null>(null);
   const title = kind === "news" ? "Berita" : "Pengumuman";
 
   const patch = (id: string, recipe: (item: Article) => void) => {
@@ -408,62 +487,106 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
     });
   };
 
+  function add() {
+    const id = uid(kind);
+    update((content) => {
+      content[kind].unshift({
+        id,
+        date: todayIso(),
+        title: "",
+        excerpt: "",
+        body: "",
+        image: "",
+        visible: false,
+      });
+      return content;
+    });
+    setOpenId(id);
+  }
+
   return (
-    <div className="grid gap-6">
-      <div className="flex items-center justify-between gap-3">
+    <div className="grid gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-serif text-3xl">{title}</h2>
-        <button
-          type="button"
-          className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet"
-          onClick={() =>
-            update((content) => {
-              content[kind].unshift({
-                id: uid(kind),
-                date: todayIso(),
-                title: "Judul baru",
-                excerpt: "",
-                body: "",
-                image: "",
-                visible: true,
-              });
-              return content;
-            })
-          }
-        >
-          Tambah
+        <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
+          Tambah {title.toLowerCase()}
         </button>
       </div>
-      <p className="text-muted">Artikel dan pengumuman ini tampil di halaman depan. Gambar bisa diunggah atau diisi dengan tautan.</p>
-      {items.map((item) => (
-        <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
-          <Field label="Judul" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
-          <Field label="Tanggal" value={item.date} onChange={(value) => patch(item.id, (entry) => (entry.date = value))} />
-          <Field label="Ringkas" value={item.excerpt} multiline onChange={(value) => patch(item.id, (entry) => (entry.excerpt = value))} />
-          <ImageField
-            label="Gambar"
-            value={item.image ?? ""}
-            onChange={(value) => patch(item.id, (entry) => (entry.image = value))}
-          />
-          <Field label="Isi" value={item.body} multiline rows={10} onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
-          <div className="flex gap-3">
-            <button type="button" className="h-11 px-2 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
-              {item.visible ? "Sembunyikan" : "Tampilkan"}
-            </button>
-            <button
-              type="button"
-              className="h-11 px-2 font-semibold text-muted"
-              onClick={() =>
-                update((content) => {
-                  content[kind] = content[kind].filter((entry) => entry.id !== item.id);
-                  return content;
-                })
-              }
-            >
-              Hapus
-            </button>
-          </div>
-        </article>
-      ))}
+      {items.length === 0 ? (
+        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada. Tekan tambah untuk menulis yang pertama.</p>
+      ) : (
+        <div className="grid gap-2">
+          {items.map((item, index) => {
+            const open = openId === item.id;
+            return (
+              <article key={item.id} className="rounded-xl border border-line">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(open ? null : item.id)}
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-semibold">{item.title || "Tanpa judul"}</span>
+                    <span className="block text-sm text-muted">
+                      {item.date || "Tanpa tanggal"} · {item.visible ? "Tampil untuk tamu" : "Tersembunyi"}
+                    </span>
+                  </span>
+                  <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+                </button>
+                {open ? (
+                  <div className="grid gap-3 border-t border-line p-4">
+                    <Field label="Judul" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
+                    <Field
+                      label="Tanggal"
+                      type="date"
+                      value={item.date}
+                      onChange={(value) => patch(item.id, (entry) => (entry.date = value))}
+                    />
+                    <Field
+                      label="Ringkas, tampil di daftar"
+                      value={item.excerpt}
+                      multiline
+                      onChange={(value) => patch(item.id, (entry) => (entry.excerpt = value))}
+                    />
+                    <ImageField
+                      label="Gambar"
+                      value={item.image ?? ""}
+                      onChange={(value) => patch(item.id, (entry) => (entry.image = value))}
+                    />
+                    <Field
+                      label="Isi lengkap"
+                      value={item.body}
+                      multiline
+                      rows={10}
+                      onChange={(value) => patch(item.id, (entry) => (entry.body = value))}
+                    />
+                    <ItemTools
+                      index={index}
+                      count={items.length}
+                      visible={item.visible}
+                      onMove={(dir) =>
+                        update((content) => {
+                          content[kind] = reorder(content[kind], index, dir);
+                          return content;
+                        })
+                      }
+                      onToggle={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}
+                      onRemove={() => {
+                        if (!window.confirm("Hapus tulisan ini?")) return;
+                        update((content) => {
+                          content[kind] = content[kind].filter((entry) => entry.id !== item.id);
+                          return content;
+                        });
+                        setOpenId(null);
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -471,6 +594,7 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
 function ProgramPanel() {
   const programs = useSiteStore((state) => state.content.programs);
   const update = useSiteStore((state) => state.update);
+  const [openId, setOpenId] = useState<string | null>(null);
   const patch = (id: string, recipe: (item: Program) => void) => {
     update((content) => {
       const item = content.programs.find((entry) => entry.id === id);
@@ -479,47 +603,76 @@ function ProgramPanel() {
     });
   };
 
+  function add() {
+    const id = uid("program");
+    update((content) => {
+      content.programs.unshift({ id, title: "", summary: "", visible: false });
+      return content;
+    });
+    setOpenId(id);
+  }
+
   return (
-    <div className="grid gap-6">
-      <div className="flex items-center justify-between gap-3">
+    <div className="grid gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-serif text-3xl">Program</h2>
-        <button
-          type="button"
-          className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet"
-          onClick={() =>
-            update((content) => {
-              content.programs.push({ id: uid("program"), title: "Program baru", summary: "", visible: true });
-              return content;
-            })
-          }
-        >
-          Tambah
+        <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
+          Tambah program
         </button>
       </div>
-      <p className="text-muted">Hanya untuk halaman depan dan halaman program.</p>
-      {programs.map((item) => (
-        <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
-          <Field label="Nama" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
-          <Field label="Ringkas" value={item.summary} multiline onChange={(value) => patch(item.id, (entry) => (entry.summary = value))} />
-          <div className="flex gap-3">
-            <button type="button" className="h-11 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
-              {item.visible ? "Sembunyikan" : "Tampilkan"}
-            </button>
-            <button
-              type="button"
-              className="h-11 font-semibold text-muted"
-              onClick={() =>
-                update((content) => {
-                  content.programs = content.programs.filter((entry) => entry.id !== item.id);
-                  return content;
-                })
-              }
-            >
-              Hapus
-            </button>
-          </div>
-        </article>
-      ))}
+      {programs.length === 0 ? (
+        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada program.</p>
+      ) : (
+        <div className="grid gap-2">
+          {programs.map((item, index) => {
+            const open = openId === item.id;
+            return (
+              <article key={item.id} className="rounded-xl border border-line">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(open ? null : item.id)}
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left"
+                >
+                  <span className="min-w-0 flex-1 truncate font-semibold">{item.title || "Tanpa nama"}</span>
+                  <span className="text-sm text-muted">{item.visible ? "Tampil" : "Tersembunyi"}</span>
+                  <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+                </button>
+                {open ? (
+                  <div className="grid gap-3 border-t border-line p-4">
+                    <Field label="Nama" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
+                    <Field
+                      label="Ringkas"
+                      value={item.summary}
+                      multiline
+                      onChange={(value) => patch(item.id, (entry) => (entry.summary = value))}
+                    />
+                    <ItemTools
+                      index={index}
+                      count={programs.length}
+                      visible={item.visible}
+                      onMove={(dir) =>
+                        update((content) => {
+                          content.programs = reorder(content.programs, index, dir);
+                          return content;
+                        })
+                      }
+                      onToggle={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}
+                      onRemove={() => {
+                        if (!window.confirm("Hapus program ini?")) return;
+                        update((content) => {
+                          content.programs = content.programs.filter((entry) => entry.id !== item.id);
+                          return content;
+                        });
+                        setOpenId(null);
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -527,6 +680,7 @@ function ProgramPanel() {
 function GalleryPanel() {
   const gallery = useSiteStore((state) => state.content.gallery);
   const update = useSiteStore((state) => state.update);
+  const [openId, setOpenId] = useState<string | null>(null);
   const patch = (id: string, recipe: (item: GalleryItem) => void) => {
     update((content) => {
       const item = content.gallery.find((entry) => entry.id === id);
@@ -535,58 +689,121 @@ function GalleryPanel() {
     });
   };
 
+  function add() {
+    const id = uid("foto");
+    update((content) => {
+      content.gallery.unshift({ id, src: "", caption: "", visible: false });
+      return content;
+    });
+    setOpenId(id);
+  }
+
   return (
-    <div className="grid gap-6">
-      <div className="flex items-center justify-between gap-3">
+    <div className="grid gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-serif text-3xl">Galeri</h2>
-        <button
-          type="button"
-          className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet"
-          onClick={() =>
-            update((content) => {
-              content.gallery.push({
-                id: uid("foto"),
-                src: "/media/halaman.jpg",
-                caption: "Keterangan foto",
-                visible: true,
-              });
-              return content;
-            })
-          }
-        >
-          Tambah
+        <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
+          Tambah foto
         </button>
       </div>
-      <p className="text-sm text-muted">
-        Foto di sini mengisi galeri halaman depan. Unggah dari komputer, atau tempel tautan https://... maupun path seperti
-        /media/kelas.jpg.
-      </p>
-      {gallery.map((item) => (
-        <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4 md:grid-cols-12">
-          <img src={item.src} alt={item.caption} className="aspect-3/2 w-full rounded-xl object-cover md:col-span-4" />
-          <div className="grid gap-3 md:col-span-8">
-            <ImageField label="Gambar" value={item.src} onChange={(value) => patch(item.id, (entry) => (entry.src = value))} />
-            <Field label="Keterangan" value={item.caption} onChange={(value) => patch(item.id, (entry) => (entry.caption = value))} />
-            <div className="flex gap-3">
-              <button type="button" className="h-11 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
-                {item.visible ? "Sembunyikan" : "Tampilkan"}
-              </button>
-              <button
-                type="button"
-                className="h-11 font-semibold text-muted"
-                onClick={() =>
-                  update((content) => {
-                    content.gallery = content.gallery.filter((entry) => entry.id !== item.id);
-                    return content;
-                  })
-                }
-              >
-                Hapus
-              </button>
-            </div>
-          </div>
-        </article>
-      ))}
+      {gallery.length === 0 ? (
+        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada foto.</p>
+      ) : (
+        <div className="grid gap-2">
+          {gallery.map((item, index) => {
+            const open = openId === item.id;
+            return (
+              <article key={item.id} className="rounded-xl border border-line">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(open ? null : item.id)}
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left"
+                >
+                  {item.src ? (
+                    <img src={item.src} alt="" className="size-12 shrink-0 rounded-lg object-cover" />
+                  ) : (
+                    <span className="grid size-12 shrink-0 place-items-center rounded-lg border border-dashed border-line text-xs text-muted">
+                      Foto
+                    </span>
+                  )}
+                  <span className="min-w-0 flex-1 truncate font-semibold">{item.caption || "Tanpa keterangan"}</span>
+                  <span className="text-sm text-muted">{item.visible ? "Tampil" : "Tersembunyi"}</span>
+                  <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+                </button>
+                {open ? (
+                  <div className="grid gap-3 border-t border-line p-4">
+                    <ImageField label="Gambar" value={item.src} onChange={(value) => patch(item.id, (entry) => (entry.src = value))} />
+                    <Field label="Keterangan" value={item.caption} onChange={(value) => patch(item.id, (entry) => (entry.caption = value))} />
+                    <ItemTools
+                      index={index}
+                      count={gallery.length}
+                      visible={item.visible}
+                      onMove={(dir) =>
+                        update((content) => {
+                          content.gallery = reorder(content.gallery, index, dir);
+                          return content;
+                        })
+                      }
+                      onToggle={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}
+                      onRemove={() => {
+                        if (!window.confirm("Hapus foto ini?")) return;
+                        update((content) => {
+                          content.gallery = content.gallery.filter((entry) => entry.id !== item.id);
+                          return content;
+                        });
+                        setOpenId(null);
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ItemTools({
+  index,
+  count,
+  visible,
+  onMove,
+  onToggle,
+  onRemove,
+}: {
+  index: number;
+  count: number;
+  visible: boolean;
+  onMove: (dir: -1 | 1) => void;
+  onToggle: () => void;
+  onRemove: () => void;
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <button
+        type="button"
+        disabled={index === 0}
+        onClick={() => onMove(-1)}
+        className="h-10 rounded-full border border-line px-3 text-sm font-semibold disabled:opacity-40"
+      >
+        Naik
+      </button>
+      <button
+        type="button"
+        disabled={index === count - 1}
+        onClick={() => onMove(1)}
+        className="h-10 rounded-full border border-line px-3 text-sm font-semibold disabled:opacity-40"
+      >
+        Turun
+      </button>
+      <button type="button" onClick={onToggle} className="h-10 rounded-full border border-line px-3 text-sm font-semibold">
+        {visible ? "Sembunyikan dari tamu" : "Tampilkan ke tamu"}
+      </button>
+      <button type="button" onClick={onRemove} className="h-10 rounded-full px-3 text-sm font-semibold text-pine-deep">
+        Hapus
+      </button>
     </div>
   );
 }
