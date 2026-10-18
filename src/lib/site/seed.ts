@@ -556,13 +556,28 @@ function normalizeProgram(item: Partial<SiteContent["programs"][number]> | null 
         }))
         .filter((a) => a.id || a.title)
     : [];
+  const cover = typeof item.cover === "string" ? item.cover : "";
+  const savedImages = Array.isArray(item.images)
+    ? item.images
+        .filter((m) => m && typeof m === "object")
+        .map((m, i) => ({
+          id: typeof m.id === "string" && m.id ? m.id : `img-${i}`,
+          src: typeof m.src === "string" ? m.src : "",
+          caption: typeof m.caption === "string" ? m.caption : "",
+        }))
+        .filter((m) => m.src)
+    : [];
+  const images = savedImages.length ? savedImages : cover ? [{ id: "cover", src: cover, caption: "" }] : [];
   return {
     id: typeof item.id === "string" ? item.id : "",
     group: asGroup(item.group, typeof item.id === "string" ? item.id : ""),
     title: typeof item.title === "string" ? item.title : "",
     summary: typeof item.summary === "string" ? item.summary : "",
     body: typeof item.body === "string" ? item.body : "",
-    cover: typeof item.cover === "string" ? item.cover : "",
+    cover: images[0]?.src ?? "",
+    images,
+    contactName: typeof item.contactName === "string" ? item.contactName : "",
+    contactPhone: typeof item.contactPhone === "string" ? item.contactPhone : "",
     media: Array.isArray(item.media)
       ? item.media
           .filter((m) => m && typeof m === "object")

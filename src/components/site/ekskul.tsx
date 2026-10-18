@@ -1,17 +1,29 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone, Plus } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Plus,
+  User,
+} from "lucide-react";
 import { Prose } from "@/components/site/shell";
 import { ProgramMediaGallery } from "@/components/site/program-media";
+import { ProgramSlideshow } from "@/components/site/program-slideshow";
+import { programImages, telLink, whatsappLink } from "@/lib/site/program";
 import { useSiteStore } from "@/lib/site/store";
 import type { Program, ProgramGroup } from "@/lib/site/types";
 
 const kickerClass = "text-xs font-semibold uppercase tracking-[0.2em]";
 
 function Cover({ program, className }: { program: Program; className: string }) {
-  return program.cover ? (
+  const src = programImages(program)[0]?.src;
+  return src ? (
     <img
-      src={program.cover}
+      src={src}
       alt={`Kegiatan ${program.title}`}
       loading="lazy"
       className={`${className} object-cover`}
@@ -19,6 +31,88 @@ function Cover({ program, className }: { program: Program; className: string }) 
   ) : (
     <div className={`${className} grid place-items-center bg-mint text-sm text-muted`}>
       Gambar belum dipasang
+    </div>
+  );
+}
+
+/** Kartu kontak: penanggung jawab kegiatan (bila diisi) dan kontak sekolah. */
+export function ProgramContactCard({ program }: { program: Program }) {
+  const identity = useSiteStore((state) => state.content.identity);
+  const name = program.contactName?.trim() ?? "";
+  const phone = program.contactPhone?.trim() ?? "";
+  const wa = phone ? whatsappLink(phone) : null;
+  const rowClass = "flex gap-3";
+  return (
+    <div className="rounded-xl bg-pine-deep p-6 text-sheet">
+      <div className="flex items-start justify-between gap-4">
+        <h2 className="font-serif text-2xl">Kontak</h2>
+        <Link
+          to="/kontak"
+          aria-label={`Hubungi sekolah tentang ${program.title}`}
+          className="grid size-10 shrink-0 place-items-center rounded-full bg-sheet text-pine-deep transition-colors hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sheet"
+        >
+          <ArrowUpRight className="size-5" aria-hidden />
+        </Link>
+      </div>
+      {name || phone ? (
+        <div className="mt-4 rounded-lg bg-sheet/10 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wider opacity-75">
+            Penanggung jawab
+          </p>
+          {name ? (
+            <p className="mt-2 flex gap-3 font-semibold">
+              <User className="mt-0.5 size-4 shrink-0" aria-hidden />
+              {name}
+            </p>
+          ) : null}
+          {phone ? (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+              <Phone className="size-4 shrink-0" aria-hidden />
+              <a href={telLink(phone)} className="hover:underline">
+                {phone}
+              </a>
+              {wa ? (
+                <a
+                  href={wa}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-full bg-sheet px-3 text-xs font-semibold text-pine-deep hover:bg-mint"
+                >
+                  <MessageCircle className="size-4" aria-hidden /> WhatsApp
+                </a>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <p className="mt-2 text-sm opacity-80">
+          Tanyakan jadwal dan pendaftaran {program.title} melalui sekolah.
+        </p>
+      )}
+      <ul className="mt-4 space-y-3 text-sm">
+        {identity.phone && !phone ? (
+          <li className={rowClass}>
+            <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
+            <a href={telLink(identity.phone)} className="hover:underline">
+              {identity.phone}
+            </a>
+          </li>
+        ) : null}
+        {identity.email ? (
+          <li className={rowClass}>
+            <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
+            <a href={`mailto:${identity.email}`} className="break-all hover:underline">
+              {identity.email}
+            </a>
+          </li>
+        ) : null}
+        {identity.address ? (
+          <li className={rowClass}>
+            <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
+            <span>{identity.address}</span>
+          </li>
+        ) : null}
+      </ul>
     </div>
   );
 }
@@ -149,12 +243,9 @@ export function EkskulListPage({ group, items }: { group: ProgramGroup; items: P
 export function EkskulDetailPage({ program }: { program: Program }) {
   const content = useSiteStore((state) => state.content);
   const admin = useSiteStore((state) => state.admin);
-  const identity = content.identity;
   const media = program.media ?? [];
   const activities = program.activities ?? [];
   const achievements = program.achievements ?? [];
-  const secondImage = media.find((item) => item.kind === "image" && item.src);
-  const galleryRest = media.filter((item) => item !== secondImage);
   const others = content.programs.filter(
     (item) => item.group === "ekstrakurikuler" && item.id !== program.id && (item.visible || admin),
   );
@@ -179,7 +270,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
       {!program.visible ? <p className="mt-3 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
 
       <header className="mt-6 grid items-start gap-8 lg:grid-cols-2">
-        <Cover program={program} className="aspect-[4/3] w-full rounded-2xl" />
+        <ProgramSlideshow images={programImages(program)} title={program.title} />
         <div className="flex flex-col gap-5">
           <div>
             <p className={`${kickerClass} text-muted`}>
@@ -196,14 +287,6 @@ export function EkskulDetailPage({ program }: { program: Program }) {
               Daftar sekarang
             </Link>
           </div>
-          {secondImage ? (
-            <img
-              src={secondImage.src}
-              alt={secondImage.caption || `Kegiatan ${program.title}`}
-              loading="lazy"
-              className="aspect-[16/9] w-full rounded-2xl object-cover"
-            />
-          ) : null}
         </div>
       </header>
 
@@ -241,7 +324,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
             )}
           </section>
 
-          <ProgramMediaGallery media={galleryRest} />
+          <ProgramMediaGallery media={media} />
         </div>
 
         <aside className="lg:col-span-4">
@@ -262,48 +345,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
               )}
             </div>
 
-            <div className="rounded-xl bg-pine-deep p-6 text-sheet">
-              <div className="flex items-start justify-between gap-4">
-                <h2 className="font-serif text-2xl">Kontak</h2>
-                <Link
-                  to="/kontak"
-                  aria-label={`Hubungi sekolah tentang ${program.title}`}
-                  className="grid size-10 shrink-0 place-items-center rounded-full bg-sheet text-pine-deep transition-colors hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sheet"
-                >
-                  <ArrowUpRight className="size-5" aria-hidden />
-                </Link>
-              </div>
-              <p className="mt-2 text-sm opacity-80">
-                Tanyakan jadwal dan pendaftaran {program.title} melalui sekolah.
-              </p>
-              <ul className="mt-4 space-y-3 text-sm">
-                {identity.phone ? (
-                  <li className="flex gap-3">
-                    <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
-                    <a
-                      href={`tel:${identity.phone.replace(/[^\d+]/g, "")}`}
-                      className="hover:underline"
-                    >
-                      {identity.phone}
-                    </a>
-                  </li>
-                ) : null}
-                {identity.email ? (
-                  <li className="flex gap-3">
-                    <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
-                    <a href={`mailto:${identity.email}`} className="break-all hover:underline">
-                      {identity.email}
-                    </a>
-                  </li>
-                ) : null}
-                {identity.address ? (
-                  <li className="flex gap-3">
-                    <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
-                    <span>{identity.address}</span>
-                  </li>
-                ) : null}
-              </ul>
-            </div>
+            <ProgramContactCard program={program} />
           </div>
         </aside>
       </div>

@@ -5,6 +5,12 @@ export type ProgramMedia = {
   caption: string;
 };
 
+export type ProgramImage = {
+  id: string;
+  src: string;
+  caption: string;
+};
+
 export type ProgramGroupId = "intrakurikuler" | "kokurikuler" | "ekstrakurikuler";
 
 export type ProgramGroup = {
@@ -29,8 +35,12 @@ export type Program = {
   title: string;
   summary: string;
   body: string;
+  /** Gambar pertama dari `images`; dipakai di kartu daftar. */
   cover?: string;
+  images?: ProgramImage[];
   category?: string;
+  contactName?: string;
+  contactPhone?: string;
   media: ProgramMedia[];
   activities?: string[];
   achievements?: ProgramAchievement[];

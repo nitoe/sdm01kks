@@ -14,7 +14,7 @@ import {
   VisiPanel,
 } from "@/components/site/kelola-panels-a1";
 import { ArticlePanel } from "@/components/site/kelola-panels-a2";
-import { ProgramPanel } from "@/components/site/kelola-panels-b1";
+import { ProgramPanel } from "@/components/site/kelola-panels-program";
 import { GalleryPanel } from "@/components/site/kelola-panels-b2a";
 import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b2b";
 import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
@@ -94,7 +94,7 @@ const TAB_HELP: Record<Tab, string> = {
   Pengumuman: "Isi jendela yang muncul tiap kunjungan. Halaman Pengumuman tetap bisa dibuka kapan saja.",
   Berita: "Buka satu berita. Gambar dan isi tampil di halaman berita.",
   Program:
-    "Tiga kelompok program. Judul, uraian, dan gambar tiap kelompok bisa diubah. Kegiatan di dalamnya tetap punya halaman sendiri.",
+    "Tiga tab: intrakurikuler, kokurikuler, ekstrakurikuler. Tambah, aktifkan, nonaktifkan, dan edit kegiatan beserta gambar dan kontaknya.",
   Prestasi: "Catatan lomba siswa. Filter di halaman prestasi memakai jenis, tahun, dan tingkat.",
   Galeri: "Foto suasana sekolah. Pilih berkas dari komputer.",
   Visi: "Visi satu paragraf. Misi diisi satu baris untuk satu butir.",

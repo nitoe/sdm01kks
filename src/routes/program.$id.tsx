@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
-import { EkskulDetailPage, EkskulListPage } from "@/components/site/ekskul";
+import { EkskulDetailPage, EkskulListPage, ProgramContactCard } from "@/components/site/ekskul";
+import { ProgramSlideshow } from "@/components/site/program-slideshow";
+import { programImages } from "@/lib/site/program";
 import { ProgramMediaGallery } from "@/components/site/program-media";
 import type { Program, ProgramGroup } from "@/lib/site/types";
 
@@ -55,17 +57,19 @@ function ProgramPage({ program }: { program: Program }) {
     <SiteFrame>
       <PageIntro kicker={parent?.title ?? "Program"} title={program.title} lead={program.summary} />
       <article className="mx-auto max-w-6xl px-5 pb-16">
-        {!program.visible ? <p className="mb-4 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
+        {!program.visible ? (
+          <p className="mb-4 text-sm text-brass">Tersembunyi dari tamu.</p>
+        ) : null}
 
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            {program.cover ? (
-              <img src={program.cover} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover" />
-            ) : (
-              <div className="grid aspect-[4/3] place-items-center rounded-2xl bg-mint text-muted">Gambar belum dipasang</div>
-            )}
+            <ProgramSlideshow images={programImages(program)} title={program.title} />
             <div className="mt-6">
-              {program.body ? <Prose text={program.body} /> : <p className="text-muted">Uraian program belum diisi.</p>}
+              {program.body ? (
+                <Prose text={program.body} />
+              ) : (
+                <p className="text-muted">Uraian program belum diisi.</p>
+              )}
             </div>
 
             {achievements.length > 0 ? (
@@ -73,7 +77,10 @@ function ProgramPage({ program }: { program: Program }) {
                 <h2 className="text-2xl font-semibold text-ink">Prestasi</h2>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {achievements.map((item) => (
-                    <div key={item.id || item.title} className="rounded-xl border border-line bg-sheet p-4">
+                    <div
+                      key={item.id || item.title}
+                      className="rounded-xl border border-line bg-sheet p-4"
+                    >
                       <p className="text-sm font-semibold text-pine">{item.year}</p>
                       <p className="mt-1 font-semibold text-ink">{item.title}</p>
                       <p className="mt-1 text-sm text-muted">{item.result}</p>
@@ -102,21 +109,17 @@ function ProgramPage({ program }: { program: Program }) {
                 </div>
               ) : null}
 
-              <div className="rounded-2xl border border-line bg-sheet p-6">
-                <h3 className="font-semibold text-ink">Kontak</h3>
-                <p className="mt-2 text-sm text-muted">
-                  Informasi lebih lanjut tentang {program.title} dapat ditanyakan melalui kontak sekolah.
-                </p>
-                <Link to="/kontak" className="mt-3 inline-block text-sm font-semibold text-pine hover:underline">
-                  Hubungi kami
-                </Link>
-              </div>
+              <ProgramContactCard program={program} />
             </div>
           </aside>
         </div>
 
         <p className="mt-12">
-          <Link to="/program/$id" params={{ id: parent?.id ?? "ekstrakurikuler" }} className="font-semibold text-pine">
+          <Link
+            to="/program/$id"
+            params={{ id: parent?.id ?? "ekstrakurikuler" }}
+            className="font-semibold text-pine"
+          >
             ← {parent ? parent.title : "Semua program"}
           </Link>
         </p>
@@ -144,7 +147,13 @@ function GroupPage({ group }: { group: ProgramGroup }) {
       <PageIntro kicker="Program" title={group.title} lead={group.summary} />
       <article className="mx-auto max-w-6xl px-5 pb-16">
         {!group.visible ? <p className="mb-4 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
-        {group.image ? <img src={group.image} alt="" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" /> : null}
+        {group.image ? (
+          <img
+            src={group.image}
+            alt=""
+            className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover"
+          />
+        ) : null}
         {group.body ? <Prose text={group.body} /> : null}
 
         <section className="mt-12">
@@ -164,9 +173,13 @@ function GroupPage({ group }: { group: ProgramGroup }) {
                   params={{ id: item.id }}
                   className="overflow-hidden rounded-2xl border border-line bg-sheet transition-colors hover:border-pine"
                 >
-                  {item.cover ? <img src={item.cover} alt="" className="aspect-[16/7] w-full object-cover" /> : null}
+                  {item.cover ? (
+                    <img src={item.cover} alt="" className="aspect-[16/7] w-full object-cover" />
+                  ) : null}
                   <div className="p-5">
-                    {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
+                    {!item.visible ? (
+                      <p className="text-sm text-brass">Tersembunyi dari tamu</p>
+                    ) : null}
                     <h3 className="text-xl font-semibold text-ink">{item.title}</h3>
                     <p className="mt-2 text-muted">{item.summary}</p>
                   </div>
