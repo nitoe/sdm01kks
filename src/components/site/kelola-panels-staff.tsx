@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { uid } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
 import type { StaffMember } from "@/lib/site/types";
 import { Field, ImageField } from "@/components/site/kelola-panels-a1";
-import { ItemTools, reorder } from "@/components/site/kelola-panels-a2";
+import { reorder } from "@/components/site/kelola-panels-a2";
 
 export function StaffPanel() {
   const staff = useSiteStore((state) => state.content.staff ?? []);
@@ -18,11 +19,18 @@ export function StaffPanel() {
     });
   };
 
+  function move(index: number, dir: -1 | 1) {
+    update((content) => {
+      content.staff = reorder(content.staff ?? [], index, dir);
+      return content;
+    });
+  }
+
   function add() {
     const id = uid("staff");
     update((content) => {
       if (!content.staff) content.staff = [];
-      content.staff.unshift({
+      content.staff.push({
         id,
         name: "",
         role: "Guru",
@@ -41,8 +49,8 @@ export function StaffPanel() {
         <div>
           <h2 className="font-serif text-3xl">Manajerial sekolah</h2>
           <p className="mt-1 text-muted">
-            Kepala sekolah, wakil, dan guru yang tampil di halaman Profil. Urutan bisa diatur. Yang tersembunyi tidak
-            terlihat tamu.
+            Kepala sekolah, wakil, dan guru yang tampil di halaman Profil. Gunakan tombol panah untuk mengatur urutan.
+            Yang tersembunyi tidak terlihat tamu.
           </p>
         </div>
         <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
@@ -60,18 +68,40 @@ export function StaffPanel() {
             const open = openId === item.id;
             return (
               <article key={item.id} className="rounded-xl border border-line">
-                <button
-                  type="button"
-                  onClick={() => setOpenId(open ? null : item.id)}
-                  className="flex w-full items-center gap-3 px-4 py-3 text-left"
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-semibold">{item.name || "Tanpa nama"}</span>
-                    <span className="block text-sm text-muted">{item.role || "Tanpa jabatan"}</span>
-                  </span>
-                  <span className="text-sm text-muted">{item.visible ? "Tampil" : "Tersembunyi"}</span>
-                  <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
-                </button>
+                <div className="flex items-center gap-2 px-3 py-2">
+                  <div className="flex shrink-0 flex-col gap-0.5">
+                    <button
+                      type="button"
+                      aria-label="Naikkan"
+                      disabled={index === 0}
+                      onClick={() => move(index, -1)}
+                      className="grid size-8 place-items-center rounded-lg border border-line text-ink disabled:opacity-30"
+                    >
+                      <ChevronUp className="size-4" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Turunkan"
+                      disabled={index === staff.length - 1}
+                      onClick={() => move(index, 1)}
+                      className="grid size-8 place-items-center rounded-lg border border-line text-ink disabled:opacity-30"
+                    >
+                      <ChevronDown className="size-4" />
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setOpenId(open ? null : item.id)}
+                    className="flex min-w-0 flex-1 items-center gap-3 py-1 text-left"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-semibold">{item.name || "Tanpa nama"}</span>
+                      <span className="block text-sm text-muted">{item.role || "Tanpa jabatan"}</span>
+                    </span>
+                    <span className="shrink-0 text-sm text-muted">{item.visible ? "Tampil" : "Tersembunyi"}</span>
+                    <span className="shrink-0 text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+                  </button>
+                </div>
                 {open ? (
                   <div className="grid gap-3 border-t border-line p-4">
                     <Field
@@ -96,26 +126,29 @@ export function StaffPanel() {
                       rows={4}
                       onChange={(value) => patch(item.id, (entry) => (entry.duties = value))}
                     />
-                    <ItemTools
-                      index={index}
-                      count={staff.length}
-                      visible={item.visible}
-                      onMove={(dir) =>
-                        update((content) => {
-                          content.staff = reorder(content.staff ?? [], index, dir);
-                          return content;
-                        })
-                      }
-                      onToggle={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}
-                      onRemove={() => {
-                        if (!window.confirm("Hapus orang ini dari profil?")) return;
-                        update((content) => {
-                          content.staff = (content.staff ?? []).filter((entry) => entry.id !== item.id);
-                          return content;
-                        });
-                        setOpenId(null);
-                      }}
-                    />
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}
+                        className="h-10 rounded-full border border-line px-3 text-sm font-semibold"
+                      >
+                        {item.visible ? "Sembunyikan dari tamu" : "Tampilkan ke tamu"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (!window.confirm("Hapus orang ini dari profil?")) return;
+                          update((content) => {
+                            content.staff = (content.staff ?? []).filter((entry) => entry.id !== item.id);
+                            return content;
+                          });
+                          setOpenId(null);
+                        }}
+                        className="h-10 rounded-full px-3 text-sm font-semibold text-pine-deep"
+                      >
+                        Hapus
+                      </button>
+                    </div>
                   </div>
                 ) : null}
               </article>
