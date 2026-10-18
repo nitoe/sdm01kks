@@ -1,39 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageIntro, SiteFrame } from "@/components/site/shell";
-import { useSiteStore } from "@/lib/site/store";
-
-import { previewHead } from "@/lib/site/preview-head";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pratinjau/program")({
-  head: previewHead,
-  component: ProgramPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/program" });
+  },
 });
-
-function ProgramPage() {
-  const content = useSiteStore((state) => state.content);
-  const admin = useSiteStore((state) => state.admin);
-  const programs = content.programs.filter((item) => item.visible || admin);
-
-  return (
-    <SiteFrame>
-      <PageIntro
-        kicker="Program"
-        title="Kegiatan yang membentuk keseharian"
-        lead="Naskah program masih dapat disesuaikan sekolah. Sembunyikan atau ubah tiap butir dari panel kelola."
-      />
-      {!content.show.program && !admin ? (
-        <p className="mx-auto max-w-6xl px-5 text-muted">Bagian program sedang tidak ditampilkan.</p>
-      ) : (
-        <div className="mx-auto grid max-w-6xl gap-4 px-5 sm:grid-cols-2">
-          {programs.map((item) => (
-            <article key={item.id} className="rounded-card border border-line bg-sheet p-6">
-              {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
-              <h2 className="font-serif text-3xl">{item.title}</h2>
-              <p className="mt-3 text-muted">{item.summary}</p>
-            </article>
-          ))}
-        </div>
-      )}
-    </SiteFrame>
-  );
-}

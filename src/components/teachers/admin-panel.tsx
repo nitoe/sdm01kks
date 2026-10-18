@@ -6,7 +6,6 @@ import {
   getAdminGate,
   getAdminTeacherOverview,
   importTeacherAccounts,
-  openAdminSession,
   registerTeacherByAdmin,
   setTeacherPassword,
   type Profile,
@@ -19,7 +18,6 @@ const emptyProfile = { gelar: "", nip: "", nuptk: "", phone: "", email: "", note
 
 export function AdminGuruPanel() {
   const [gate, setGate] = useState<{ signedIn: boolean; usingDefaultPin: boolean } | null>(null);
-  const [pin, setPin] = useState("");
   const [accounts, setAccounts] = useState<Profile[]>([]);
   const [resets, setResets] = useState<ResetEntry[]>([]);
   const [filter, setFilter] = useState<"all" | "pending" | "active" | "rejected">("all");
@@ -57,18 +55,6 @@ export function AdminGuruPanel() {
   }));
   const selected = teacherByKey(rosterKey);
   const visible = accounts.filter((account) => filter === "all" || account.status === filter);
-
-  async function unlock(event: FormEvent) {
-    event.preventDefault();
-    setError("");
-    const result = await openAdminSession({ data: { pin } });
-    if (!result.ok) {
-      setError(result.message);
-      return;
-    }
-    setPin("");
-    await refresh();
-  }
 
   async function createAccount(event: FormEvent) {
     event.preventDefault();
@@ -157,22 +143,10 @@ export function AdminGuruPanel() {
 
   if (!gate.signedIn) {
     return (
-      <form onSubmit={unlock} className="grid max-w-md gap-4">
+      <div className="grid max-w-md gap-3">
         <h2 className="font-serif text-3xl">Akun guru</h2>
-        <p className="text-muted">
-          Sandi ini mengunci persetujuan akun, lupa sandi, dan cadangan. Sandi panel kelola di peramban ikut dibuka bersamaan jika sama.
-        </p>
-        <SecretField label="Sandi admin" value={pin} onChange={setPin} autoComplete="current-password" />
-        {error ? <p className="text-sm font-semibold text-pine-deep">{error}</p> : null}
-        <button type="submit" className="h-12 rounded-full bg-pine font-semibold text-sheet">
-          Buka akun guru
-        </button>
-        {gate.usingDefaultPin ? (
-          <p className="text-sm text-muted">
-            Sandi awal: <span className="font-semibold text-ink">kukusan-admin</span>. Ganti lewat tab Sandi setelah masuk.
-          </p>
-        ) : null}
-      </form>
+        <p className="text-muted">Sesi admin tidak ditemukan. Masuk lagi dari halaman panel dengan surel dan sandi.</p>
+      </div>
     );
   }
 

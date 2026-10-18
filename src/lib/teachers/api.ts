@@ -14,6 +14,42 @@ async function call<T>(work: () => Promise<T>): Promise<T | Fail> {
 
 export type { Profile };
 
+export const getAdminLoginHint = createServerFn({ method: "GET" }).handler(async () => {
+  const { adminLoginHint } = await import("./service.server.ts");
+  return call(() => adminLoginHint());
+});
+
+export const getAdminAccount = createServerFn({ method: "GET" }).handler(async () => {
+  const { adminAccountStatus } = await import("./service.server.ts");
+  return call(() => adminAccountStatus());
+});
+
+export const loginAdminAccount = createServerFn({ method: "POST" })
+  .validator((data: { email: string; password: string }) => data)
+  .handler(async ({ data }) => {
+    const { loginAdminAccount: login } = await import("./service.server.ts");
+    return call(() => login(data.email, data.password));
+  });
+
+export const logoutAdminAccount = createServerFn({ method: "POST" }).handler(async () => {
+  const { logoutAdminAccount: logout } = await import("./service.server.ts");
+  return call(() => logout());
+});
+
+export const changeAdminPassword = createServerFn({ method: "POST" })
+  .validator((data: { next: string }) => data)
+  .handler(async ({ data }) => {
+    const { changeAdminPassword: change } = await import("./service.server.ts");
+    return call(() => change(data.next));
+  });
+
+export const createAdminAccount = createServerFn({ method: "POST" })
+  .validator((data: { email: string; name: string; password: string }) => data)
+  .handler(async ({ data }) => {
+    const { createAdminAccount: create } = await import("./service.server.ts");
+    return call(() => create(data));
+  });
+
 export const getAdminGate = createServerFn({ method: "POST" }).handler(async () => {
   const { adminGate } = await import("./service.server.ts");
   return call(() => adminGate());

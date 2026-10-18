@@ -1,6 +1,5 @@
-import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
-import { HoldingPage } from "@/components/site/holding";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
@@ -30,7 +29,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: HoldingPage,
+  notFoundComponent: NotFound,
   component: () => (
     <html lang="id" suppressHydrationWarning>
       <head>
@@ -46,3 +45,14 @@ export const Route = createRootRoute({
     </html>
   ),
 });
+
+function NotFound() {
+  return (
+    <main className="mx-auto max-w-xl px-5 py-24">
+      <h1 className="font-serif text-4xl">Halaman tidak ditemukan</h1>
+      <Link to="/" className="mt-6 inline-flex font-semibold text-pine">
+        Kembali ke beranda
+      </Link>
+    </main>
+  );
+}

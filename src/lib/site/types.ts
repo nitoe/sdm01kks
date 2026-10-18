@@ -11,6 +11,7 @@ export type Article = {
   title: string;
   excerpt: string;
   body: string;
+  image?: string;
   visible: boolean;
 };
 

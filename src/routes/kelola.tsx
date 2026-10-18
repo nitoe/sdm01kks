@@ -2,45 +2,32 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { uid, todayIso } from "@/lib/site/format";
-import {
-  activeConfig,
-  configFromEnv,
-  normalizeConfig,
-  stopFirebase,
-  writeStoredConfig,
-} from "@/lib/site/firebase";
-import { DEFAULT_PIN, currentPin, useSiteStore } from "@/lib/site/store";
-import { previewHead } from "@/lib/site/preview-head";
+import { uploadSiteMedia } from "@/lib/site/api";
+import { useSiteStore } from "@/lib/site/store";
 import type { Article, GalleryItem, Program, SiteContent } from "@/lib/site/types";
 
 import { AdminGuruPanel } from "@/components/teachers/admin-panel";
-import { openAdminSession, rotateAdminPin } from "@/lib/teachers/api";
+import { changeAdminPassword, createAdminAccount, getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
 
 export const Route = createFileRoute("/kelola")({
-  head: previewHead,
   component: KelolaPage,
 });
 
 const GROUPS: { label: string; note: string; tabs: Tab[] }[] = [
+  {
+    label: "Tampil di halaman depan",
+    note: "Tersimpan di basis data. Pengunjung lain membaca isi yang sama.",
+    tabs: ["Identitas", "Beranda", "Pengumuman", "Berita", "Program", "Galeri", "Visi", "Tampilan"],
+  },
   {
     label: "Guru",
     note: "Akun, persetujuan, dan cadangan.",
     tabs: ["Akun guru"],
   },
   {
-    label: "Tampil untuk tamu",
-    note: "Perubahan langsung ada di halaman publik.",
-    tabs: ["Identitas", "Beranda"],
-  },
-  {
-    label: "Hanya pratinjau",
-    note: "Belum dibuka untuk tamu.",
-    tabs: ["Pengumuman", "Berita", "Program", "Galeri", "Visi", "Tampilan"],
-  },
-  {
     label: "Pengaturan",
-    note: "Tidak mengubah kalimat di halaman.",
-    tabs: ["Firebase", "Sandi"],
+    note: "Akun yang boleh mengubah situs.",
+    tabs: ["Sandi"],
   },
 ];
 
@@ -53,12 +40,12 @@ type Tab =
   | "Galeri"
   | "Visi"
   | "Tampilan"
-  | "Firebase"
   | "Sandi"
   | "Akun guru";
 
 function KelolaPage() {
   useBootSite();
+  const ready = useSiteStore((state) => state.ready);
   const admin = useSiteStore((state) => state.admin);
   return (
     <div className="min-h-screen bg-paper">
@@ -71,10 +58,7 @@ function KelolaPage() {
           </div>
           <div className="ml-auto flex gap-4">
             <Link to="/" className="text-sm font-semibold text-muted">
-              Halaman publik
-            </Link>
-            <Link to="/pratinjau" className="text-sm font-semibold text-muted">
-              Pratinjau
+              Halaman depan
             </Link>
             <Link to="/guru" className="text-sm font-semibold text-pine">
               Akun guru
@@ -82,20 +66,25 @@ function KelolaPage() {
           </div>
         </div>
       </header>
-      <div className="mx-auto max-w-6xl px-5 py-8">{admin ? <Editor /> : <Gate />}</div>
+      <div className="mx-auto max-w-6xl px-5 py-8">
+        {!ready ? <p className="text-muted">Memuat panel…</p> : admin ? <Editor /> : <Gate />}
+      </div>
     </div>
   );
 }
 
 function Gate() {
-  const unlock = useSiteStore((state) => state.unlock);
-  const [pin, setPin] = useState("");
-  const [persist, setPersist] = useState(true);
+  const markAdmin = useSiteStore((state) => state.markAdmin);
+  const [email, setEmail] = useState("admin@sdmuhammadiyah01kks.sch.id");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [hint, setHint] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [showDefault, setShowDefault] = useState(false);
 
   useEffect(() => {
-    setHint(currentPin() === DEFAULT_PIN);
+    void getAdminLoginHint().then((hint) => {
+      if (hint && "usingDefaultPassword" in hint) setShowDefault(hint.usingDefaultPassword);
+    });
   }, []);
 
   return (
@@ -103,45 +92,54 @@ function Gate() {
       className="mx-auto max-w-md rounded-card border border-line bg-sheet p-6"
       onSubmit={(event) => {
         event.preventDefault();
-        const ok = unlock(pin, persist);
-        setError(ok ? "" : "Sandi tidak sesuai.");
-        if (ok) void openAdminSession({ data: { pin } });
+        setBusy(true);
+        setError("");
+        void loginAdminAccount({ data: { email, password } }).then((result) => {
+          setBusy(false);
+          if (!result.ok) {
+            setError(result.message);
+            return;
+          }
+          markAdmin(email.trim().toLowerCase(), password === "Kukusan-1981");
+        });
       }}
     >
       <h1 className="font-serif text-3xl">Masuk sebagai admin</h1>
       <p className="mt-3 text-muted">
-        Tamu tetap melihat situs tanpa sandi. Identitas dan beranda mengubah halaman publik. Bagian lain hanya tersimpan di pratinjau.
+        Tamu tetap melihat situs tanpa akun. Perubahan identitas, beranda, pengumuman, artikel, program, dan galeri
+        tersimpan di basis data.
       </p>
       <label className="mt-6 block text-sm font-semibold text-muted">
+        Surel
+        <input
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
+          autoComplete="username"
+        />
+      </label>
+      <label className="mt-4 block text-sm font-semibold text-muted">
         Sandi
         <input
           type="password"
-          value={pin}
-          onChange={(event) => setPin(event.target.value)}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
           className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
           autoComplete="current-password"
         />
       </label>
-      <label className="mt-4 flex items-center gap-3 text-sm">
-        <input
-          type="checkbox"
-          checked={persist}
-          onChange={(event) => setPersist(event.target.checked)}
-          className="size-4"
-        />
-        Tetap masuk di peramban ini
-      </label>
       {error ? <p className="mt-3 text-sm text-pine-deep">{error}</p> : null}
-      <button type="submit" className="mt-6 h-12 w-full rounded-full bg-pine font-semibold text-sheet">
-        Masuk
+      <button type="submit" disabled={busy} className="mt-6 h-12 w-full rounded-full bg-pine font-semibold text-sheet">
+        {busy ? "Memeriksa…" : "Masuk"}
       </button>
-      {hint ? (
+      {showDefault ? (
         <p className="mt-4 text-sm text-muted">
-          Sandi awal: <span className="font-semibold text-ink">{DEFAULT_PIN}</span>. Ganti setelah masuk,
-          lewat tab Sandi.
+          Akun awal: <span className="font-semibold text-ink">admin@sdmuhammadiyah01kks.sch.id</span>, sandi{" "}
+          <span className="font-semibold text-ink">Kukusan-1981</span>. Ganti setelah masuk, lewat tab Sandi.
         </p>
       ) : (
-        <p className="mt-4 text-sm text-muted">Sandi ini sudah diganti di peramban ini.</p>
+        <p className="mt-4 text-sm text-muted">Sandi awal sudah diganti.</p>
       )}
     </form>
   );
@@ -150,16 +148,18 @@ function Gate() {
 function Editor() {
   const [tab, setTab] = useState<Tab>("Beranda");
   const source = useSiteStore((state) => state.source);
-  const firebaseStatus = useSiteStore((state) => state.firebaseStatus);
+  const saving = useSiteStore((state) => state.saving);
+  const saveError = useSiteStore((state) => state.saveError);
   const lock = useSiteStore((state) => state.lock);
 
   return (
     <div className="grid gap-6 lg:grid-cols-12">
       <aside className="lg:col-span-3">
         <p className="px-3 text-sm text-muted">
-          Sumber: {source === "firebase" ? "Firebase" : source === "peramban" ? "peramban ini" : "naskah awal"} ·{" "}
-          {firebaseStatus}
+          Sumber: {source === "basis" ? "basis data" : "naskah awal"}
+          {saving ? " · menyimpan…" : ""}
         </p>
+        {saveError ? <p className="mt-2 px-3 text-sm text-pine-deep">{saveError}</p> : null}
         {GROUPS.map((group) => (
           <div key={group.label} className="mt-5">
             <p className="px-3 text-xs font-semibold tracking-wide text-pine uppercase">{group.label}</p>
@@ -195,8 +195,7 @@ function Editor() {
         {tab === "Galeri" ? <GalleryPanel /> : null}
         {tab === "Visi" ? <VisiPanel /> : null}
         {tab === "Tampilan" ? <VisibilityPanel /> : null}
-        {tab === "Firebase" ? <FirebasePanel /> : null}
-        {tab === "Sandi" ? <PinPanel /> : null}
+        {tab === "Sandi" ? <AccountPanel /> : null}
         {tab === "Akun guru" ? <AdminGuruPanel /> : null}
       </section>
     </div>
@@ -208,11 +207,13 @@ function Field({
   value,
   onChange,
   multiline = false,
+  type = "text",
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   multiline?: boolean;
+  type?: string;
 }) {
   const className = "mt-1 w-full rounded-xl border border-line bg-paper px-3 py-3";
   return (
@@ -221,9 +222,69 @@ function Field({
       {multiline ? (
         <textarea className={className} rows={4} value={value} onChange={(event) => onChange(event.target.value)} />
       ) : (
-        <input className={`${className} h-12`} value={value} onChange={(event) => onChange(event.target.value)} />
+        <input
+          type={type}
+          className={`${className} h-12`}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
       )}
     </label>
+  );
+}
+
+function ImageField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  return (
+    <div className="grid gap-2">
+      <Field label={`${label} — tautan`} value={value} onChange={onChange} />
+      <label className="text-sm font-semibold text-muted">
+        {busy ? "Mengunggah…" : "atau pilih berkas (maks. 1,2 MB)"}
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          className="mt-1 block w-full text-sm font-normal"
+          disabled={busy}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            event.target.value = "";
+            if (!file) return;
+            if (file.size > 1_200_000) {
+              setError("Gambar maksimal 1,2 MB.");
+              return;
+            }
+            setBusy(true);
+            setError("");
+            const reader = new FileReader();
+            reader.onload = () => {
+              const raw = typeof reader.result === "string" ? reader.result : "";
+              const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
+              void uploadSiteMedia({ data: { mime: file.type || "image/jpeg", data } }).then((result) => {
+                setBusy(false);
+                if (!result.ok) {
+                  setError(result.message);
+                  return;
+                }
+                onChange(result.url);
+              });
+            };
+            reader.readAsDataURL(file);
+          }}
+        />
+      </label>
+      {value ? <img src={value} alt="" className="aspect-3/2 max-w-xs rounded-xl object-cover" /> : null}
+      {error ? <p className="text-sm text-pine-deep">{error}</p> : null}
+    </div>
   );
 }
 
@@ -259,7 +320,7 @@ function IdentityPanel() {
   return (
     <div className="grid gap-4">
       <h2 className="font-serif text-3xl">Identitas</h2>
-      <p className="text-muted">Nama, NPSN, alamat, telepon, dan keterangan lain di halaman publik mengikuti isian ini.</p>
+      <p className="text-muted">Nama, NPSN, alamat, telepon, dan keterangan lain di halaman depan mengikuti isian ini.</p>
       {keys.map((key) => (
         <Field
           key={key}
@@ -280,11 +341,15 @@ function HeroPanel() {
   return (
     <div className="grid gap-4">
       <h2 className="font-serif text-3xl">Beranda</h2>
-      <p className="text-muted">Bagian atas halaman publik. Judul, paragraf, dan gambar utama berubah begitu disimpan di peramban ini.</p>
+      <p className="text-muted">Bagian atas halaman depan. Judul, paragraf, dan gambar utama berubah begitu tersimpan.</p>
       <Field label="Baris kecil di atas judul" value={hero.kicker} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, kicker: value } }))} />
       <Field label="Judul" value={hero.title} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, title: value } }))} />
       <Field label="Paragraf" value={hero.lead} multiline onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, lead: value } }))} />
-      <Field label="Tautan gambar utama" value={hero.image} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, image: value } }))} />
+      <ImageField
+        label="Gambar utama"
+        value={hero.image}
+        onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, image: value } }))}
+      />
       <Field label="Keterangan gambar" value={hero.imageCaption} onChange={(value) => update((c) => ({ ...c, hero: { ...c.hero, imageCaption: value } }))} />
     </div>
   );
@@ -298,7 +363,7 @@ function VisiPanel() {
   return (
     <div className="grid gap-4">
       <h2 className="font-serif text-3xl">Visi dan misi</h2>
-      <p className="text-muted">Hanya tampil di pratinjau, bila sakelarnya menyala di tab Tampilan. Belum ada di halaman publik.</p>
+      <p className="text-muted">Tampil di halaman depan bila sakelarnya menyala di tab Tampilan.</p>
       <Field label="Visi" value={visi} multiline onChange={(value) => update((c) => ({ ...c, visi: value }))} />
       <Field
         label="Misi, satu baris satu butir"
@@ -340,6 +405,7 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
                 title: "Judul baru",
                 excerpt: "",
                 body: "",
+                image: "",
                 visible: true,
               });
               return content;
@@ -349,12 +415,17 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
           Tambah
         </button>
       </div>
-      <p className="text-muted">Isi ini hanya ada di pratinjau. Tamu di halaman publik belum membacanya.</p>
+      <p className="text-muted">Artikel dan pengumuman ini tampil di halaman depan. Gambar bisa diunggah atau diisi dengan tautan.</p>
       {items.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
           <Field label="Judul" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
           <Field label="Tanggal" value={item.date} onChange={(value) => patch(item.id, (entry) => (entry.date = value))} />
           <Field label="Ringkas" value={item.excerpt} multiline onChange={(value) => patch(item.id, (entry) => (entry.excerpt = value))} />
+          <ImageField
+            label="Gambar"
+            value={item.image ?? ""}
+            onChange={(value) => patch(item.id, (entry) => (entry.image = value))}
+          />
           <Field label="Isi" value={item.body} multiline onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
           <div className="flex gap-3">
             <button type="button" className="h-11 px-2 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
@@ -407,7 +478,7 @@ function ProgramPanel() {
           Tambah
         </button>
       </div>
-      <p className="text-muted">Hanya untuk pratinjau. Belum ditampilkan di halaman publik.</p>
+      <p className="text-muted">Hanya untuk halaman depan dan halaman program.</p>
       {programs.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4">
           <Field label="Nama" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
@@ -469,14 +540,14 @@ function GalleryPanel() {
         </button>
       </div>
       <p className="text-sm text-muted">
-        Galeri ini hanya untuk pratinjau. Tiga gambar di halaman publik belum diatur dari sini. Tempel tautan
-        gambar (https://...) atau path di situs seperti /media/kelas.jpg.
+        Foto di sini mengisi galeri halaman depan. Unggah dari komputer, atau tempel tautan https://... maupun path seperti
+        /media/kelas.jpg.
       </p>
       {gallery.map((item) => (
         <article key={item.id} className="grid gap-3 rounded-xl border border-line p-4 md:grid-cols-12">
           <img src={item.src} alt={item.caption} className="aspect-3/2 w-full rounded-xl object-cover md:col-span-4" />
           <div className="grid gap-3 md:col-span-8">
-            <Field label="Tautan gambar" value={item.src} onChange={(value) => patch(item.id, (entry) => (entry.src = value))} />
+            <ImageField label="Gambar" value={item.src} onChange={(value) => patch(item.id, (entry) => (entry.src = value))} />
             <Field label="Keterangan" value={item.caption} onChange={(value) => patch(item.id, (entry) => (entry.caption = value))} />
             <div className="flex gap-3">
               <button type="button" className="h-11 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
@@ -516,10 +587,8 @@ function VisibilityPanel() {
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-serif text-3xl">Bagian pratinjau</h2>
-      <p className="text-muted">
-        Sakelar ini hanya menyembunyikan bagian di pratinjau. Halaman publik tidak berubah.
-      </p>
+      <h2 className="font-serif text-3xl">Bagian halaman depan</h2>
+      <p className="text-muted">Matikan sakelar untuk menyembunyikan bagian dari tamu. Identitas, beranda, dan kontak tetap tampil.</p>
       {(Object.keys(labels) as Array<keyof SiteContent["show"]>).map((key) => (
         <label key={key} className="flex items-center justify-between gap-4 rounded-xl border border-line px-4 py-3">
           <span className="font-medium">{labels[key]}</span>
@@ -540,7 +609,7 @@ function VisibilityPanel() {
         type="button"
         className="mt-4 h-11 justify-self-start font-semibold text-muted"
         onClick={() => {
-          if (window.confirm("Kembalikan seluruh isi ke naskah awal? Perubahan di peramban ini akan tertimpa.")) {
+          if (window.confirm("Kembalikan seluruh isi ke naskah awal? Perubahan yang sudah tersimpan akan tertimpa.")) {
             resetContent();
           }
         }}
@@ -551,128 +620,80 @@ function VisibilityPanel() {
   );
 }
 
-function FirebasePanel() {
-  const status = useSiteStore((state) => state.firebaseStatus);
-  const detail = useSiteStore((state) => state.firebaseDetail);
-  const reconnect = useSiteStore((state) => state.reconnect);
-  const [draft, setDraft] = useState(() => {
-    const current = activeConfig();
-    return current ? JSON.stringify(current, null, 2) : "";
-  });
-  const [message, setMessage] = useState("");
-  const fromEnv = configFromEnv();
-
-  return (
-    <div className="grid gap-4">
-      <h2 className="font-serif text-3xl">Firebase</h2>
-      <p className="text-muted">
-        Status: <span className="font-semibold text-ink">{status}</span>
-        {detail ? ` — ${detail}` : ""}
-      </p>
-      <p className="text-muted">
-        Tanpa konfigurasi, perubahan admin tersimpan di peramban ini saja. Agar tamu di perangkat lain melihat
-        isi yang sama, tempel konfigurasi web Firebase. Dokumen disimpan di Firestore: <span className="font-semibold">site/public</span>.
-      </p>
-      {fromEnv ? <p className="text-sm text-pine">Konfigurasi dari lingkungan aplikasi sedang dipakai dan tidak bisa ditimpa dari sini.</p> : null}
-      <label className="block text-sm font-semibold text-muted">
-        Konfigurasi web (JSON)
-        <textarea
-          className="mt-1 w-full rounded-xl border border-line bg-paper px-3 py-3 font-mono text-sm"
-          rows={10}
-          value={draft}
-          onChange={(event) => setDraft(event.target.value)}
-          spellCheck={false}
-          placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}'
-        />
-      </label>
-      {message ? <p className="text-sm">{message}</p> : null}
-      <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet"
-          onClick={() => {
-            try {
-              const parsed = normalizeConfig(JSON.parse(draft));
-              if (!parsed) {
-                setMessage("JSON belum lengkap. Wajib ada apiKey, projectId, dan appId.");
-                return;
-              }
-              writeStoredConfig(parsed);
-              stopFirebase();
-              reconnect();
-              setMessage("Konfigurasi disimpan di peramban ini. Aturan Firestore harus mengizinkan baca publik.");
-            } catch {
-              setMessage("JSON tidak bisa dibaca.");
-            }
-          }}
-        >
-          Simpan dan sambungkan
-        </button>
-        <button
-          type="button"
-          className="h-11 rounded-full border border-line px-4 font-semibold"
-          onClick={() => {
-            writeStoredConfig(null);
-            stopFirebase();
-            reconnect();
-            setDraft("");
-            setMessage("Konfigurasi lokal dihapus.");
-          }}
-        >
-          Putuskan
-        </button>
-      </div>
-      <pre className="overflow-x-auto rounded-xl bg-paper p-4 text-sm text-muted">{`// Aturan awal Firestore. Kunci tulisannya sebelum situs dibuka luas.
-match /site/{doc} {
-  allow read: if true;
-  allow write: if true;
-}`}</pre>
-    </div>
-  );
-}
-
-function PinPanel() {
-  const changePin = useSiteStore((state) => state.changePin);
+function AccountPanel() {
+  const adminEmail = useSiteStore((state) => state.adminEmail);
+  const usingDefaultPassword = useSiteStore((state) => state.usingDefaultPassword);
+  const markAdmin = useSiteStore((state) => state.markAdmin);
   const [next, setNext] = useState("");
   const [again, setAgain] = useState("");
   const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [added, setAdded] = useState("");
 
   return (
-    <form
-      className="grid max-w-md gap-4"
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (next.trim().length < 6) {
-          setMessage("Sandi minimal 6 karakter.");
-          return;
-        }
-        if (next !== again) {
-          setMessage("Ulangan sandi tidak sama.");
-          return;
-        }
-        changePin(next);
-        void rotateAdminPin({ data: { next: next.trim() } }).then((result) => {
-          setMessage(
-            result.ok
-              ? "Sandi diperbarui di peramban ini dan untuk akun guru."
-              : "Sandi peramban diperbarui. Buka tab Akun guru dan masukkan sandi yang masih berlaku di sana.",
-          );
-        });
-        setNext("");
-        setAgain("");
-      }}
-    >
-      <h2 className="font-serif text-3xl">Sandi admin</h2>
-      <p className="text-muted">
-        Sandi yang sedang berlaku disimpan hanya di peramban ini
-        {currentPin() === DEFAULT_PIN ? " dan masih sandi awal." : "."}
-      </p>
-      <Field label="Sandi baru" value={next} onChange={setNext} />
-      <Field label="Ulangi sandi" value={again} onChange={setAgain} />
-      {message ? <p className="text-sm">{message}</p> : null}
-      <button type="submit" className="h-12 rounded-full bg-pine font-semibold text-sheet">
-        Simpan sandi
-      </button>
-    </form>
+    <div className="grid gap-10">
+      <form
+        className="grid max-w-md gap-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (next.trim().length < 6) {
+            setMessage("Sandi minimal 6 karakter.");
+            return;
+          }
+          if (next !== again) {
+            setMessage("Ulangan sandi tidak sama.");
+            return;
+          }
+          void changeAdminPassword({ data: { next: next.trim() } }).then((result) => {
+            setMessage(result.ok ? (result.message ?? "Sandi diperbarui.") : result.message);
+            if (result.ok) {
+              markAdmin(adminEmail, false);
+              setNext("");
+              setAgain("");
+            }
+          });
+        }}
+      >
+        <h2 className="font-serif text-3xl">Sandi admin</h2>
+        <p className="text-muted">
+          Akun yang sedang masuk: <span className="font-semibold text-ink">{adminEmail || "admin"}</span>.
+          {usingDefaultPassword ? " Sandi ini masih sandi awal." : ""}
+        </p>
+        <Field label="Sandi baru" value={next} onChange={setNext} type="password" />
+        <Field label="Ulangi sandi" value={again} onChange={setAgain} type="password" />
+        {message ? <p className="text-sm">{message}</p> : null}
+        <button type="submit" className="h-12 rounded-full bg-pine font-semibold text-sheet">
+          Simpan sandi
+        </button>
+      </form>
+
+      <form
+        className="grid max-w-md gap-4 border-t border-line pt-8"
+        onSubmit={(event) => {
+          event.preventDefault();
+          setAdded("");
+          void createAdminAccount({ data: { email, name, password } }).then((result) => {
+            setAdded(result.ok ? (result.message ?? "Akun ditambahkan.") : result.message);
+            if (result.ok) {
+              setEmail("");
+              setName("");
+              setPassword("");
+            }
+          });
+        }}
+      >
+        <h2 className="font-serif text-3xl">Admin lain</h2>
+        <p className="text-muted">Tambah orang yang boleh mengubah halaman depan, artikel, dan gambar.</p>
+        <Field label="Nama" value={name} onChange={setName} />
+        <Field label="Surel" value={email} onChange={setEmail} />
+        <Field label="Sandi" value={password} onChange={setPassword} type="password" />
+        {added ? <p className="text-sm">{added}</p> : null}
+        <button type="submit" className="h-12 rounded-full border border-line font-semibold">
+          Tambah admin
+        </button>
+      </form>
+    </div>
   );
 }

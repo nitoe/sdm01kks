@@ -4,12 +4,12 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useSiteStore } from "@/lib/site/store";
 
 const NAV = [
-  { to: "/pratinjau", label: "Beranda", exact: true },
-  { to: "/pratinjau/profil", label: "Profil", exact: false },
-  { to: "/pratinjau/program", label: "Program", exact: false },
-  { to: "/pratinjau/berita", label: "Berita", exact: false },
-  { to: "/pratinjau/galeri", label: "Galeri", exact: false },
-  { to: "/pratinjau/kontak", label: "Kontak", exact: false },
+  { to: "/", label: "Beranda", exact: true },
+  { to: "/profil", label: "Profil", exact: false },
+  { to: "/program", label: "Program", exact: false },
+  { to: "/berita", label: "Berita", exact: false },
+  { to: "/galeri", label: "Galeri", exact: false },
+  { to: "/kontak", label: "Kontak", exact: false },
 ] as const;
 
 export function useBootSite() {
@@ -39,18 +39,10 @@ export function SiteFrame({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-brass-soft text-ink">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-2 text-sm">
-          <p>Pratinjau internal. Belum dibuka untuk umum.</p>
-          <Link to="/" className="font-semibold text-pine-deep">
-            Halaman publik
-          </Link>
-        </div>
-      </div>
       {admin ? (
         <div className="bg-pine-deep text-sheet">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 text-sm">
-            <p>Mode admin aktif. Perubahan tampil di pratinjau ini, bukan di halaman publik.</p>
+            <p>Anda masuk sebagai admin. Perubahan tersimpan dan terbaca pengunjung lain.</p>
             <Link to="/kelola" className="shrink-0 font-semibold underline-offset-2 hover:underline">
               Panel kelola
             </Link>
@@ -63,12 +55,15 @@ export function SiteFrame({ children }: { children: ReactNode }) {
           <span>NPSN {identity.npsn}</span>
           <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
           <span className="text-sheet/80">Kukusan, Depok</span>
+          <Link to="/guru" className="ml-auto font-semibold text-brass-soft">
+            Akun guru
+          </Link>
         </div>
       </div>
 
       <header className="sticky top-0 z-30 border-b border-line bg-sheet/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
-          <Link to="/pratinjau" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
+          <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
             <Mark className="size-11 shrink-0" />
             <span className="min-w-0">
               <span className="block font-serif text-lg leading-tight font-semibold text-ink">

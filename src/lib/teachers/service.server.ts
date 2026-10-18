@@ -622,3 +622,132 @@ export async function importAccounts(
   }
   return { ok: true, inserted: plan.insert.length, skipped: plan.skipped };
 }
+
+const DEFAULT_ADMIN_EMAIL = "admin@sdmuhammadiyah01kks.sch.id";
+const DEFAULT_ADMIN_PASSWORD = "Kukusan-1981";
+
+export async function assertAdmin(): Promise<boolean> {
+  const sql = await getSql();
+  return isAdmin(sql);
+}
+
+async function ensureDefaultAdmin(sql: Sql) {
+  const existing = await sql<{ ok: number }>`
+    select 1 as ok from admin_accounts where email = ${DEFAULT_ADMIN_EMAIL}
+  `;
+  if (existing.length > 0) return;
+  const passwordHash = await hashPassword(DEFAULT_ADMIN_PASSWORD);
+  await sql`
+    insert into admin_accounts (id, email, name, password_hash)
+    values (${randomUUID()}, ${DEFAULT_ADMIN_EMAIL}, ${"Admin sekolah"}, ${passwordHash})
+    on conflict (email) do nothing
+  `;
+}
+
+export async function adminAccountStatus(): Promise<{
+  signedIn: boolean;
+  email: string;
+  name: string;
+  usingDefaultPassword: boolean;
+}> {
+  const sql = await getSql();
+  await ensureDefaultAdmin(sql);
+  const tokenHash = await adminTokenHash();
+  if (tokenHash) {
+    const rows = await sql<{ email: string; name: string; password_hash: string }>`
+      select a.email, a.name, a.password_hash
+      from admin_sessions s
+      join admin_accounts a on a.id = s.account_id
+      where s.token_hash = ${tokenHash} and s.expires_at > now()
+    `;
+    const row = rows[0];
+    if (row) {
+      return {
+        signedIn: true,
+        email: row.email,
+        name: row.name,
+        usingDefaultPassword: await verifyPassword(DEFAULT_ADMIN_PASSWORD, row.password_hash),
+      };
+    }
+    if (await isAdmin(sql)) {
+      return { signedIn: true, email: "", name: "", usingDefaultPassword: false };
+    }
+  }
+  return { signedIn: false, email: "", name: "", usingDefaultPassword: false };
+}
+
+export async function adminLoginHint(): Promise<{ usingDefaultPassword: boolean }> {
+  const sql = await getSql();
+  await ensureDefaultAdmin(sql);
+  const seeded = await sql<{ password_hash: string }>`
+    select password_hash from admin_accounts where email = ${DEFAULT_ADMIN_EMAIL}
+  `;
+  if (!seeded[0]) return { usingDefaultPassword: false };
+  return { usingDefaultPassword: await verifyPassword(DEFAULT_ADMIN_PASSWORD, seeded[0].password_hash) };
+}
+
+export async function loginAdminAccount(email: string, password: string): Promise<Result> {
+  const sql = await getSql();
+  await ensureDefaultAdmin(sql);
+  const normalized = email.trim().toLowerCase();
+  const rows = await sql<{ id: string; password_hash: string }>`
+    select id, password_hash from admin_accounts where email = ${normalized}
+  `;
+  const row = rows[0];
+  if (!row || !(await verifyPassword(password, row.password_hash))) {
+    return { ok: false, message: "Surel atau sandi tidak sesuai." };
+  }
+  const token = newToken();
+  await sql`
+    insert into admin_sessions (token_hash, expires_at, account_id)
+    values (${hashToken(token)}, ${expiresAt()}::timestamptz, ${row.id})
+  `;
+  writeCookie(ADMIN_COOKIE, token, MAX_AGE);
+  return { ok: true };
+}
+
+export async function logoutAdminAccount(): Promise<Result> {
+  const sql = await getSql();
+  const tokenHash = await adminTokenHash();
+  if (tokenHash) await sql`delete from admin_sessions where token_hash = ${tokenHash}`;
+  clearCookie(ADMIN_COOKIE);
+  return { ok: true };
+}
+
+export async function changeAdminPassword(next: string): Promise<Result> {
+  const sql = await getSql();
+  const denied = await requireAdmin(sql);
+  if (denied) return denied;
+  const problem = passwordError(next.trim());
+  if (problem) return { ok: false, message: problem };
+  const tokenHash = await adminTokenHash();
+  if (!tokenHash) return { ok: false, message: "Masuk sebagai admin dulu." };
+  const rows = await sql<{ account_id: string | null }>`
+    select account_id from admin_sessions where token_hash = ${tokenHash} and expires_at > now()
+  `;
+  const accountId = rows[0]?.account_id;
+  if (!accountId) return { ok: false, message: "Sesi ini tidak terhubung ke akun. Masuk lagi dengan surel." };
+  const nextHash = await hashPassword(next.trim());
+  await sql`update admin_accounts set password_hash = ${nextHash} where id = ${accountId}`;
+  return { ok: true, message: "Sandi admin diperbarui." };
+}
+
+export async function createAdminAccount(input: { email: string; name: string; password: string }): Promise<Result> {
+  const sql = await getSql();
+  const denied = await requireAdmin(sql);
+  if (denied) return denied;
+  const email = input.email.trim().toLowerCase();
+  const name = input.name.trim().slice(0, 80);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, message: "Surel tidak valid." };
+  if (name.length < 2) return { ok: false, message: "Nama wajib diisi." };
+  const problem = passwordError(input.password);
+  if (problem) return { ok: false, message: problem };
+  const existing = await sql<{ ok: number }>`select 1 as ok from admin_accounts where email = ${email}`;
+  if (existing.length > 0) return { ok: false, message: "Surel ini sudah dipakai." };
+  await sql`
+    insert into admin_accounts (id, email, name, password_hash)
+    values (${randomUUID()}, ${email}, ${name}, ${await hashPassword(input.password)})
+  `;
+  return { ok: true, message: "Akun admin ditambahkan. Orang itu bisa masuk dengan surel dan sandi yang baru dibuat." };
+}
+

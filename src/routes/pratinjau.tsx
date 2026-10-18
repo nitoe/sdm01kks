@@ -1,8 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { HomePage } from "@/components/site/home-page";
-import { previewHead } from "@/lib/site/preview-head";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pratinjau")({
-  head: previewHead,
-  component: HomePage,
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
 });
