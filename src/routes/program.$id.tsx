@@ -6,6 +6,27 @@ export const Route = createFileRoute("/program/$id")({
   component: ProgramDetail,
 });
 
+function youtubeEmbed(url: string): string | null {
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, "");
+    if (host === "youtu.be") {
+      const id = u.pathname.slice(1).split("/")[0];
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    }
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      const id = u.searchParams.get("v");
+      if (id) return `https://www.youtube.com/embed/${id}`;
+      const parts = u.pathname.split("/").filter(Boolean);
+      if (parts[0] === "embed" && parts[1]) return `https://www.youtube.com/embed/${parts[1]}`;
+      if (parts[0] === "shorts" && parts[1]) return `https://www.youtube.com/embed/${parts[1]}`;
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
+
 function ProgramDetail() {
   const { id } = Route.useParams();
   const program = useSiteStore((state) => state.content.programs.find((item) => item.id === id));
@@ -24,6 +45,8 @@ function ProgramDetail() {
     );
   }
 
+  const media = program.media ?? [];
+
   return (
     <SiteFrame>
       <PageIntro kicker="Program" title={program.title} lead={program.summary} />
@@ -34,36 +57,50 @@ function ProgramDetail() {
         ) : null}
         {program.body ? <Prose text={program.body} /> : <p className="text-muted">Uraian program belum diisi.</p>}
 
-        {program.media.length > 0 ? (
+        {media.length > 0 ? (
           <section className="mt-12">
             <h2 className="font-serif text-3xl">Dokumentasi</h2>
             <div className="mt-6 grid gap-4">
-              {program.media.map((item) => (
-                <figure key={item.id} className="overflow-hidden rounded-card border border-line bg-sheet">
-                  {item.kind === "image" && item.src ? (
-                    <img src={item.src} alt={item.caption} className="aspect-3/2 w-full object-cover" />
-                  ) : null}
-                  {item.kind === "video" && item.src ? (
-                    <video src={item.src} controls className="aspect-video w-full bg-ink" />
-                  ) : null}
-                  {item.kind === "url" && item.src ? (
-                    <div className="p-6">
-                      <p className="text-sm font-semibold tracking-wide text-pine uppercase">Tautan eksternal</p>
-                      <a
-                        href={item.src}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-2 inline-flex break-all font-semibold text-pine underline-offset-2 hover:underline"
-                      >
-                        {item.src}
-                      </a>
-                    </div>
-                  ) : null}
-                  {item.caption ? (
-                    <figcaption className="border-t border-line px-4 py-3 text-sm text-muted">{item.caption}</figcaption>
-                  ) : null}
-                </figure>
-              ))}
+              {media.map((item) => {
+                const yt = item.kind === "url" ? youtubeEmbed(item.src) : null;
+                return (
+                  <figure key={item.id} className="overflow-hidden rounded-card border border-line bg-sheet">
+                    {item.kind === "image" && item.src ? (
+                      <img src={item.src} alt={item.caption} className="aspect-3/2 w-full object-cover" />
+                    ) : null}
+                    {item.kind === "video" && item.src ? (
+                      <video src={item.src} controls className="aspect-video w-full bg-ink" />
+                    ) : null}
+                    {item.kind === "url" && item.src && yt ? (
+                      <div className="aspect-video w-full bg-ink">
+                        <iframe
+                          title={item.caption || "Video YouTube"}
+                          src={yt}
+                          className="size-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : null}
+                    {item.kind === "url" && item.src && !yt ? (
+                      <div className="p-6">
+                        <p className="text-sm font-semibold tracking-wide text-pine uppercase">Tautan eksternal</p>
+                        <a
+                          href={item.src}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-2 inline-flex break-all font-semibold text-pine underline-offset-2 hover:underline"
+                        >
+                          {item.src}
+                        </a>
+                      </div>
+                    ) : null}
+                    {item.caption ? (
+                      <figcaption className="border-t border-line px-4 py-3 text-sm text-muted">{item.caption}</figcaption>
+                    ) : null}
+                  </figure>
+                );
+              })}
             </div>
           </section>
         ) : null}
