@@ -75,6 +75,15 @@ export type SchoolValue = {
   visible: boolean;
 };
 
+export type StaffMember = {
+  id: string;
+  name: string;
+  role: string;
+  photo?: string;
+  duties: string;
+  visible: boolean;
+};
+
 export type SiteContent = {
   identity: {
     name: string;
@@ -104,6 +113,7 @@ export type SiteContent = {
   };
   welcome: Welcome;
   values: SchoolValue[];
+  staff: StaffMember[];
   visi: string;
   misi: string[];
   programGroups: ProgramGroup[];
