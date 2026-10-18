@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { uid } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
-import type { Program } from "@/lib/site/types";
+import type { Program, ProgramMedia } from "@/lib/site/types";
 import { Field, ImageField } from "@/components/site/kelola-panels-a1";
 import { ItemTools, reorder } from "@/components/site/kelola-panels-a2";
 
@@ -9,10 +9,14 @@ export function ProgramPanel() {
   const programs = useSiteStore((state) => state.content.programs);
   const update = useSiteStore((state) => state.update);
   const [openId, setOpenId] = useState<string | null>(null);
+
   const patch = (id: string, recipe: (item: Program) => void) => {
     update((content) => {
       const item = content.programs.find((entry) => entry.id === id);
-      if (item) recipe(item);
+      if (item) {
+        if (!Array.isArray(item.media)) item.media = [];
+        recipe(item);
+      }
       return content;
     });
   };
@@ -20,10 +24,39 @@ export function ProgramPanel() {
   function add() {
     const id = uid("program");
     update((content) => {
-      content.programs.unshift({ id, title: "", summary: "", body: "", cover: "", media: [], visible: false });
+      content.programs.unshift({
+        id,
+        title: "",
+        summary: "",
+        body: "",
+        cover: "",
+        media: [],
+        visible: false,
+      });
       return content;
     });
     setOpenId(id);
+  }
+
+  function addMedia(programId: string, kind: ProgramMedia["kind"]) {
+    const mediaId = uid("media");
+    patch(programId, (item) => {
+      item.media.push({ id: mediaId, kind, src: "", caption: "" });
+    });
+  }
+
+  function patchMedia(programId: string, mediaId: string, recipe: (m: ProgramMedia) => void) {
+    patch(programId, (item) => {
+      const m = item.media.find((entry) => entry.id === mediaId);
+      if (m) recipe(m);
+    });
+  }
+
+  function removeMedia(programId: string, mediaId: string) {
+    if (!window.confirm("Hapus dokumentasi ini?")) return;
+    patch(programId, (item) => {
+      item.media = item.media.filter((entry) => entry.id !== mediaId);
+    });
   }
 
   return (
@@ -34,12 +67,17 @@ export function ProgramPanel() {
           Tambah program
         </button>
       </div>
+      <p className="text-sm text-muted">
+        Setiap program punya halaman sendiri. Lampirkan foto, video singkat, atau tautan YouTube / Instagram di bagian
+        dokumentasi.
+      </p>
       {programs.length === 0 ? (
         <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada program.</p>
       ) : (
         <div className="grid gap-2">
           {programs.map((item, index) => {
             const open = openId === item.id;
+            const media = item.media ?? [];
             return (
               <article key={item.id} className="rounded-xl border border-line">
                 <button
@@ -48,15 +86,114 @@ export function ProgramPanel() {
                   className="flex w-full items-center gap-3 px-4 py-3 text-left"
                 >
                   <span className="min-w-0 flex-1 truncate font-semibold">{item.title || "Tanpa nama"}</span>
-                  <span className="text-sm text-muted">{item.visible ? "Tampil" : "Tersembunyi"}</span>
+                  <span className="text-sm text-muted">
+                    {media.length} dokumen · {item.visible ? "Tampil" : "Tersembunyi"}
+                  </span>
                   <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
                 </button>
                 {open ? (
                   <div className="grid gap-3 border-t border-line p-4">
-                    <Field label="Nama program" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
-                    <Field label="Uraian lengkap" value={item.body ?? ""} multiline rows={8} onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
-                    <ImageField label="Sampul" value={item.cover ?? ""} onChange={(value) => patch(item.id, (entry) => (entry.cover = value))} />
-                    <Field label="Ringkas" value={item.summary} multiline onChange={(value) => patch(item.id, (entry) => (entry.summary = value))} />
+                    <Field
+                      label="Nama program"
+                      value={item.title}
+                      onChange={(value) => patch(item.id, (entry) => (entry.title = value))}
+                    />
+                    <Field
+                      label="Ringkas (daftar & beranda)"
+                      value={item.summary}
+                      multiline
+                      onChange={(value) => patch(item.id, (entry) => (entry.summary = value))}
+                    />
+                    <Field
+                      label="Uraian lengkap"
+                      value={item.body ?? ""}
+                      multiline
+                      rows={8}
+                      onChange={(value) => patch(item.id, (entry) => (entry.body = value))}
+                    />
+                    <ImageField
+                      label="Sampul"
+                      value={item.cover ?? ""}
+                      onChange={(value) => patch(item.id, (entry) => (entry.cover = value))}
+                    />
+
+                    <div className="mt-2 rounded-xl border border-line bg-paper p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="font-semibold text-pine">Dokumentasi</p>
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            className="h-9 rounded-full border border-line bg-sheet px-3 text-sm font-semibold"
+                            onClick={() => addMedia(item.id, "image")}
+                          >
+                            + Foto
+                          </button>
+                          <button
+                            type="button"
+                            className="h-9 rounded-full border border-line bg-sheet px-3 text-sm font-semibold"
+                            onClick={() => addMedia(item.id, "video")}
+                          >
+                            + Video
+                          </button>
+                          <button
+                            type="button"
+                            className="h-9 rounded-full border border-line bg-sheet px-3 text-sm font-semibold"
+                            onClick={() => addMedia(item.id, "url")}
+                          >
+                            + Tautan
+                          </button>
+                        </div>
+                      </div>
+                      <p className="mt-2 text-sm text-muted">
+                        Foto: unggah atau tautan gambar. Video: berkas video atau tautan file. Tautan: YouTube, Instagram,
+                        atau situs lain.
+                      </p>
+                      {media.length === 0 ? (
+                        <p className="mt-3 text-sm text-muted">Belum ada dokumentasi.</p>
+                      ) : (
+                        <div className="mt-3 grid gap-3">
+                          {media.map((m) => (
+                            <div key={m.id} className="rounded-xl border border-line bg-sheet p-3">
+                              <p className="text-sm font-semibold text-muted">
+                                {m.kind === "image" ? "Foto" : m.kind === "video" ? "Video" : "Tautan eksternal"}
+                              </p>
+                              {m.kind === "image" ? (
+                                <div className="mt-2">
+                                  <ImageField
+                                    label="Gambar"
+                                    value={m.src}
+                                    onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.src = value))}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="mt-2">
+                                  <Field
+                                    label={m.kind === "video" ? "Tautan atau alamat berkas video" : "URL (YouTube, Instagram, dll.)"}
+                                    value={m.src}
+                                    onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.src = value))}
+                                  />
+                                </div>
+                              )}
+                              <div className="mt-2">
+                                <Field
+                                  label="Keterangan"
+                                  value={m.caption}
+                                  onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.caption = value))}
+                                />
+                              </div>
+                              <button
+                                type="button"
+                                className="mt-2 h-9 px-2 text-sm font-semibold text-pine-deep"
+                                onClick={() => removeMedia(item.id, m.id)}
+                              >
+                                Hapus dokumentasi
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
                     <ItemTools
                       index={index}
                       count={programs.length}
