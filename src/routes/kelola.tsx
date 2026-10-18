@@ -19,7 +19,7 @@ import { GalleryPanel } from "@/components/site/kelola-panels-b2a";
 import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b2b";
 import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
 import { StaffPanel } from "@/components/site/kelola-panels-staff";
-import { getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
+import { getAdminAccount, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
   "Identitas",
@@ -87,11 +87,13 @@ type Tab = KelolaTab;
 
 const TAB_HELP: Record<Tab, string> = {
   Identitas: "Nama, NPSN, alamat, dan telepon. Muncul di kepala situs, profil, dan kontak.",
-  Manajerial: "Kepala sekolah, wakil, dan guru yang tampil di halaman Profil. Nama, jabatan, foto, dan tugas.",
+  Manajerial:
+    "Kepala sekolah, wakil, dan guru yang tampil di halaman Profil. Nama, jabatan, foto, dan tugas.",
   Beranda: "Judul besar dan gambar di bagian atas halaman depan.",
   Sambutan: "Foto dan kalimat kepala sekolah, tepat di bawah bagian atas.",
   Nilai: "Kartu di bawah sambutan. Tiap kartu punya judul, kalimat, dan gambar.",
-  Pengumuman: "Isi jendela yang muncul tiap kunjungan. Halaman Pengumuman tetap bisa dibuka kapan saja.",
+  Pengumuman:
+    "Isi jendela yang muncul tiap kunjungan. Halaman Pengumuman tetap bisa dibuka kapan saja.",
   Berita: "Buka satu berita. Gambar dan isi tampil di halaman berita.",
   Program:
     "Tiga tab: intrakurikuler, kokurikuler, ekstrakurikuler. Tambah, aktifkan, nonaktifkan, dan edit kegiatan beserta gambar dan kontaknya.",
@@ -136,13 +138,6 @@ function Gate() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [showDefault, setShowDefault] = useState(false);
-
-  useEffect(() => {
-    void getAdminLoginHint().then((hint) => {
-      if (hint && "usingDefaultPassword" in hint) setShowDefault(hint.usingDefaultPassword);
-    });
-  }, []);
 
   return (
     <form
@@ -157,14 +152,19 @@ function Gate() {
             setError(result.message);
             return;
           }
-          markAdmin(email.trim().toLowerCase(), password === "Kukusan-1981");
+          void getAdminAccount().then((status) => {
+            markAdmin(
+              email.trim().toLowerCase(),
+              "usingDefaultPassword" in status && status.usingDefaultPassword === true,
+            );
+          });
         });
       }}
     >
       <h1 className="font-serif text-3xl">Masuk sebagai admin</h1>
       <p className="mt-3 text-muted">
-        Tamu tetap melihat situs tanpa akun. Perubahan identitas, beranda, pengumuman, artikel, program, dan galeri
-        tersimpan di basis data.
+        Tamu tetap melihat situs tanpa akun. Perubahan identitas, beranda, pengumuman, artikel,
+        program, dan galeri tersimpan di basis data.
       </p>
       <label className="mt-6 block text-sm font-semibold text-muted">
         Surel
@@ -187,17 +187,19 @@ function Gate() {
         />
       </label>
       {error ? <p className="mt-3 text-sm text-pine-deep">{error}</p> : null}
-      <button type="submit" disabled={busy} className="mt-6 h-12 w-full rounded-full bg-pine font-semibold text-sheet">
+      <button
+        type="submit"
+        disabled={busy}
+        className="mt-6 h-12 w-full rounded-full bg-pine font-semibold text-sheet"
+      >
         {busy ? "Memeriksa…" : "Masuk"}
       </button>
-      {showDefault ? (
-        <p className="mt-4 text-sm text-muted">
-          Akun awal: <span className="font-semibold text-ink">admin@sdmuhammadiyah01kks.sch.id</span>, sandi{" "}
-          <span className="font-semibold text-ink">Kukusan-1981</span>. Ganti setelah masuk, lewat tab Sandi.
-        </p>
-      ) : (
-        <p className="mt-4 text-sm text-muted">Sandi awal sudah diganti.</p>
-      )}
+      <p className="mt-4 text-sm text-muted">
+        Lupa sandi? Hubungi pengelola situs.{" "}
+        <Link to="/" className="font-semibold text-pine hover:underline">
+          Kembali ke beranda
+        </Link>
+      </p>
     </form>
   );
 }
@@ -207,7 +209,9 @@ function Editor() {
   const search = Route.useSearch();
   const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [openGroups, setOpenGroups] = useState<Set<string>>(() => new Set([groupOf(search.tab ?? "Beranda")]));
+  const [openGroups, setOpenGroups] = useState<Set<string>>(
+    () => new Set([groupOf(search.tab ?? "Beranda")]),
+  );
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
   const source = useSiteStore((state) => state.source);
@@ -225,7 +229,11 @@ function Editor() {
       nextSet.add(groupOf(next));
       return nextSet;
     });
-    void navigate({ to: "/kelola", search: next === "Beranda" ? {} : { tab: next }, replace: true });
+    void navigate({
+      to: "/kelola",
+      search: next === "Beranda" ? {} : { tab: next },
+      replace: true,
+    });
   }
 
   function toggleGroup(id: string) {
@@ -334,7 +342,10 @@ function Editor() {
             </Link>
             <button
               type="button"
-              onClick={lock}
+              onClick={() => {
+                void navigate({ to: "/" });
+                void lock();
+              }}
               className="rounded-xl px-3 py-2 text-left text-sm font-medium text-muted hover:bg-mint hover:text-ink"
             >
               Keluar

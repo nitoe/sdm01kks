@@ -19,7 +19,7 @@ type SiteState = {
   update: (recipe: (content: SiteContent) => SiteContent) => void;
   resetContent: () => void;
   markAdmin: (email: string, usingDefaultPassword: boolean) => void;
-  lock: () => void;
+  lock: () => Promise<void>;
 };
 
 let booted = false;
@@ -57,7 +57,9 @@ export const useSiteStore = create<SiteState>((set, get) => ({
         source: "basis",
         admin: signedIn,
         adminEmail: signedIn && session && "email" in session ? session.email : "",
-        usingDefaultPassword: Boolean(session && "usingDefaultPassword" in session && session.usingDefaultPassword),
+        usingDefaultPassword: Boolean(
+          session && "usingDefaultPassword" in session && session.usingDefaultPassword,
+        ),
       });
     })();
   },
@@ -74,9 +76,13 @@ export const useSiteStore = create<SiteState>((set, get) => ({
   markAdmin: (email, usingDefaultPassword) => {
     set({ admin: true, adminEmail: email, usingDefaultPassword });
   },
-  lock: () => {
-    void logoutAdminAccount().finally(() => {
-      set({ admin: false, adminEmail: "", usingDefaultPassword: false });
-    });
+  lock: async () => {
+    // Anggap keluar seketika agar tampilan tidak tertahan menunggu server.
+    set({ admin: false, adminEmail: "", usingDefaultPassword: false });
+    try {
+      await logoutAdminAccount();
+    } catch {
+      /* sesi di server akan kedaluwarsa sendiri */
+    }
   },
 }));

@@ -624,7 +624,8 @@ export async function importAccounts(
 }
 
 const DEFAULT_ADMIN_EMAIL = "admin@sdmuhammadiyah01kks.sch.id";
-const DEFAULT_ADMIN_PASSWORD = "Kukusan-1981";
+// Sandi awal akun admin. Saat deploy, isi ADMIN_INITIAL_PASSWORD agar tidak memakai sandi bawaan.
+const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_INITIAL_PASSWORD?.trim() || "Kukusan-1981";
 
 export async function assertAdmin(): Promise<boolean> {
   const sql = await getSql();

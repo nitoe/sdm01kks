@@ -2,7 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { SchoolLogo, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
-import { getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { PENILAIAN_LOGIN_URL } from "@/lib/site/links";
+import { getAdminAccount, loginAdminAccount } from "@/lib/teachers/api";
 
 export const Route = createFileRoute("/masuk")({
   head: () => ({
@@ -28,17 +30,10 @@ function MasukPage() {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [showDefault, setShowDefault] = useState(false);
 
   useEffect(() => {
     if (admin) void navigate({ to: "/kelola" });
   }, [admin, navigate]);
-
-  useEffect(() => {
-    void getAdminLoginHint().then((hint) => {
-      if (hint && "usingDefaultPassword" in hint) setShowDefault(hint.usingDefaultPassword);
-    });
-  }, []);
 
   async function onAdminSubmit(event: FormEvent) {
     event.preventDefault();
@@ -50,7 +45,11 @@ function MasukPage() {
       setError(result.message);
       return;
     }
-    markAdmin(email.trim().toLowerCase(), password === "Kukusan-1981");
+    const status = await getAdminAccount();
+    markAdmin(
+      email.trim().toLowerCase(),
+      "usingDefaultPassword" in status && status.usingDefaultPassword === true,
+    );
     await navigate({ to: "/kelola" });
   }
 
@@ -67,8 +66,8 @@ function MasukPage() {
         <div>
           <h1 className="font-serif text-4xl">Masuk ke situs sekolah</h1>
           <p className="mt-4 max-w-md text-sheet/80">
-            Admin mengelola tampilan depan, berita, program, dan prestasi. Guru memakai akun terpisah untuk
-            keperluan internal sekolah.
+            Admin mengelola tampilan depan, berita, program, dan prestasi. Guru memakai akun
+            terpisah untuk keperluan internal sekolah.
           </p>
         </div>
         <p className="text-sm text-sheet/60">Khusus petugas sekolah yang terdaftar</p>
@@ -85,7 +84,9 @@ function MasukPage() {
           </div>
 
           <h2 className="font-serif text-3xl text-ink">Masuk</h2>
-          <p className="mt-2 text-muted">Pilih peran, lalu masuk dengan akun yang sudah terdaftar.</p>
+          <p className="mt-2 text-muted">
+            Pilih peran, lalu masuk dengan akun yang sudah terdaftar.
+          </p>
 
           <div className="mt-6 grid grid-cols-2 gap-2 rounded-xl border border-line bg-paper p-1">
             <button
@@ -152,24 +153,39 @@ function MasukPage() {
               >
                 {busy ? "Memeriksa…" : "Masuk"}
               </button>
-              {showDefault ? (
-                <p className="text-sm text-muted">
-                  Akun awal admin tertulis di panel kelola. Ganti sandi setelah masuk pertama kali.
-                </p>
-              ) : null}
             </form>
           ) : (
-            <div className="mt-6 grid gap-4">
-              <p className="rounded-xl border border-line bg-paper px-4 py-4 text-sm text-muted">
-                Login guru memakai daftar nama yang sudah disiapkan sekolah. Lanjutkan ke halaman akun guru untuk
-                masuk, mendaftar, atau meminta reset sandi.
-              </p>
+            <div className="mt-6 grid gap-3">
+              <p className="text-sm font-semibold text-muted">Mau masuk ke mana?</p>
               <Link
                 to="/guru"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-pine font-semibold text-sheet"
+                className="group flex items-start gap-3 rounded-xl border border-line bg-paper p-4 transition-colors hover:border-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
               >
-                Lanjut ke akun guru
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold text-ink">Portal sekolah</span>
+                  <span className="mt-1 block text-sm text-muted">
+                    Data diri dan tanda tangan rapor. Pilih nama dari daftar guru, atau ajukan akun
+                    baru.
+                  </span>
+                </span>
+                <ArrowRight
+                  className="mt-1 size-5 shrink-0 text-pine transition-transform group-hover:translate-x-1"
+                  aria-hidden
+                />
               </Link>
+              <a
+                href={PENILAIAN_LOGIN_URL}
+                className="group flex items-start gap-3 rounded-xl border border-line bg-paper p-4 transition-colors hover:border-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+              >
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold text-ink">Aplikasi penilaian</span>
+                  <span className="mt-1 block text-sm text-muted">
+                    Input nilai dan rapor. Dibuka di penilaian.sdmuhammadiyah01kks.sch.id dengan
+                    akun aplikasi penilaian.
+                  </span>
+                </span>
+                <ExternalLink className="mt-1 size-5 shrink-0 text-pine" aria-hidden />
+              </a>
             </div>
           )}
 

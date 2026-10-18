@@ -1,9 +1,23 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
-import { getTeacherDirectory, loginTeacher, registerTeacher, requestTeacherReset } from "@/lib/teachers/api";
+import {
+  getTeacherDirectory,
+  loginTeacher,
+  registerTeacher,
+  requestTeacherReset,
+} from "@/lib/teachers/api";
 import type { DirectoryEntry } from "@/lib/teachers/logic";
+import { PENILAIAN_LOGIN_URL } from "@/lib/site/links";
 import { ROSTER, SCHOOL_YEAR, teacherByKey } from "@/lib/teachers/roster";
-import { DutyList, GelarHints, GuruChrome, NameSelect, SecretField, SignaturePreview, TextField } from "./ui";
+import {
+  DutyList,
+  GelarHints,
+  GuruChrome,
+  NameSelect,
+  SecretField,
+  SignaturePreview,
+  TextField,
+} from "./ui";
 
 type Mode = "masuk" | "daftar" | "lupa";
 
@@ -29,7 +43,9 @@ export function GuruAuth() {
   }, []);
 
   const taken = new Set(
-    (directory ?? []).filter((entry) => entry.status === "active" || entry.status === "pending").map((entry) => entry.rosterKey),
+    (directory ?? [])
+      .filter((entry) => entry.status === "active" || entry.status === "pending")
+      .map((entry) => entry.rosterKey),
   );
   const loginOptions = (directory ?? [])
     .filter((entry) => entry.status === "active")
@@ -41,7 +57,8 @@ export function GuruAuth() {
     key: teacher.key,
     name: teacher.name,
   }));
-  const options = mode === "masuk" ? loginOptions : mode === "lupa" ? resetOptions : registerOptions;
+  const options =
+    mode === "masuk" ? loginOptions : mode === "lupa" ? resetOptions : registerOptions;
   const selected = teacherByKey(rosterKey);
 
   function switchMode(next: Mode) {
@@ -117,9 +134,16 @@ export function GuruAuth() {
   return (
     <GuruChrome>
       <div className="mx-auto max-w-md">
-        <h1 className="font-serif text-4xl">Masuk guru</h1>
+        <h1 className="font-serif text-3xl">Masuk guru</h1>
         <p className="mt-3 text-muted">
-          Nama hanya bisa dipilih dari daftar penugasan {SCHOOL_YEAR}, supaya tulisan di rapor tidak pecah.
+          Nama hanya bisa dipilih dari daftar penugasan {SCHOOL_YEAR}, supaya tulisan di rapor tidak
+          pecah.
+        </p>
+        <p className="mt-3 text-sm text-muted">
+          Ingin ke aplikasi nilai dan rapor?{" "}
+          <a href={PENILAIAN_LOGIN_URL} className="font-semibold text-pine hover:underline">
+            Buka aplikasi penilaian
+          </a>
         </p>
         <div className="mt-6 grid grid-cols-3 gap-2">
           {(
@@ -143,7 +167,10 @@ export function GuruAuth() {
             </button>
           ))}
         </div>
-        <form onSubmit={onSubmit} className="mt-6 grid gap-4 rounded-card border border-line bg-sheet p-5">
+        <form
+          onSubmit={onSubmit}
+          className="mt-6 grid gap-4 rounded-card border border-line bg-sheet p-5"
+        >
           {directory === null ? <p className="text-sm text-muted">Memuat daftar guru…</p> : null}
           <NameSelect
             label={mode === "daftar" ? "Nama di daftar sekolah" : "Nama guru"}
@@ -169,7 +196,11 @@ export function GuruAuth() {
               />
               <GelarHints onPick={(gelar) => setProfile((current) => ({ ...current, gelar }))} />
               <SignaturePreview name={selected?.name ?? ""} gelar={profile.gelar} />
-              <TextField label="NIP" value={profile.nip} onChange={(nip) => setProfile((current) => ({ ...current, nip }))} />
+              <TextField
+                label="NIP"
+                value={profile.nip}
+                onChange={(nip) => setProfile((current) => ({ ...current, nip }))}
+              />
               <TextField
                 label="NUPTK"
                 value={profile.nuptk}
@@ -189,23 +220,46 @@ export function GuruAuth() {
             autoComplete={mode === "masuk" ? "current-password" : "new-password"}
           />
           {mode !== "masuk" ? (
-            <SecretField label="Ulangi sandi" value={confirm} onChange={setConfirm} autoComplete="new-password" />
+            <SecretField
+              label="Ulangi sandi"
+              value={confirm}
+              onChange={setConfirm}
+              autoComplete="new-password"
+            />
           ) : null}
           {mode === "daftar" ? (
-            <p className="text-sm text-muted">Pengajuan menunggu persetujuan admin. Sandi disembunyikan sampai Anda menekan Tampilkan.</p>
+            <p className="text-sm text-muted">
+              Pengajuan menunggu persetujuan admin. Sandi disembunyikan sampai Anda menekan
+              Tampilkan.
+            </p>
           ) : null}
           {mode === "lupa" ? (
             <p className="text-sm text-muted">
-              Isi sandi baru, lalu minta admin menyetujuinya. Setelah disetujui, masuk dengan sandi itu.
+              Isi sandi baru, lalu minta admin menyetujuinya. Setelah disetujui, masuk dengan sandi
+              itu.
             </p>
           ) : null}
           {error ? <p className="text-sm font-semibold text-pine-deep">{error}</p> : null}
           {message ? <p className="text-sm font-semibold text-pine">{message}</p> : null}
-          <button type="submit" disabled={busy} className="h-12 rounded-full bg-pine font-semibold text-sheet disabled:opacity-60">
-            {busy ? "Memproses…" : mode === "masuk" ? "Masuk" : mode === "daftar" ? "Ajukan akun" : "Minta sandi baru"}
+          <button
+            type="submit"
+            disabled={busy}
+            className="h-12 rounded-full bg-pine font-semibold text-sheet disabled:opacity-60"
+          >
+            {busy
+              ? "Memproses…"
+              : mode === "masuk"
+                ? "Masuk"
+                : mode === "daftar"
+                  ? "Ajukan akun"
+                  : "Minta sandi baru"}
           </button>
           {mode === "masuk" ? (
-            <button type="button" onClick={() => switchMode("lupa")} className="h-11 text-sm font-semibold text-pine">
+            <button
+              type="button"
+              onClick={() => switchMode("lupa")}
+              className="h-11 text-sm font-semibold text-pine"
+            >
               Lupa sandi?
             </button>
           ) : null}

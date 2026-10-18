@@ -17,8 +17,8 @@ Buka `http://localhost:8080`. Tidak wajib berkas `.env` untuk development — ba
 
 Masuk di `/masuk` atau `/kelola`.
 
-- Surel awal: `admin@sdmuhammadiyah01kks.sch.id`
-- Sandi awal: `Kukusan-1981`
+- Surel admin awal: `admin@sdmuhammadiyah01kks.sch.id`
+- Sandi awal: diatur lewat variabel lingkungan `ADMIN_INITIAL_PASSWORD` saat deploy (jangan ditulis di repo). Ganti setelah masuk pertama kali.
 
 Ganti sandi setelah masuk pertama kali (tab **Sandi**).
 
