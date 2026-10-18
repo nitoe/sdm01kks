@@ -66,14 +66,16 @@ export const seedContent: SiteContent = {
       name: "Dwi Sanderayanti",
       role: "Kepala Sekolah",
       photo: "/media/kepala.jpg",
-      duties: "Memimpin sekolah, membina guru, dan menjaga hubungan dengan orang tua serta lingkungan Kukusan.",
+      duties:
+        "Memimpin sekolah, membina guru, dan menjaga hubungan dengan orang tua serta lingkungan Kukusan.",
       visible: true,
     },
     {
       id: "wakil-kurikulum",
       name: "Wakil Kepala Bidang Kurikulum",
       role: "Wakil Kepala Sekolah",
-      duties: "Mengkoordinasikan penyusunan kurikulum, jadwal pelajaran, dan evaluasi pembelajaran.",
+      duties:
+        "Mengkoordinasikan penyusunan kurikulum, jadwal pelajaran, dan evaluasi pembelajaran.",
       visible: true,
     },
     {
@@ -91,8 +93,7 @@ export const seedContent: SiteContent = {
       visible: true,
     },
   ] as StaffMember[],
-  visi:
-    "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
+  visi: "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
   misi: [
     "Menyelenggarakan pembelajaran yang menumbuhkan adab, rasa ingin tahu, dan kemandirian.",
     "Membiasakan ibadah dan bacaan Al-Qur'an dalam keseharian sekolah.",
@@ -103,7 +104,8 @@ export const seedContent: SiteContent = {
     {
       id: "intrakurikuler",
       title: "Intrakurikuler",
-      summary: "Pelajaran di kelas: membaca, berhitung, dan Al-Qur'an yang menjadi ritme setiap hari.",
+      summary:
+        "Pelajaran di kelas: membaca, berhitung, dan Al-Qur'an yang menjadi ritme setiap hari.",
       body: "Intrakurikuler adalah pembelajaran yang berlangsung di dalam jam pelajaran. Anak belajar sesuai tingkatan, didampingi guru, dengan adab sebagai bagian dari jam belajar — bukan kegiatan yang terpisah.",
       image: "/media/program-intra.jpg",
       visible: true,
@@ -111,7 +113,8 @@ export const seedContent: SiteContent = {
     {
       id: "kokurikuler",
       title: "Kokurikuler",
-      summary: "Kegiatan yang memperdalam pelajaran, dikerjakan bersama di luar jam mata pelajaran.",
+      summary:
+        "Kegiatan yang memperdalam pelajaran, dikerjakan bersama di luar jam mata pelajaran.",
       body: "Kokurikuler menguatkan apa yang sudah dipelajari di kelas. Anak mengerjakan proyek sederhana, membaca bersama, atau berlatih kebiasaan baik dengan pendampingan guru.",
       image: "/media/program-ko.jpg",
       visible: true,
@@ -119,7 +122,8 @@ export const seedContent: SiteContent = {
     {
       id: "ekstrakurikuler",
       title: "Ekstrakurikuler",
-      summary: "Kegiatan pilihan di luar jam belajar untuk menumbuhkan minat, kemandirian, dan kerjasama.",
+      summary:
+        "Kegiatan pilihan di luar jam belajar untuk menumbuhkan minat, kemandirian, dan kerjasama.",
       body: "Ekstrakurikuler dipilih sesuai minat anak. Kegiatan seperti Hizbul Wathan, Tapak Suci, dan lainnya melatih keberanian mencoba, bekerjasama, dan menjaga diri di luar ruang kelas.",
       image: "/media/program-ekstra.jpg",
       visible: true,
@@ -134,14 +138,22 @@ export const seedContent: SiteContent = {
         "Sholat berjamaah, doa harian, dan adab di kelas menjadi bagian dari ritme pagi, bukan kegiatan yang terpisah dari belajar.",
       body: "Setiap pagi, anak-anak dibiasakan berdoa bersama sebelum belajar. Sholat berjamaah dan adab di kelas dilatih secara bertahap agar menjadi kebiasaan.\n\nGuru mendampingi dengan keteladanan.",
       cover: "/media/musala.jpg",
-      media: [{ id: "ibadah-1", kind: "image", src: "/media/musala.jpg", caption: "Suasana ruang ibadah sekolah" }],
+      media: [
+        {
+          id: "ibadah-1",
+          kind: "image",
+          src: "/media/musala.jpg",
+          caption: "Suasana ruang ibadah sekolah",
+        },
+      ],
       visible: true,
     },
     {
       id: "btq",
       group: "intrakurikuler",
       title: "Baca tulis Al-Qur'an",
-      summary: "Anak-anak dilatih membaca dan menulis Al-Qur'an secara bertahap, sesuai kemampuan masing-masing kelas.",
+      summary:
+        "Anak-anak dilatih membaca dan menulis Al-Qur'an secara bertahap, sesuai kemampuan masing-masing kelas.",
       body: "Program BTQ disusun per tingkat kemampuan. Tujuan utamanya agar setiap peserta didik nyaman dengan Al-Qur'an sejak dini.",
       cover: "/media/kelas.jpg",
       media: [],
@@ -151,7 +163,8 @@ export const seedContent: SiteContent = {
       id: "literasi",
       group: "intrakurikuler",
       title: "Literasi",
-      summary: "Kebiasaan membaca di sekolah agar anak nyaman dengan buku, cerita, dan pertanyaan mereka sendiri.",
+      summary:
+        "Kebiasaan membaca di sekolah agar anak nyaman dengan buku, cerita, dan pertanyaan mereka sendiri.",
       body: "Pojok baca dan waktu literasi membantu anak mengenal buku sebagai teman.",
       cover: "/media/pustaka.jpg",
       media: [],
@@ -161,9 +174,11 @@ export const seedContent: SiteContent = {
       id: "hizbul-wathan",
       group: "ekstrakurikuler",
       title: "Hizbul Wathan",
-      summary: "Kegiatan kepramukaan Muhammadiyah yang menumbuhkan kemandirian, kerjasama, dan cinta tanah air.",
+      summary:
+        "Kegiatan kepramukaan Muhammadiyah yang menumbuhkan kemandirian, kerjasama, dan cinta tanah air.",
       body: "Hizbul Wathan adalah organisasi kepanduan Muhammadiyah. Melalui latihan rutin, anak belajar disiplin, gotong royong, dan keterampilan outdoor dengan semangat Islam.",
-      cover: "/media/program-ekstra.jpg",
+      cover: "/media/ekskul/hizbul-wathan.svg",
+      category: "Kepemimpinan",
       media: [],
       activities: [
         "Latihan rutin mingguan",
@@ -172,7 +187,12 @@ export const seedContent: SiteContent = {
         "Pembinaan karakter",
       ],
       achievements: [
-        { id: "hw-2024", year: "2024", title: "Juara 2", result: "Lomba Hizbul Wathan tingkat kota" },
+        {
+          id: "hw-2024",
+          year: "2024",
+          title: "Juara 2",
+          result: "Lomba Hizbul Wathan tingkat kota",
+        },
       ],
       visible: true,
     },
@@ -180,9 +200,11 @@ export const seedContent: SiteContent = {
       id: "tapak-suci",
       group: "ekstrakurikuler",
       title: "Tapak Suci",
-      summary: "Pencak silat Muhammadiyah untuk menjaga kesehatan, kepercayaan diri, dan adab bela diri.",
+      summary:
+        "Pencak silat Muhammadiyah untuk menjaga kesehatan, kepercayaan diri, dan adab bela diri.",
       body: "Tapak Suci mengajarkan teknik dasar pencak silat, fisik, dan mental. Anak belajar menghormati guru, sesama, dan menggunakan keterampilan dengan bijak.",
-      cover: "/media/lapangan.jpg",
+      cover: "/media/ekskul/tapak-suci.svg",
+      category: "Bela Diri",
       media: [],
       activities: [
         "Latihan teknik dasar",
@@ -199,7 +221,8 @@ export const seedContent: SiteContent = {
       title: "Tahfizh",
       summary: "Program hafalan Al-Qur'an yang didampingi agar anak nyaman dan istiqamah.",
       body: "Anak-anak dilatih menghafal Al-Qur'an secara bertahap, dimulai dari surat pendek. Fokus pada kelancaran, tartil, dan pemahaman sederhana.",
-      cover: "/media/nilai-quran.jpg",
+      cover: "/media/ekskul/tahfizh.svg",
+      category: "Keagamaan",
       media: [],
       activities: [
         "Setoran hafalan harian",
@@ -208,7 +231,12 @@ export const seedContent: SiteContent = {
         "Pendampingan ustadz",
       ],
       achievements: [
-        { id: "tf-2025", year: "2025", title: "Juara 1", result: "Lomba Tahfidz Juz 30 tingkat kecamatan" },
+        {
+          id: "tf-2025",
+          year: "2025",
+          title: "Juara 1",
+          result: "Lomba Tahfidz Juz 30 tingkat kecamatan",
+        },
       ],
       visible: true,
     },
@@ -216,16 +244,13 @@ export const seedContent: SiteContent = {
       id: "paskibra",
       group: "ekstrakurikuler",
       title: "Paskibra",
-      summary: "Pasukan pengibar bendera yang melatih kedisiplinan, kekompakan, dan jiwa nasionalisme.",
+      summary:
+        "Pasukan pengibar bendera yang melatih kedisiplinan, kekompakan, dan jiwa nasionalisme.",
       body: "Paskibra melatih baris-berbaris, pengibaran bendera, dan kerja sama tim. Cocok untuk anak yang ingin lebih disiplin dan percaya diri di depan umum.",
-      cover: "/media/program-ekstra.jpg",
+      cover: "/media/ekskul/paskibra.svg",
+      category: "Kepemimpinan",
       media: [],
-      activities: [
-        "Latihan PBB",
-        "Pengibaran bendera",
-        "Persiapan upacara",
-        "Pembinaan mental",
-      ],
+      activities: ["Latihan PBB", "Pengibaran bendera", "Persiapan upacara", "Pembinaan mental"],
       achievements: [],
       visible: true,
     },
@@ -233,9 +258,11 @@ export const seedContent: SiteContent = {
       id: "english-club",
       group: "ekstrakurikuler",
       title: "English Club",
-      summary: "Belajar bahasa Inggris dengan cara menyenangkan melalui percakapan, lagu, dan permainan.",
+      summary:
+        "Belajar bahasa Inggris dengan cara menyenangkan melalui percakapan, lagu, dan permainan.",
       body: "English Club membantu anak berani berbicara bahasa Inggris. Kegiatan dilakukan dengan suasana santai agar minat belajar tumbuh.",
-      cover: "/media/kelas.jpg",
+      cover: "/media/ekskul/english-club.svg",
+      category: "Bahasa",
       media: [],
       activities: [
         "Conversation practice",
@@ -250,9 +277,11 @@ export const seedContent: SiteContent = {
       id: "menari",
       group: "ekstrakurikuler",
       title: "Menari",
-      summary: "Mengenal tari tradisional dan modern untuk mengembangkan kreativitas dan percaya diri.",
+      summary:
+        "Mengenal tari tradisional dan modern untuk mengembangkan kreativitas dan percaya diri.",
       body: "Kegiatan menari mengajarkan koordinasi gerak, ekspresi, dan apresiasi seni budaya Indonesia. Anak tampil dalam acara sekolah.",
-      cover: "/media/nilai-akrab.jpg",
+      cover: "/media/ekskul/menari.svg",
+      category: "Seni",
       media: [],
       activities: [
         "Latihan gerak dasar",
@@ -267,16 +296,13 @@ export const seedContent: SiteContent = {
       id: "renang",
       group: "ekstrakurikuler",
       title: "Renang",
-      summary: "Olahraga air yang menyehatkan dan membangun keberanian serta keterampilan berenang.",
+      summary:
+        "Olahraga air yang menyehatkan dan membangun keberanian serta keterampilan berenang.",
       body: "Renang dilatih secara bertahap sesuai kemampuan. Fokus pada teknik dasar, keselamatan di air, dan kesenangan berolahraga.",
-      cover: "/media/lapangan.jpg",
+      cover: "/media/ekskul/renang.svg",
+      category: "Olahraga",
       media: [],
-      activities: [
-        "Teknik dasar renang",
-        "Latihan stamina",
-        "Permainan di air",
-        "Keselamatan air",
-      ],
+      activities: ["Teknik dasar renang", "Latihan stamina", "Permainan di air", "Keselamatan air"],
       achievements: [],
       visible: true,
     },
@@ -286,14 +312,10 @@ export const seedContent: SiteContent = {
       title: "Basket",
       summary: "Olahraga bola basket untuk kerja sama tim, kelincahan, dan sportivitas.",
       body: "Latihan basket melatih dribble, passing, shooting, dan strategi tim. Anak belajar menghargai kawan dan lawan.",
-      cover: "/media/lapangan.jpg",
+      cover: "/media/ekskul/basket.svg",
+      category: "Olahraga",
       media: [],
-      activities: [
-        "Latihan teknik",
-        "Permainan mini",
-        "Kerja sama tim",
-        "Persiapan pertandingan",
-      ],
+      activities: ["Latihan teknik", "Permainan mini", "Kerja sama tim", "Persiapan pertandingan"],
       achievements: [],
       visible: true,
     },
@@ -303,7 +325,8 @@ export const seedContent: SiteContent = {
       title: "Angklung",
       summary: "Belajar memainkan angklung sebagai alat musik tradisional Indonesia yang unik.",
       body: "Angklung mengajarkan kerjasama karena satu lagu dimainkan bersama. Anak mengenal warisan budaya sekaligus mengembangkan musikalitas.",
-      cover: "/media/nilai-akrab.jpg",
+      cover: "/media/ekskul/angklung.svg",
+      category: "Seni",
       media: [],
       activities: [
         "Pengenalan nada",
@@ -347,7 +370,8 @@ export const seedContent: SiteContent = {
       id: "belajar-pagi",
       date: "2026-10-08",
       title: "Belajar berlangsung pagi, Senin hingga Sabtu",
-      excerpt: "Kegiatan belajar di sekolah ini berlangsung pada pagi hari, enam hari dalam sepekan.",
+      excerpt:
+        "Kegiatan belajar di sekolah ini berlangsung pada pagi hari, enam hari dalam sepekan.",
       body: "SD Muhammadiyah 01 Kukusan menyelenggarakan pembelajaran pagi, Senin sampai Sabtu. Orang tua dapat menyesuaikan antar-jemput dengan jam tersebut. Perubahan jadwal, bila ada, disampaikan lewat pengumuman.",
       image: "/media/kelas.jpg",
       visible: true,
@@ -363,7 +387,12 @@ export const seedContent: SiteContent = {
     },
   ],
   gallery: [
-    { id: "halaman", src: "/media/halaman.jpg", caption: "Ilustrasi halaman dan selasar.", visible: true },
+    {
+      id: "halaman",
+      src: "/media/halaman.jpg",
+      caption: "Ilustrasi halaman dan selasar.",
+      visible: true,
+    },
     { id: "kelas", src: "/media/kelas.jpg", caption: "Ilustrasi ruang kelas.", visible: true },
     { id: "musala", src: "/media/musala.jpg", caption: "Ilustrasi ruang ibadah.", visible: true },
     { id: "pustaka", src: "/media/pustaka.jpg", caption: "Ilustrasi pojok baca.", visible: true },
@@ -486,7 +515,8 @@ const DEFAULT_GROUP: Record<string, ProgramGroupId> = {
 };
 
 function asGroup(value: unknown, id: string): ProgramGroupId {
-  if (value === "intrakurikuler" || value === "kokurikuler" || value === "ekstrakurikuler") return value;
+  if (value === "intrakurikuler" || value === "kokurikuler" || value === "ekstrakurikuler")
+    return value;
   return DEFAULT_GROUP[id] ?? "intrakurikuler";
 }
 
@@ -497,7 +527,8 @@ function normalizeProgramGroups(raw: unknown, base: ProgramGroup[]): ProgramGrou
       return Boolean(entry) && typeof entry === "object" && "id" in entry && entry.id === item.id;
     });
     if (!found) return item;
-    const text = (value: unknown, fallback: string) => (typeof value === "string" ? value : fallback);
+    const text = (value: unknown, fallback: string) =>
+      typeof value === "string" ? value : fallback;
     return {
       id: item.id,
       title: text(found.title, item.title),
@@ -544,7 +575,8 @@ function normalizeProgram(item: Partial<SiteContent["programs"][number]> | null 
       : [],
     activities,
     achievements,
-    visible: Boolean(item.visible),
+    category: typeof item.category === "string" ? item.category : "",
+    visible: item.visible !== false,
   };
 }
 
@@ -555,7 +587,8 @@ function normalizeNews(raw: unknown, base: SiteContent["news"]): SiteContent["ne
     const item = entry as Record<string, unknown>;
     if (typeof item.id !== "string" || !item.id) return [];
     const fallback = base.find((row) => row.id === item.id);
-    const text = (value: unknown, spare: string) => (typeof value === "string" && value.trim() ? value : spare);
+    const text = (value: unknown, spare: string) =>
+      typeof value === "string" && value.trim() ? value : spare;
     return [
       {
         id: item.id,
@@ -573,14 +606,18 @@ function normalizeNews(raw: unknown, base: SiteContent["news"]): SiteContent["ne
   return [...saved, ...base.filter((item) => !ids.has(item.id))];
 }
 
-function normalizeAchievements(raw: unknown, base: SiteContent["achievements"]): SiteContent["achievements"] {
+function normalizeAchievements(
+  raw: unknown,
+  base: SiteContent["achievements"],
+): SiteContent["achievements"] {
   if (!Array.isArray(raw)) return base;
   const items = raw.flatMap((entry) => {
     if (!entry || typeof entry !== "object") return [];
     const item = entry as Record<string, unknown>;
     if (typeof item.id !== "string" || !item.id) return [];
     const fallback = base.find((row) => row.id === item.id);
-    const text = (value: unknown, spare: string) => (typeof value === "string" && value.trim() ? value : spare);
+    const text = (value: unknown, spare: string) =>
+      typeof value === "string" && value.trim() ? value : spare;
     return [
       {
         id: item.id,
@@ -602,9 +639,14 @@ function normalizeAchievements(raw: unknown, base: SiteContent["achievements"]):
 export function mergeContent(raw: Partial<SiteContent> | null | undefined): SiteContent {
   if (!raw || typeof raw !== "object") return structuredClone(seedContent);
   const base = structuredClone(seedContent);
-  const programs = Array.isArray(raw.programs)
+  let programs = Array.isArray(raw.programs)
     ? raw.programs.map(normalizeProgram).filter((p): p is NonNullable<typeof p> => Boolean(p?.id))
     : base.programs;
+  // Data tersimpan dari versi lama belum memuat ekstrakurikuler: isi dari data awal satu kali,
+  // supaya halaman ekskul tidak kosong. Jika admin sudah punya ekskul, daftarnya tidak diubah.
+  if (!programs.some((item) => item.group === "ekstrakurikuler")) {
+    programs = [...programs, ...base.programs.filter((item) => item.group === "ekstrakurikuler")];
+  }
   return {
     ...base,
     ...raw,

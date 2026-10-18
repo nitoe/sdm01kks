@@ -30,6 +30,7 @@ export type Program = {
   summary: string;
   body: string;
   cover?: string;
+  category?: string;
   media: ProgramMedia[];
   activities?: string[];
   achievements?: ProgramAchievement[];

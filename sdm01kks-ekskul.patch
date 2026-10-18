@@ -1,0 +1,1687 @@
+diff --git a/public/media/ekskul/angklung.svg b/public/media/ekskul/angklung.svg
+new file mode 100644
+index 0000000..b85fb47
+--- /dev/null
++++ b/public/media/ekskul/angklung.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe3b0"/><stop offset="1" stop-color="#f4c97a"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect y="700" width="1200" height="200" fill="#8e5b34"/><path d="M0 700H1200" stroke="#6b4423" stroke-width="8"/><g fill="#f4d9a0" opacity=".7"><circle cx="120" cy="130" r="10"/><circle cx="300" cy="90" r="7"/><circle cx="900" cy="110" r="9"/><circle cx="1080" cy="170" r="12"/><circle cx="640" cy="80" r="8"/></g><g fill="#a9783f" opacity=".9" font-family="Arial,sans-serif" font-size="64" font-weight="700"><text x="170" y="250">♪</text><text x="560" y="190">♫</text><text x="980" y="260">♪</text></g><g transform="translate(220,690) scale(1.4)"><path d="M-12 -2 L-16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#e55d3b"/><path d="M-24 -76 L-30 -26" stroke="#e55d3b" stroke-width="19" stroke-linecap="round"/><circle cx="-30" cy="-26" r="10" fill="#e9b78a"/><path d="M24 -76 L60 -66" stroke="#e55d3b" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(300,540) scale(1.05)"><rect x="-60" y="-10" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="46" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-44" y="-160" width="22" height="150" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-33 -150 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="-14" y="-126" width="22" height="116" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-3 -116 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="16" y="-92" width="22" height="82" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M27 -82 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="46" y="-58" width="22" height="48" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M57 -48 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/></g><g transform="translate(500,690) scale(1.4)"><path d="M-12 -2 L-16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#1a7a4c"/><path d="M-24 -76 L-30 -26" stroke="#1a7a4c" stroke-width="19" stroke-linecap="round"/><circle cx="-30" cy="-26" r="10" fill="#f0c8a0"/><path d="M24 -76 L60 -66" stroke="#1a7a4c" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#f0c8a0"/><rect x="-8" y="-112" width="16" height="22" fill="#f0c8a0"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#fff"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#f0c8a0"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(580,540) scale(1.05)"><rect x="-60" y="-10" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="46" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-44" y="-160" width="22" height="150" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-33 -150 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="-14" y="-126" width="22" height="116" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-3 -116 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="16" y="-92" width="22" height="82" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M27 -82 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="46" y="-58" width="22" height="48" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M57 -48 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/></g><g transform="translate(780,690) scale(1.4)"><path d="M-12 -2 L-16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#4a90d9"/><path d="M-24 -76 L-30 -26" stroke="#4a90d9" stroke-width="19" stroke-linecap="round"/><circle cx="-30" cy="-26" r="10" fill="#d79f72"/><path d="M24 -76 L60 -66" stroke="#4a90d9" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#d79f72"/><rect x="-8" y="-112" width="16" height="22" fill="#d79f72"/><circle cx="0" cy="-122" r="26" fill="#d79f72"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(860,540) scale(1.05)"><rect x="-60" y="-10" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="46" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-44" y="-160" width="22" height="150" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-33 -150 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="-14" y="-126" width="22" height="116" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-3 -116 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="16" y="-92" width="22" height="82" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M27 -82 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="46" y="-58" width="22" height="48" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M57 -48 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/></g><g transform="translate(1040,690) scale(1.4)"><path d="M-12 -2 L-16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#e8c76b"/><path d="M-24 -76 L-30 -26" stroke="#e8c76b" stroke-width="19" stroke-linecap="round"/><circle cx="-30" cy="-26" r="10" fill="#c98c60"/><path d="M24 -76 L60 -66" stroke="#e8c76b" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#c98c60"/><rect x="-8" y="-112" width="16" height="22" fill="#c98c60"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#7a4e2b"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#c98c60"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(1120,540) scale(1.05)"><rect x="-60" y="-10" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="46" y="-190" width="14" height="200" rx="7" fill="#6b4423"/><rect x="-60" y="-190" width="120" height="14" rx="7" fill="#6b4423"/><rect x="-44" y="-160" width="22" height="150" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-33 -150 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="-14" y="-126" width="22" height="116" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M-3 -116 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="16" y="-92" width="22" height="82" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M27 -82 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/><rect x="46" y="-58" width="22" height="48" rx="9" fill="#e7bd5c" stroke="#b88a2e" stroke-width="3"/><path d="M57 -48 V-18" stroke="#b88a2e" stroke-width="2" opacity=".6"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/basket.svg b/public/media/ekskul/basket.svg
+new file mode 100644
+index 0000000..a15b5e4
+--- /dev/null
++++ b/public/media/ekskul/basket.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7ead7"/><stop offset="1" stop-color="#f0d4ae"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect width="1200" height="900" fill="#f7ead7"/><rect y="560" width="1200" height="340" fill="#d98a4a"/><g stroke="#fff" stroke-width="8" fill="none"><path d="M0 640H1200"/><path d="M200 900 C200 700 1000 700 1000 900"/><circle cx="600" cy="700" r="110"/></g><rect x="840" y="100" width="260" height="190" rx="10" fill="#fff" stroke="#2f3a44" stroke-width="12"/><rect x="900" y="170" width="140" height="90" fill="none" stroke="#e55d3b" stroke-width="8"/><rect x="1096" y="260" width="20" height="360" fill="#6b7782"/><path d="M880 330 H1020" stroke="#e55d3b" stroke-width="12" stroke-linecap="round"/><path d="M886 336 L912 420 M920 336 L930 420 M950 336 L950 420 M980 336 L970 420 M1014 336 L988 420" stroke="#fff" stroke-width="4"/><path d="M470 600 C560 420 720 380 870 330" stroke="#7a4e2b" stroke-width="5" stroke-dasharray="4 14" fill="none" stroke-linecap="round"/><circle cx="700" cy="360" r="44" fill="#ee7d2f"/><path d="M656 360H744M700 316V404M668 330C690 350 690 370 668 390M732 330C710 350 710 370 732 390" stroke="#7a3b12" stroke-width="4" fill="none"/><g transform="translate(430,660) scale(1.7)"><path d="M-12 -2 L-36 92" stroke="#1a7a4c" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L30 60" stroke="#1a7a4c" stroke-width="24" stroke-linecap="round"/><ellipse cx="-36" cy="100" rx="17" ry="9" fill="#fff"/><ellipse cx="30" cy="68" rx="17" ry="9" fill="#fff"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#1a7a4c"/><path d="M-24 -76 L-44 -86" stroke="#1a7a4c" stroke-width="19" stroke-linecap="round"/><circle cx="-44" cy="-86" r="10" fill="#e9b78a"/><path d="M24 -76 L50 -136" stroke="#1a7a4c" stroke-width="19" stroke-linecap="round"/><circle cx="50" cy="-136" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><text x="0" y="-30" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="#fff" text-anchor="middle">7</text></g><g transform="translate(220,760) scale(1.35)"><path d="M-12 -2 L-24 96" stroke="#e8c76b" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L24 96" stroke="#e8c76b" stroke-width="24" stroke-linecap="round"/><ellipse cx="-24" cy="104" rx="17" ry="9" fill="#fff"/><ellipse cx="24" cy="104" rx="17" ry="9" fill="#fff"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#e8c76b"/><path d="M-24 -76 L-50 -46" stroke="#e8c76b" stroke-width="19" stroke-linecap="round"/><circle cx="-50" cy="-46" r="10" fill="#d79f72"/><path d="M24 -76 L60 -70" stroke="#e8c76b" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-70" r="10" fill="#d79f72"/><rect x="-8" y="-112" width="16" height="22" fill="#d79f72"/><circle cx="0" cy="-122" r="26" fill="#d79f72"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/english-club.svg b/public/media/ekskul/english-club.svg
+new file mode 100644
+index 0000000..33b5103
+--- /dev/null
++++ b/public/media/ekskul/english-club.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6df"/><stop offset="1" stop-color="#fbe7b7"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect y="620" width="1200" height="280" fill="#d7b98e"/><rect x="170" y="110" width="520" height="290" rx="12" fill="#2f6b55" stroke="#a9783f" stroke-width="16"/><text x="430" y="285" font-family="Georgia,serif" font-size="110" fill="#fff" text-anchor="middle" font-weight="700">ABC</text><path d="M230 350 H640" stroke="#fff" stroke-width="4" stroke-dasharray="14 10" opacity=".7"/><rect x="800" y="120" width="260" height="260" rx="10" fill="#cfeaff" stroke="#fff" stroke-width="14"/><path d="M930 120V380M800 250H1060" stroke="#fff" stroke-width="10"/><circle cx="990" cy="190" r="26" fill="#ffd978"/><rect x="120" y="640" width="960" height="40" rx="10" fill="#a9783f"/><rect x="160" y="680" width="24" height="150" fill="#7a4e2b"/><rect x="1016" y="680" width="24" height="150" fill="#7a4e2b"/><g transform="translate(300,640) scale(1.35)"><path d="M-12 -2 L-16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="8" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="8" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#f08a3c"/><path d="M-24 -76 L-30 -38" stroke="#f08a3c" stroke-width="19" stroke-linecap="round"/><circle cx="-30" cy="-38" r="10" fill="#e9b78a"/><path d="M24 -76 L60 -66" stroke="#f08a3c" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(600,640) scale(1.35)"><path d="M-12 -2 L-16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="8" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="8" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#4a90d9"/><path d="M-24 -76 L-60 -66" stroke="#4a90d9" stroke-width="19" stroke-linecap="round"/><circle cx="-60" cy="-66" r="10" fill="#f0c8a0"/><path d="M24 -76 L60 -66" stroke="#4a90d9" stroke-width="19" stroke-linecap="round"/><circle cx="60" cy="-66" r="10" fill="#f0c8a0"/><rect x="-8" y="-112" width="16" height="22" fill="#f0c8a0"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#fff"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#f0c8a0"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g transform="translate(900,640) scale(1.35)"><path d="M-12 -2 L-16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 0" stroke="#243b2f" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="8" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="8" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#e55d87"/><path d="M-24 -76 L-60 -66" stroke="#e55d87" stroke-width="19" stroke-linecap="round"/><circle cx="-60" cy="-66" r="10" fill="#d79f72"/><path d="M24 -76 L30 -38" stroke="#e55d87" stroke-width="19" stroke-linecap="round"/><circle cx="30" cy="-38" r="10" fill="#d79f72"/><rect x="-8" y="-112" width="16" height="22" fill="#d79f72"/><circle cx="0" cy="-122" r="26" fill="#d79f72"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><g><rect x="190" y="380" width="170" height="64" rx="30" fill="#f08a3c"/><path d="M241.0 442 l-8 26 l30 -26Z" fill="#f08a3c"/><text x="275.0" y="423" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff" text-anchor="middle">Hello!</text></g><g><rect x="500" y="370" width="200" height="64" rx="30" fill="#4a90d9"/><path d="M560.0 432 l-8 26 l30 -26Z" fill="#4a90d9"/><text x="600.0" y="413" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff" text-anchor="middle">Hi, friend!</text></g><g><rect x="780" y="380" width="230" height="64" rx="30" fill="#e55d87"/><path d="M849.0 442 l-8 26 l30 -26Z" fill="#e55d87"/><text x="895.0" y="423" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff" text-anchor="middle">How are you?</text></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/hizbul-wathan.svg b/public/media/ekskul/hizbul-wathan.svg
+new file mode 100644
+index 0000000..87e75db
+--- /dev/null
++++ b/public/media/ekskul/hizbul-wathan.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3f5"/><stop offset="1" stop-color="#e9f6ee"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><g transform="translate(200,140) scale(1)" fill="#fff" opacity=".85"><ellipse cx="0" cy="0" rx="60" ry="24"/><ellipse cx="-34" cy="8" rx="40" ry="18"/><ellipse cx="38" cy="8" rx="44" ry="18"/></g><g transform="translate(900,200) scale(1.2)" fill="#fff" opacity=".85"><ellipse cx="0" cy="0" rx="60" ry="24"/><ellipse cx="-34" cy="8" rx="40" ry="18"/><ellipse cx="38" cy="8" rx="44" ry="18"/></g><circle cx="1010" cy="110" r="52" fill="#ffd978"/><path d="M0 560 C220 440 380 520 560 470 C760 420 960 520 1200 450 L1200 900 L0 900Z" fill="#7fbf8a"/><path d="M0 640 C300 560 600 650 1200 580 L1200 900 L0 900Z" fill="#5aa870"/><g transform="translate(120,520) scale(1.1)"><rect x="-9" y="0" width="18" height="40" fill="#6b4a2f"/><path d="M0 -150 L55 -60 L22 -60 L68 10 L-68 10 L-22 -60 L-55 -60Z" fill="#1a6b43"/></g><g transform="translate(250,545) scale(0.8)"><rect x="-9" y="0" width="18" height="40" fill="#6b4a2f"/><path d="M0 -150 L55 -60 L22 -60 L68 10 L-68 10 L-22 -60 L-55 -60Z" fill="#237a4d"/></g><g transform="translate(1090,520) scale(1.2)"><rect x="-9" y="0" width="18" height="40" fill="#6b4a2f"/><path d="M0 -150 L55 -60 L22 -60 L68 10 L-68 10 L-22 -60 L-55 -60Z" fill="#1a6b43"/></g><g transform="translate(960,550) scale(0.85)"><rect x="-9" y="0" width="18" height="40" fill="#6b4a2f"/><path d="M0 -150 L55 -60 L22 -60 L68 10 L-68 10 L-22 -60 L-55 -60Z" fill="#237a4d"/></g><path d="M430 640 L600 410 L770 640Z" fill="#d9b370"/><path d="M600 410 L600 640 L520 640Z" fill="#c29a55"/><path d="M570 640 L600 520 L630 640Z" fill="#4a3320"/><line x1="600" y1="410" x2="600" y2="350" stroke="#6b4a2f" stroke-width="6"/><path d="M600 352 L650 366 L600 382Z" fill="#c0392b"/><path d="M820 700 L900 720 M900 700 L820 720" stroke="#6b4a2f" stroke-width="14" stroke-linecap="round"/><path d="M860 700 C820 670 850 640 860 610 C880 650 905 670 860 700Z" fill="#f39c3d"/><path d="M860 698 C840 680 855 660 860 645 C872 665 884 680 860 698Z" fill="#ffd34d"/><g transform="translate(300,690) scale(1.55)"><path d="M-12 -2 L-16 96" stroke="#5b3e22" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#5b3e22" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#a9783f"/><path d="M-24 -76 L-44 -36" stroke="#a9783f" stroke-width="19" stroke-linecap="round"/><circle cx="-44" cy="-36" r="10" fill="#e9b78a"/><path d="M24 -76 L70 -86" stroke="#a9783f" stroke-width="19" stroke-linecap="round"/><circle cx="70" cy="-86" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M-20 -88 L0 -60 L20 -88Z" fill="#7a4e2b"/><rect x="-30" y="-150" width="60" height="10" rx="5" fill="#7a4e2b"/><rect x="-22" y="-166" width="44" height="22" rx="8" fill="#7a4e2b"/></g><g transform="translate(1000,700) scale(1.5)"><path d="M-12 -2 L-16 96" stroke="#5b3e22" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L16 96" stroke="#5b3e22" stroke-width="24" stroke-linecap="round"/><ellipse cx="-16" cy="104" rx="17" ry="9" fill="#222"/><ellipse cx="16" cy="104" rx="17" ry="9" fill="#222"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#a9783f"/><path d="M-24 -76 L-60 -76" stroke="#a9783f" stroke-width="19" stroke-linecap="round"/><circle cx="-60" cy="-76" r="10" fill="#d79f72"/><path d="M24 -76 L44 -36" stroke="#a9783f" stroke-width="19" stroke-linecap="round"/><circle cx="44" cy="-36" r="10" fill="#d79f72"/><rect x="-8" y="-112" width="16" height="22" fill="#d79f72"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#7a4e2b"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#d79f72"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M-20 -88 L0 -60 L20 -88Z" fill="#7a4e2b"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/menari.svg b/public/media/ekskul/menari.svg
+new file mode 100644
+index 0000000..71ea69b
+--- /dev/null
++++ b/public/media/ekskul/menari.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a1f33"/><stop offset="1" stop-color="#3b1423"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect y="0" width="1200" height="900" fill="#5a1f33"/><path d="M0 0 H300 C260 200 300 400 220 900 H0Z" fill="#8e2a4b"/><path d="M1200 0 H900 C940 200 900 400 980 900 H1200Z" fill="#8e2a4b"/><path d="M400 0 H800 L1000 760 H200Z" fill="#fff4c9" opacity=".16"/><path d="M0 760 H1200 V900 H0Z" fill="#b8844f"/><path d="M0 800H1200M0 850H1200" stroke="#9a6a3b" stroke-width="3"/><g fill="#e8c76b" opacity=".9"><circle cx="60" cy="60" r="7"/><circle cx="150" cy="60" r="7"/><circle cx="240" cy="60" r="7"/><circle cx="330" cy="60" r="7"/><circle cx="420" cy="60" r="7"/><circle cx="510" cy="60" r="7"/><circle cx="600" cy="60" r="7"/><circle cx="690" cy="60" r="7"/><circle cx="780" cy="60" r="7"/><circle cx="870" cy="60" r="7"/><circle cx="960" cy="60" r="7"/><circle cx="1050" cy="60" r="7"/><circle cx="1140" cy="60" r="7"/></g><g transform="translate(420,520) scale(1.5)"><path d="M-70 120 L70 120 L50 -20 L-50 -20Z" fill="#d8442f"/><path d="M-70 120 L70 120 L66 104 L-66 104Z" fill="#e8c76b"/><path d="M-40 -20 L-84 -120 M40 -20 L96 -92" stroke="#e9b78a" stroke-width="17" stroke-linecap="round"/><path d="M-84 -120 C-170 -150 -150 -60 -230 -40 C-170 -20 -120 -100 -84 -120Z" fill="#e8c76b" opacity=".9"/><rect x="-42" y="-92" width="84" height="76" rx="26" fill="#d8442f"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-138" r="28" fill="#e9b78a"/><path d="M-30 -140 C-30 -178 30 -178 30 -140 C14 -156 -14 -156 -30 -140Z" fill="#2a1b12"/><circle cx="0" cy="-170" r="12" fill="#e8c76b"/><circle cx="-9" cy="-134" r="2.8" fill="#2a1b12"/><circle cx="9" cy="-134" r="2.8" fill="#2a1b12"/><path d="M-7 -123 Q0 -117 7 -123" stroke="#7a3b2a" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-20 120 L-26 190 M20 120 L26 190" stroke="#e9b78a" stroke-width="14" stroke-linecap="round"/></g><g transform="translate(820,540) scale(1.35)"><path d="M-70 120 L70 120 L50 -20 L-50 -20Z" fill="#2f7d6d"/><path d="M-70 120 L70 120 L66 104 L-66 104Z" fill="#e8c76b"/><path d="M-40 -20 L-84 -120 M40 -20 L96 -92" stroke="#f0c8a0" stroke-width="17" stroke-linecap="round"/><path d="M-84 -120 C-170 -150 -150 -60 -230 -40 C-170 -20 -120 -100 -84 -120Z" fill="#f5d57a" opacity=".9"/><rect x="-42" y="-92" width="84" height="76" rx="26" fill="#2f7d6d"/><rect x="-8" y="-112" width="16" height="22" fill="#f0c8a0"/><circle cx="0" cy="-138" r="28" fill="#f0c8a0"/><path d="M-36 -144 C-36 -190 36 -190 36 -144 C36 -118 40 -108 32 -100 L-32 -100 C-40 -108 -36 -118 -36 -144Z" fill="#e8c76b"/><ellipse cx="0" cy="-138" rx="22" ry="25" fill="#f0c8a0"/><circle cx="-9" cy="-134" r="2.8" fill="#2a1b12"/><circle cx="9" cy="-134" r="2.8" fill="#2a1b12"/><path d="M-7 -123 Q0 -117 7 -123" stroke="#7a3b2a" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-20 120 L-26 190 M20 120 L26 190" stroke="#f0c8a0" stroke-width="14" stroke-linecap="round"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/paskibra.svg b/public/media/ekskul/paskibra.svg
+new file mode 100644
+index 0000000..4e3b6f8
+--- /dev/null
++++ b/public/media/ekskul/paskibra.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9fb"/><stop offset="1" stop-color="#eaf6ff"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><g transform="translate(260,130) scale(1)" fill="#fff" opacity=".85"><ellipse cx="0" cy="0" rx="60" ry="24"/><ellipse cx="-34" cy="8" rx="40" ry="18"/><ellipse cx="38" cy="8" rx="44" ry="18"/></g><g transform="translate(780,190) scale(1.1)" fill="#fff" opacity=".85"><ellipse cx="0" cy="0" rx="60" ry="24"/><ellipse cx="-34" cy="8" rx="40" ry="18"/><ellipse cx="38" cy="8" rx="44" ry="18"/></g><rect y="620" width="1200" height="280" fill="#6fae6b"/><rect y="760" width="1200" height="140" fill="#b5503f"/><path d="M0 800H1200M0 850H1200" stroke="#fff" stroke-width="4" opacity=".6"/><rect x="940" y="120" width="12" height="560" fill="#8a8f96"/><circle cx="946" cy="112" r="14" fill="#e8c76b"/><path d="M952 140 C1010 120 1060 170 1130 140 L1130 230 C1060 260 1010 210 952 230Z" fill="#d62d2d"/><path d="M952 230 C1010 210 1060 260 1130 230 L1130 320 C1060 350 1010 300 952 320Z" fill="#fff"/><g transform="translate(250,730) scale(1.45)"><path d="M-12 -2 L-14 96" stroke="#fff" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L40 40" stroke="#fff" stroke-width="24" stroke-linecap="round"/><ellipse cx="-14" cy="104" rx="17" ry="9" fill="#111"/><ellipse cx="40" cy="48" rx="17" ry="9" fill="#111"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#fff"/><path d="M-24 -76 L-26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="-26" cy="-36" r="10" fill="#e9b78a"/><path d="M24 -76 L26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="26" cy="-36" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="-27" y="-60" width="54" height="9" fill="#d62d2d"/><path d="M-24 -170 L24 -170 L22 -150 L-22 -150Z" fill="#d62d2d"/></g><g transform="translate(520,730) scale(1.45)"><path d="M-12 -2 L-40 40" stroke="#fff" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L14 96" stroke="#fff" stroke-width="24" stroke-linecap="round"/><ellipse cx="-40" cy="48" rx="17" ry="9" fill="#111"/><ellipse cx="14" cy="104" rx="17" ry="9" fill="#111"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#fff"/><path d="M-24 -76 L-26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="-26" cy="-36" r="10" fill="#f0c8a0"/><path d="M24 -76 L26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="26" cy="-36" r="10" fill="#f0c8a0"/><rect x="-8" y="-112" width="16" height="22" fill="#f0c8a0"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#d62d2d"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#f0c8a0"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="-27" y="-60" width="54" height="9" fill="#d62d2d"/></g><g transform="translate(790,730) scale(1.45)"><path d="M-12 -2 L-14 96" stroke="#fff" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L40 40" stroke="#fff" stroke-width="24" stroke-linecap="round"/><ellipse cx="-14" cy="104" rx="17" ry="9" fill="#111"/><ellipse cx="40" cy="48" rx="17" ry="9" fill="#111"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#fff"/><path d="M-24 -76 L-26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="-26" cy="-36" r="10" fill="#d79f72"/><path d="M24 -76 L26 -36" stroke="#fff" stroke-width="19" stroke-linecap="round"/><circle cx="26" cy="-36" r="10" fill="#d79f72"/><rect x="-8" y="-112" width="16" height="22" fill="#d79f72"/><circle cx="0" cy="-122" r="26" fill="#d79f72"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="-27" y="-60" width="54" height="9" fill="#d62d2d"/><path d="M-24 -170 L24 -170 L22 -150 L-22 -150Z" fill="#d62d2d"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/renang.svg b/public/media/ekskul/renang.svg
+new file mode 100644
+index 0000000..a798cba
+--- /dev/null
++++ b/public/media/ekskul/renang.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f2f6"/><stop offset="1" stop-color="#2183ad"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect width="1200" height="330" fill="#e8f2f6"/><g stroke="#cfe0e8" stroke-width="3"><path d="M0 0V330"/><path d="M80 0V330"/><path d="M160 0V330"/><path d="M240 0V330"/><path d="M320 0V330"/><path d="M400 0V330"/><path d="M480 0V330"/><path d="M560 0V330"/><path d="M640 0V330"/><path d="M720 0V330"/><path d="M800 0V330"/><path d="M880 0V330"/><path d="M960 0V330"/><path d="M1040 0V330"/><path d="M1120 0V330"/><path d="M0 0H1200"/><path d="M0 80H1200"/><path d="M0 160H1200"/><path d="M0 240H1200"/><path d="M0 320H1200"/></g><rect y="320" width="1200" height="30" fill="#bcd3dc"/><rect y="350" width="1200" height="550" fill="#3fb6dc"/><rect y="520" width="1200" height="380" fill="#2a9bc7"/><rect y="700" width="1200" height="200" fill="#2183ad"/><path d="M0 420 H1200" stroke="#fff" stroke-width="4" opacity=".7"/><circle cx="30" cy="420" r="9" fill="#fff"/><circle cx="90" cy="420" r="9" fill="#d62d2d"/><circle cx="150" cy="420" r="9" fill="#fff"/><circle cx="210" cy="420" r="9" fill="#d62d2d"/><circle cx="270" cy="420" r="9" fill="#fff"/><circle cx="330" cy="420" r="9" fill="#d62d2d"/><circle cx="390" cy="420" r="9" fill="#fff"/><circle cx="450" cy="420" r="9" fill="#d62d2d"/><circle cx="510" cy="420" r="9" fill="#fff"/><circle cx="570" cy="420" r="9" fill="#d62d2d"/><circle cx="630" cy="420" r="9" fill="#fff"/><circle cx="690" cy="420" r="9" fill="#d62d2d"/><circle cx="750" cy="420" r="9" fill="#fff"/><circle cx="810" cy="420" r="9" fill="#d62d2d"/><circle cx="870" cy="420" r="9" fill="#fff"/><circle cx="930" cy="420" r="9" fill="#d62d2d"/><circle cx="990" cy="420" r="9" fill="#fff"/><circle cx="1050" cy="420" r="9" fill="#d62d2d"/><circle cx="1110" cy="420" r="9" fill="#fff"/><circle cx="1170" cy="420" r="9" fill="#d62d2d"/><path d="M0 600 H1200" stroke="#fff" stroke-width="4.8" opacity=".7"/><circle cx="30" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="90" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="150" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="210" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="270" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="330" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="390" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="450" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="510" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="570" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="630" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="690" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="750" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="810" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="870" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="930" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="990" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="1050" cy="600" r="10.799999999999999" fill="#d62d2d"/><circle cx="1110" cy="600" r="10.799999999999999" fill="#fff"/><circle cx="1170" cy="600" r="10.799999999999999" fill="#d62d2d"/><path d="M0 800 H1200" stroke="#fff" stroke-width="6.0" opacity=".7"/><circle cx="30" cy="800" r="13.5" fill="#fff"/><circle cx="90" cy="800" r="13.5" fill="#d62d2d"/><circle cx="150" cy="800" r="13.5" fill="#fff"/><circle cx="210" cy="800" r="13.5" fill="#d62d2d"/><circle cx="270" cy="800" r="13.5" fill="#fff"/><circle cx="330" cy="800" r="13.5" fill="#d62d2d"/><circle cx="390" cy="800" r="13.5" fill="#fff"/><circle cx="450" cy="800" r="13.5" fill="#d62d2d"/><circle cx="510" cy="800" r="13.5" fill="#fff"/><circle cx="570" cy="800" r="13.5" fill="#d62d2d"/><circle cx="630" cy="800" r="13.5" fill="#fff"/><circle cx="690" cy="800" r="13.5" fill="#d62d2d"/><circle cx="750" cy="800" r="13.5" fill="#fff"/><circle cx="810" cy="800" r="13.5" fill="#d62d2d"/><circle cx="870" cy="800" r="13.5" fill="#fff"/><circle cx="930" cy="800" r="13.5" fill="#d62d2d"/><circle cx="990" cy="800" r="13.5" fill="#fff"/><circle cx="1050" cy="800" r="13.5" fill="#d62d2d"/><circle cx="1110" cy="800" r="13.5" fill="#fff"/><circle cx="1170" cy="800" r="13.5" fill="#d62d2d"/><g stroke="#fff" stroke-width="5" opacity=".5" fill="none" stroke-linecap="round"><path d="M80 480 q30 -20 60 0 t60 0"/><path d="M520 500 q30 -20 60 0 t60 0"/><path d="M900 470 q30 -20 60 0 t60 0"/><path d="M220 680 q30 -20 60 0 t60 0"/><path d="M700 720 q30 -20 60 0 t60 0"/><path d="M1000 660 q30 -20 60 0 t60 0"/><path d="M120 860 q30 -20 60 0 t60 0"/><path d="M620 870 q30 -20 60 0 t60 0"/></g><g transform="translate(380,440)"><path d="M-40 40 C0 20 80 20 130 44 L110 90 C60 70 0 74 -40 90Z" fill="#e9b78a"/><path d="M60 30 C120 -80 210 -60 230 -10" stroke="#e9b78a" stroke-width="26" stroke-linecap="round" fill="none"/><circle cx="-70" cy="38" r="40" fill="#e9b78a"/><path d="M-110 30 C-110 -20 -30 -20 -30 30Z" fill="#f7d046"/><circle cx="-84" cy="40" r="6" fill="#1b4f66"/><rect x="-100" y="30" width="46" height="16" rx="8" fill="#1b4f66" opacity=".55"/><path d="M-120 112 Q0 130 180 100" stroke="#fff" stroke-width="10" fill="none" opacity=".8" stroke-linecap="round"/></g><g transform="translate(820,630)"><path d="M-40 40 C0 20 80 20 130 44 L110 90 C60 70 0 74 -40 90Z" fill="#c98c60"/><path d="M60 30 C120 -80 210 -60 230 -10" stroke="#c98c60" stroke-width="26" stroke-linecap="round" fill="none"/><circle cx="-70" cy="38" r="40" fill="#c98c60"/><path d="M-110 30 C-110 -20 -30 -20 -30 30Z" fill="#e55d87"/><circle cx="-84" cy="40" r="6" fill="#1b4f66"/><rect x="-100" y="30" width="46" height="16" rx="8" fill="#1b4f66" opacity=".55"/><path d="M-120 112 Q0 130 180 100" stroke="#fff" stroke-width="10" fill="none" opacity=".8" stroke-linecap="round"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/tahfizh.svg b/public/media/ekskul/tahfizh.svg
+new file mode 100644
+index 0000000..a2ad7a0
+--- /dev/null
++++ b/public/media/ekskul/tahfizh.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f5ee"/><stop offset="1" stop-color="#cfe8da"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><circle cx="1010" cy="140" r="60" fill="#ffe9a8"/><circle cx="1036" cy="124" r="52" fill="#d6efe0"/><g fill="#bfe0cd"><rect x="120" y="300" width="22" height="280"/><rect x="1060" y="300" width="22" height="280"/><path d="M131 300 L131 270 M1071 300 L1071 270" stroke="#bfe0cd" stroke-width="6"/><path d="M360 560 L360 400 C360 300 840 300 840 400 L840 560Z"/><path d="M600 300 L600 250" stroke="#bfe0cd" stroke-width="8"/><circle cx="600" cy="244" r="10"/></g><rect y="640" width="1200" height="260" fill="#0f5a38"/><g stroke="#e8c76b" stroke-width="4" opacity=".7"><path d="M0 700H1200M0 780H1200"/></g><g fill="#e8c76b" opacity=".8"><path d="M80 670 l14 14 l-14 14 l-14 -14Z"/><path d="M240 670 l14 14 l-14 14 l-14 -14Z"/><path d="M400 670 l14 14 l-14 14 l-14 -14Z"/><path d="M560 670 l14 14 l-14 14 l-14 -14Z"/><path d="M720 670 l14 14 l-14 14 l-14 -14Z"/><path d="M880 670 l14 14 l-14 14 l-14 -14Z"/><path d="M1040 670 l14 14 l-14 14 l-14 -14Z"/></g><path d="M470 610 L720 790 M730 610 L480 790" stroke="#6b4a2f" stroke-width="16" stroke-linecap="round"/><path d="M470 560 L600 585 L600 700 L470 675Z" fill="#fff"/><path d="M730 560 L600 585 L600 700 L730 675Z" fill="#fbf4df"/><path d="M600 585 L600 700" stroke="#c9b27a" stroke-width="4"/><path d="M490 595 L585 612" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M715 595 L615 612" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M490 613 L585 630" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M715 613 L615 630" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M490 631 L585 648" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M715 631 L615 648" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M490 649 L585 666" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><path d="M715 649 L615 666" stroke="#1a7a4c" stroke-width="4" opacity=".75"/><ellipse cx="600" cy="840" rx="300" ry="26" fill="#0a3f27" opacity=".5"/><g transform="translate(250,730)"><ellipse cx="0" cy="40" rx="110" ry="26" fill="#243b2f"/><rect x="-44" y="-80" width="88" height="100" rx="28" fill="#fff"/><path d="M-44 -4 L-120 22 M44 -4 L120 22" stroke="#fff" stroke-width="20" stroke-linecap="round"/><circle cx="-124" cy="23" r="11" fill="#e9b78a"/><circle cx="124" cy="23" r="11" fill="#e9b78a"/><rect x="-10" y="-102" width="20" height="26" fill="#e9b78a"/><circle cx="0" cy="-124" r="36" fill="#e9b78a"/><path d="M-37 -132 C-37 -178 37 -178 37 -132Z" fill="#16181c"/><rect x="-37" y="-136" width="74" height="10" rx="5" fill="#16181c"/><circle cx="-12" cy="-120" r="3.4" fill="#2a1b12"/><circle cx="12" cy="-120" r="3.4" fill="#2a1b12"/><path d="M-9 -106 Q0 -99 9 -106" stroke="#7a3b2a" stroke-width="3" fill="none" stroke-linecap="round"/></g><g transform="translate(950,730)"><ellipse cx="0" cy="40" rx="110" ry="26" fill="#7a4e8f"/><rect x="-44" y="-80" width="88" height="100" rx="28" fill="#f4d9e8"/><path d="M-44 -4 L-100 30 M44 -4 L100 30" stroke="#f4d9e8" stroke-width="20" stroke-linecap="round"/><circle cx="-104" cy="31" r="11" fill="#f0c8a0"/><circle cx="104" cy="31" r="11" fill="#f0c8a0"/><path d="M-50 -122 C-50 -178 50 -178 50 -122 C50 -92 58 -80 46 -70 L-46 -70 C-58 -80 -50 -92 -50 -122Z" fill="#a8639a"/><ellipse cx="0" cy="-120" rx="30" ry="33" fill="#f0c8a0"/><circle cx="-11" cy="-118" r="3.2" fill="#2a1b12"/><circle cx="11" cy="-118" r="3.2" fill="#2a1b12"/><path d="M-8 -104 Q0 -97 8 -104" stroke="#7a3b2a" stroke-width="3" fill="none" stroke-linecap="round"/></g></svg>
+\ No newline at end of file
+diff --git a/public/media/ekskul/tapak-suci.svg b/public/media/ekskul/tapak-suci.svg
+new file mode 100644
+index 0000000..fa866a6
+--- /dev/null
++++ b/public/media/ekskul/tapak-suci.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efe0"/><stop offset="1" stop-color="#e2d3ad"/></linearGradient></defs><rect width="1200" height="900" fill="url(#bg)"/><rect y="0" width="1200" height="560" fill="#f3e9d6"/><rect y="560" width="1200" height="340" fill="#cdb98f"/><rect x="140" y="90" width="920" height="120" rx="14" fill="#8e1c1c"/><rect x="156" y="106" width="888" height="88" rx="8" fill="none" stroke="#e8c76b" stroke-width="4"/><g fill="#e8c76b"><circle cx="600" cy="150" r="30"/><path d="M600 112 L612 140 L642 142 L618 160 L626 190 L600 172 L574 190 L582 160 L558 142 L588 140Z" fill="#8e1c1c"/></g><path d="M60 640 L1140 640 L1240 900 L-40 900Z" fill="#2f7d52"/><path d="M60 640 L1140 640" stroke="#fff" stroke-width="6"/><g transform="translate(400,720) scale(1.7)"><path d="M-12 -2 L-58 96" stroke="#16181c" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L46 96" stroke="#16181c" stroke-width="24" stroke-linecap="round"/><ellipse cx="-58" cy="104" rx="17" ry="9" fill="#16181c"/><ellipse cx="46" cy="104" rx="17" ry="9" fill="#16181c"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#16181c"/><path d="M-24 -76 L-20 -102" stroke="#16181c" stroke-width="19" stroke-linecap="round"/><circle cx="-20" cy="-102" r="10" fill="#e9b78a"/><path d="M24 -76 L86 -70" stroke="#16181c" stroke-width="19" stroke-linecap="round"/><circle cx="86" cy="-70" r="10" fill="#e9b78a"/><rect x="-8" y="-112" width="16" height="22" fill="#e9b78a"/><circle cx="0" cy="-122" r="26" fill="#e9b78a"/><path d="M-27 -122 C-30 -154 30 -154 27 -122 C14 -138 -14 -138 -27 -122Z" fill="#2a1b12"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="-27" y="-30" width="54" height="12" fill="#fff"/><path d="M0 -24 L-10 4 M0 -24 L12 2" stroke="#fff" stroke-width="7"/></g><g transform="translate(820,720) scale(1.7)"><path d="M-12 -2 L-46 96" stroke="#16181c" stroke-width="24" stroke-linecap="round"/><path d="M12 -2 L58 96" stroke="#16181c" stroke-width="24" stroke-linecap="round"/><ellipse cx="-46" cy="104" rx="17" ry="9" fill="#16181c"/><ellipse cx="58" cy="104" rx="17" ry="9" fill="#16181c"/><rect x="-27" y="-94" width="54" height="100" rx="22" fill="#16181c"/><path d="M-24 -76 L-86 -70" stroke="#16181c" stroke-width="19" stroke-linecap="round"/><circle cx="-86" cy="-70" r="10" fill="#f0c8a0"/><path d="M24 -76 L20 -102" stroke="#16181c" stroke-width="19" stroke-linecap="round"/><circle cx="20" cy="-102" r="10" fill="#f0c8a0"/><rect x="-8" y="-112" width="16" height="22" fill="#f0c8a0"/><path d="M-33 -118 C-33 -156 33 -156 33 -118 C33 -92 38 -80 30 -72 L-30 -72 C-38 -80 -33 -92 -33 -118Z" fill="#16181c"/><ellipse cx="0" cy="-116" rx="21" ry="24" fill="#f0c8a0"/><circle cx="-9" cy="-118" r="2.6" fill="#2a1b12"/><circle cx="9" cy="-118" r="2.6" fill="#2a1b12"/><path d="M-7 -107 Q0 -101 7 -107" stroke="#7a3b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="-27" y="-30" width="54" height="12" fill="#fff"/><path d="M0 -24 L-10 4 M0 -24 L12 2" stroke="#fff" stroke-width="7"/></g></svg>
+\ No newline at end of file
+diff --git a/src/components/site/ekskul.tsx b/src/components/site/ekskul.tsx
+new file mode 100644
+index 0000000..e280f50
+--- /dev/null
++++ b/src/components/site/ekskul.tsx
+@@ -0,0 +1,335 @@
++import { useState } from "react";
++import { Link } from "@tanstack/react-router";
++import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone, Plus } from "lucide-react";
++import { Prose } from "@/components/site/shell";
++import { ProgramMediaGallery } from "@/components/site/program-media";
++import { useSiteStore } from "@/lib/site/store";
++import type { Program, ProgramGroup } from "@/lib/site/types";
++
++const kickerClass = "text-xs font-semibold uppercase tracking-[0.2em]";
++
++function Cover({ program, className }: { program: Program; className: string }) {
++  return program.cover ? (
++    <img
++      src={program.cover}
++      alt={`Kegiatan ${program.title}`}
++      loading="lazy"
++      className={`${className} object-cover`}
++    />
++  ) : (
++    <div className={`${className} grid place-items-center bg-mint text-sm text-muted`}>
++      Gambar belum dipasang
++    </div>
++  );
++}
++
++function EkskulCard({ item }: { item: Program }) {
++  return (
++    <Link
++      to="/program/$id"
++      params={{ id: item.id }}
++      className="group flex flex-col overflow-hidden rounded-2xl bg-sheet ring-1 ring-line transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
++    >
++      <div className="relative overflow-hidden">
++        <Cover
++          program={item}
++          className="aspect-[4/3] w-full transition-transform duration-300 group-hover:scale-105"
++        />
++        <span className="absolute left-0 top-5 bg-pine-deep px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sheet">
++          {item.category || "Ekskul"}
++        </span>
++      </div>
++      <div className="flex flex-1 flex-col bg-sky p-5">
++        {!item.visible ? <p className="mb-1 text-xs text-brass">Tersembunyi dari tamu</p> : null}
++        <h3 className="font-serif text-2xl text-ink group-hover:text-pine">{item.title}</h3>
++        <p className="mt-2 line-clamp-3 text-sm text-muted">{item.summary}</p>
++        <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-pine">
++          Lihat selengkapnya{" "}
++          <ArrowRight
++            className="size-4 transition-transform group-hover:translate-x-1"
++            aria-hidden
++          />
++        </span>
++      </div>
++    </Link>
++  );
++}
++
++/** Halaman daftar ekstrakurikuler: banner, penyaring kategori, dan kartu bergambar. */
++export function EkskulListPage({ group, items }: { group: ProgramGroup; items: Program[] }) {
++  const [filter, setFilter] = useState("Semua");
++  const categories = [
++    "Semua",
++    ...Array.from(new Set(items.map((item) => item.category || "Ekskul"))),
++  ];
++  const shown =
++    filter === "Semua" ? items : items.filter((item) => (item.category || "Ekskul") === filter);
++
++  return (
++    <>
++      <div className="relative mx-auto max-w-6xl px-5 pt-8">
++        <div className="relative">
++          {group.image ? (
++            <img
++              src={group.image}
++              alt="Siswa berkegiatan di halaman sekolah"
++              className="aspect-[16/10] w-full rounded-2xl object-cover sm:aspect-[21/9]"
++            />
++          ) : (
++            <div className="aspect-[16/10] w-full rounded-2xl bg-mint sm:aspect-[21/9]" />
++          )}
++          <div className="relative -mt-8 ml-3 mr-3 max-w-md bg-pine-deep p-5 text-sheet shadow-lg sm:-mt-16 sm:ml-8 sm:mr-0 sm:p-8">
++            {!group.visible ? (
++              <p className="mb-2 text-xs text-brass-soft">Tersembunyi dari tamu</p>
++            ) : null}
++            <p className={`${kickerClass} opacity-80`}>Ekstrakurikuler</p>
++            <h1 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">
++              {group.title === "Ekstrakurikuler" ? "Kegiatan ekskul kami" : group.title}
++            </h1>
++          </div>
++        </div>
++      </div>
++
++      <section className="mx-auto max-w-6xl px-5 pb-16 pt-10">
++        {group.summary || group.body ? (
++          <div className="max-w-3xl space-y-3 text-muted">
++            {group.summary ? <p className="text-lg text-ink">{group.summary}</p> : null}
++            {group.body ? <p>{group.body}</p> : null}
++          </div>
++        ) : null}
++
++        {categories.length > 2 ? (
++          <div
++            className="mt-8 flex flex-wrap gap-2"
++            role="group"
++            aria-label="Saring berdasarkan kategori"
++          >
++            {categories.map((name) => (
++              <button
++                key={name}
++                type="button"
++                aria-pressed={filter === name}
++                onClick={() => setFilter(name)}
++                className={`h-10 rounded-full px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
++                  filter === name
++                    ? "bg-pine-deep text-sheet"
++                    : "border border-line bg-sheet text-ink hover:border-pine"
++                }`}
++              >
++                {name}
++              </button>
++            ))}
++          </div>
++        ) : null}
++
++        <p className="mt-6 text-sm text-muted" aria-live="polite">
++          {shown.length} kegiatan{filter !== "Semua" ? ` · ${filter}` : ""}
++        </p>
++        {items.length === 0 ? (
++          <p className="mt-4 text-muted">Belum ada kegiatan ekstrakurikuler yang ditampilkan.</p>
++        ) : (
++          <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
++            {shown.map((item) => (
++              <EkskulCard key={item.id} item={item} />
++            ))}
++          </div>
++        )}
++
++        <p className="mt-12">
++          <Link to="/program" className="font-semibold text-pine hover:underline">
++            ← Semua kelompok program
++          </Link>
++        </p>
++      </section>
++    </>
++  );
++}
++
++/** Halaman satu ekskul: gambar, uraian, prestasi, kegiatan, dan kontak. */
++export function EkskulDetailPage({ program }: { program: Program }) {
++  const content = useSiteStore((state) => state.content);
++  const admin = useSiteStore((state) => state.admin);
++  const identity = content.identity;
++  const media = program.media ?? [];
++  const activities = program.activities ?? [];
++  const achievements = program.achievements ?? [];
++  const secondImage = media.find((item) => item.kind === "image" && item.src);
++  const galleryRest = media.filter((item) => item !== secondImage);
++  const others = content.programs.filter(
++    (item) => item.group === "ekstrakurikuler" && item.id !== program.id && (item.visible || admin),
++  );
++
++  return (
++    <article className="mx-auto max-w-6xl px-5 pb-16 pt-8">
++      <nav aria-label="Jejak halaman" className="text-sm text-muted">
++        <Link to="/program" className="hover:text-pine hover:underline">
++          Program
++        </Link>
++        <span aria-hidden> / </span>
++        <Link
++          to="/program/$id"
++          params={{ id: "ekstrakurikuler" }}
++          className="hover:text-pine hover:underline"
++        >
++          Ekstrakurikuler
++        </Link>
++        <span aria-hidden> / </span>
++        <span className="text-ink">{program.title}</span>
++      </nav>
++      {!program.visible ? <p className="mt-3 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
++
++      <header className="mt-6 grid items-start gap-8 lg:grid-cols-2">
++        <Cover program={program} className="aspect-[4/3] w-full rounded-2xl" />
++        <div className="flex flex-col gap-5">
++          <div>
++            <p className={`${kickerClass} text-muted`}>
++              {program.category ? `Ekstrakurikuler · ${program.category}` : "Ekstrakurikuler"}
++            </p>
++            <h1 className="mt-3 font-serif text-4xl leading-tight text-ink md:text-5xl">
++              {program.title}
++            </h1>
++            {program.summary ? <p className="mt-4 text-lg text-muted">{program.summary}</p> : null}
++            <Link
++              to="/kontak"
++              className="mt-6 inline-flex h-12 items-center rounded-md bg-pine-deep px-6 text-sm font-semibold text-sheet transition-colors hover:bg-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
++            >
++              Daftar sekarang
++            </Link>
++          </div>
++          {secondImage ? (
++            <img
++              src={secondImage.src}
++              alt={secondImage.caption || `Kegiatan ${program.title}`}
++              loading="lazy"
++              className="aspect-[16/9] w-full rounded-2xl object-cover"
++            />
++          ) : null}
++        </div>
++      </header>
++
++      <div className="mt-12 grid gap-10 lg:grid-cols-12">
++        <div className="lg:col-span-8">
++          {program.body ? (
++            <Prose text={program.body} />
++          ) : (
++            <p className="text-muted">Uraian kegiatan belum diisi.</p>
++          )}
++
++          <hr className="my-10 border-line" />
++          <section aria-labelledby="prestasi">
++            <h2 id="prestasi" className="font-serif text-3xl text-ink">
++              Prestasi
++            </h2>
++            {achievements.length > 0 ? (
++              <div className="mt-5 grid gap-4 sm:grid-cols-2">
++                {achievements.map((item) => (
++                  <div
++                    key={item.id || item.title}
++                    className="rounded-xl bg-sheet p-5 ring-1 ring-line"
++                  >
++                    <p className="text-xs font-semibold tracking-wider text-muted">{item.year}</p>
++                    <p className="mt-2 font-serif text-2xl text-ink">{item.title}</p>
++                    <p className="mt-1 text-sm text-muted">{item.result}</p>
++                  </div>
++                ))}
++              </div>
++            ) : (
++              <p className="mt-4 text-muted">
++                Prestasi {program.title} akan dicantumkan di sini.
++                {admin ? " (Isi dari panel kelola → Program → pilih kegiatan ini.)" : ""}
++              </p>
++            )}
++          </section>
++
++          <ProgramMediaGallery media={galleryRest} />
++        </div>
++
++        <aside className="lg:col-span-4">
++          <div className="space-y-6 lg:sticky lg:top-24">
++            <div className="rounded-xl bg-sheet p-6 ring-1 ring-line">
++              <h2 className="font-serif text-2xl text-ink">Kegiatan kami</h2>
++              {activities.length > 0 ? (
++                <ul className="mt-4 divide-y divide-line">
++                  {activities.map((act) => (
++                    <li key={act} className="flex items-center gap-3 py-3 text-sm text-ink">
++                      <Plus className="size-4 shrink-0 text-pine" aria-hidden />
++                      {act}
++                    </li>
++                  ))}
++                </ul>
++              ) : (
++                <p className="mt-3 text-sm text-muted">Daftar kegiatan belum diisi.</p>
++              )}
++            </div>
++
++            <div className="rounded-xl bg-pine-deep p-6 text-sheet">
++              <div className="flex items-start justify-between gap-4">
++                <h2 className="font-serif text-2xl">Kontak</h2>
++                <Link
++                  to="/kontak"
++                  aria-label={`Hubungi sekolah tentang ${program.title}`}
++                  className="grid size-10 shrink-0 place-items-center rounded-full bg-sheet text-pine-deep transition-colors hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sheet"
++                >
++                  <ArrowUpRight className="size-5" aria-hidden />
++                </Link>
++              </div>
++              <p className="mt-2 text-sm opacity-80">
++                Tanyakan jadwal dan pendaftaran {program.title} melalui sekolah.
++              </p>
++              <ul className="mt-4 space-y-3 text-sm">
++                {identity.phone ? (
++                  <li className="flex gap-3">
++                    <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
++                    <a
++                      href={`tel:${identity.phone.replace(/[^\d+]/g, "")}`}
++                      className="hover:underline"
++                    >
++                      {identity.phone}
++                    </a>
++                  </li>
++                ) : null}
++                {identity.email ? (
++                  <li className="flex gap-3">
++                    <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
++                    <a href={`mailto:${identity.email}`} className="break-all hover:underline">
++                      {identity.email}
++                    </a>
++                  </li>
++                ) : null}
++                {identity.address ? (
++                  <li className="flex gap-3">
++                    <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
++                    <span>{identity.address}</span>
++                  </li>
++                ) : null}
++              </ul>
++            </div>
++          </div>
++        </aside>
++      </div>
++
++      {others.length > 0 ? (
++        <section className="mt-16" aria-labelledby="lainnya">
++          <h2 id="lainnya" className="font-serif text-3xl text-ink">
++            Ekstrakurikuler lainnya
++          </h2>
++          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
++            {others.slice(0, 4).map((item) => (
++              <EkskulCard key={item.id} item={item} />
++            ))}
++          </div>
++        </section>
++      ) : null}
++
++      <p className="mt-12">
++        <Link
++          to="/program/$id"
++          params={{ id: "ekstrakurikuler" }}
++          className="font-semibold text-pine hover:underline"
++        >
++          ← Semua ekstrakurikuler
++        </Link>
++      </p>
++    </article>
++  );
++}
+diff --git a/src/components/site/kelola-panels-b1.tsx b/src/components/site/kelola-panels-b1.tsx
+index f31edcd..7ecc0f3 100644
+--- a/src/components/site/kelola-panels-b1.tsx
++++ b/src/components/site/kelola-panels-b1.tsx
+@@ -1,7 +1,13 @@
+ import { useState } from "react";
+ import { uid } from "@/lib/site/format";
+ import { useSiteStore } from "@/lib/site/store";
+-import type { Program, ProgramGroup, ProgramGroupId, ProgramMedia } from "@/lib/site/types";
++import type {
++  Program,
++  ProgramAchievement,
++  ProgramGroup,
++  ProgramGroupId,
++  ProgramMedia,
++} from "@/lib/site/types";
+ import { Field, ImageField } from "@/components/site/kelola-panels-a1";
+ import { ItemTools, reorder } from "@/components/site/kelola-panels-a2";
+ 
+@@ -49,6 +55,33 @@ export function ProgramPanel() {
+     setOpenId(id);
+   }
+ 
++  function addAchievement(programId: string) {
++    patch(programId, (item) => {
++      item.achievements = [
++        ...(item.achievements ?? []),
++        { id: uid("prestasi"), year: "", title: "", result: "" },
++      ];
++    });
++  }
++
++  function patchAchievement(
++    programId: string,
++    achId: string,
++    recipe: (a: ProgramAchievement) => void,
++  ) {
++    patch(programId, (item) => {
++      const found = (item.achievements ?? []).find((entry) => entry.id === achId);
++      if (found) recipe(found);
++    });
++  }
++
++  function removeAchievement(programId: string, achId: string) {
++    if (!window.confirm("Hapus prestasi ini?")) return;
++    patch(programId, (item) => {
++      item.achievements = (item.achievements ?? []).filter((entry) => entry.id !== achId);
++    });
++  }
++
+   function addMedia(programId: string, kind: ProgramMedia["kind"]) {
+     const mediaId = uid("media");
+     patch(programId, (item) => {
+@@ -74,8 +107,8 @@ export function ProgramPanel() {
+     <div className="grid gap-4">
+       <h2 className="font-serif text-3xl">Kelompok program</h2>
+       <p className="text-sm text-muted">
+-        Tiga kelompok di bawah ini masing-masing punya halaman. Judul, uraian, dan gambar bisa diganti. Kegiatan di
+-        dalamnya tetap bisa disusun satu per satu.
++        Tiga kelompok di bawah ini masing-masing punya halaman. Judul, uraian, dan gambar bisa
++        diganti. Kegiatan di dalamnya tetap bisa disusun satu per satu.
+       </p>
+       <div className="grid gap-2">
+         {groups.map((group) => {
+@@ -88,7 +121,9 @@ export function ProgramPanel() {
+                 className="flex w-full items-center gap-3 px-4 py-3 text-left"
+               >
+                 <span className="min-w-0 flex-1 truncate font-semibold">{group.title}</span>
+-                <span className="text-sm text-muted">{group.visible ? "Tampil" : "Tersembunyi"}</span>
++                <span className="text-sm text-muted">
++                  {group.visible ? "Tampil" : "Tersembunyi"}
++                </span>
+                 <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+               </button>
+               {open ? (
+@@ -118,7 +153,9 @@ export function ProgramPanel() {
+                   />
+                   <button
+                     type="button"
+-                    onClick={() => patchGroup(group.id, (entry) => (entry.visible = !entry.visible))}
++                    onClick={() =>
++                      patchGroup(group.id, (entry) => (entry.visible = !entry.visible))
++                    }
+                     className="h-10 w-fit rounded-full border border-line px-3 text-sm font-semibold"
+                   >
+                     {group.visible ? "Sembunyikan dari tamu" : "Tampilkan ke tamu"}
+@@ -131,12 +168,18 @@ export function ProgramPanel() {
+       </div>
+       <div className="flex flex-wrap items-center justify-between gap-3">
+         <h2 className="font-serif text-3xl">Kegiatan</h2>
+-        <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
++        <button
++          type="button"
++          className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet"
++          onClick={add}
++        >
+           Tambah kegiatan
+         </button>
+       </div>
+       {programs.length === 0 ? (
+-        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada kegiatan.</p>
++        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">
++          Belum ada kegiatan.
++        </p>
+       ) : (
+         <div className="grid gap-2">
+           {programs.map((item, index) => {
+@@ -149,7 +192,9 @@ export function ProgramPanel() {
+                   onClick={() => setOpenId(open ? null : item.id)}
+                   className="flex w-full items-center gap-3 px-4 py-3 text-left"
+                 >
+-                  <span className="min-w-0 flex-1 truncate font-semibold">{item.title || "Tanpa nama"}</span>
++                  <span className="min-w-0 flex-1 truncate font-semibold">
++                    {item.title || "Tanpa nama"}
++                  </span>
+                   <span className="text-sm text-muted">
+                     {media.length} dokumen · {item.visible ? "Tampil" : "Tersembunyi"}
+                   </span>
+@@ -168,7 +213,10 @@ export function ProgramPanel() {
+                         className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
+                         value={item.group}
+                         onChange={(event) =>
+-                          patch(item.id, (entry) => (entry.group = event.target.value as ProgramGroupId))
++                          patch(
++                            item.id,
++                            (entry) => (entry.group = event.target.value as ProgramGroupId),
++                          )
+                         }
+                       >
+                         {groups.map((group) => (
+@@ -191,12 +239,80 @@ export function ProgramPanel() {
+                       rows={8}
+                       onChange={(value) => patch(item.id, (entry) => (entry.body = value))}
+                     />
++                    <Field
++                      label="Kategori (label di kartu, mis. Olahraga, Seni, Keagamaan)"
++                      value={item.category ?? ""}
++                      onChange={(value) => patch(item.id, (entry) => (entry.category = value))}
++                    />
++                    <Field
++                      label="Kegiatan kami (satu baris satu kegiatan)"
++                      value={(item.activities ?? []).join("\n")}
++                      multiline
++                      rows={5}
++                      onChange={(value) =>
++                        patch(item.id, (entry) => (entry.activities = value.split("\n")))
++                      }
++                    />
+                     <ImageField
+                       label="Sampul"
+                       value={item.cover ?? ""}
+                       onChange={(value) => patch(item.id, (entry) => (entry.cover = value))}
+                     />
+ 
++                    <div className="mt-2 rounded-xl border border-line bg-paper p-4">
++                      <div className="flex flex-wrap items-center justify-between gap-2">
++                        <p className="font-semibold text-pine">Prestasi</p>
++                        <button
++                          type="button"
++                          className="h-9 rounded-full border border-line bg-sheet px-3 text-sm font-semibold"
++                          onClick={() => addAchievement(item.id)}
++                        >
++                          + Prestasi
++                        </button>
++                      </div>
++                      {(item.achievements ?? []).length === 0 ? (
++                        <p className="mt-3 text-sm text-muted">Belum ada prestasi.</p>
++                      ) : (
++                        <div className="mt-3 grid gap-3">
++                          {(item.achievements ?? []).map((a) => (
++                            <div
++                              key={a.id}
++                              className="grid gap-2 rounded-xl border border-line bg-sheet p-3"
++                            >
++                              <Field
++                                label="Tahun"
++                                value={a.year}
++                                onChange={(value) =>
++                                  patchAchievement(item.id, a.id, (entry) => (entry.year = value))
++                                }
++                              />
++                              <Field
++                                label="Peringkat / judul (mis. Juara 1)"
++                                value={a.title}
++                                onChange={(value) =>
++                                  patchAchievement(item.id, a.id, (entry) => (entry.title = value))
++                                }
++                              />
++                              <Field
++                                label="Nama lomba dan tingkat"
++                                value={a.result}
++                                onChange={(value) =>
++                                  patchAchievement(item.id, a.id, (entry) => (entry.result = value))
++                                }
++                              />
++                              <button
++                                type="button"
++                                className="h-9 w-fit px-2 text-sm font-semibold text-pine-deep"
++                                onClick={() => removeAchievement(item.id, a.id)}
++                              >
++                                Hapus prestasi
++                              </button>
++                            </div>
++                          ))}
++                        </div>
++                      )}
++                    </div>
++
+                     <div className="mt-2 rounded-xl border border-line bg-paper p-4">
+                       <div className="flex flex-wrap items-center justify-between gap-2">
+                         <p className="font-semibold text-pine">Dokumentasi</p>
+@@ -225,8 +341,8 @@ export function ProgramPanel() {
+                         </div>
+                       </div>
+                       <p className="mt-2 text-sm text-muted">
+-                        Foto: unggah atau tautan gambar. Video: berkas video atau tautan file. Tautan: YouTube, Instagram,
+-                        atau situs lain.
++                        Foto: unggah atau tautan gambar. Video: berkas video atau tautan file.
++                        Tautan: YouTube, Instagram, atau situs lain.
+                       </p>
+                       {media.length === 0 ? (
+                         <p className="mt-3 text-sm text-muted">Belum ada dokumentasi.</p>
+@@ -235,22 +351,34 @@ export function ProgramPanel() {
+                           {media.map((m) => (
+                             <div key={m.id} className="rounded-xl border border-line bg-sheet p-3">
+                               <p className="text-sm font-semibold text-muted">
+-                                {m.kind === "image" ? "Foto" : m.kind === "video" ? "Video" : "Tautan eksternal"}
++                                {m.kind === "image"
++                                  ? "Foto"
++                                  : m.kind === "video"
++                                    ? "Video"
++                                    : "Tautan eksternal"}
+                               </p>
+                               {m.kind === "image" ? (
+                                 <div className="mt-2">
+                                   <ImageField
+                                     label="Gambar"
+                                     value={m.src}
+-                                    onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.src = value))}
++                                    onChange={(value) =>
++                                      patchMedia(item.id, m.id, (entry) => (entry.src = value))
++                                    }
+                                   />
+                                 </div>
+                               ) : (
+                                 <div className="mt-2">
+                                   <Field
+-                                    label={m.kind === "video" ? "Tautan atau alamat berkas video" : "URL (YouTube, Instagram, dll.)"}
++                                    label={
++                                      m.kind === "video"
++                                        ? "Tautan atau alamat berkas video"
++                                        : "URL (YouTube, Instagram, dll.)"
++                                    }
+                                     value={m.src}
+-                                    onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.src = value))}
++                                    onChange={(value) =>
++                                      patchMedia(item.id, m.id, (entry) => (entry.src = value))
++                                    }
+                                   />
+                                 </div>
+                               )}
+@@ -258,7 +386,9 @@ export function ProgramPanel() {
+                                 <Field
+                                   label="Keterangan"
+                                   value={m.caption}
+-                                  onChange={(value) => patchMedia(item.id, m.id, (entry) => (entry.caption = value))}
++                                  onChange={(value) =>
++                                    patchMedia(item.id, m.id, (entry) => (entry.caption = value))
++                                  }
+                                 />
+                               </div>
+                               <button
+@@ -288,7 +418,9 @@ export function ProgramPanel() {
+                       onRemove={() => {
+                         if (!window.confirm("Hapus program ini?")) return;
+                         update((content) => {
+-                          content.programs = content.programs.filter((entry) => entry.id !== item.id);
++                          content.programs = content.programs.filter(
++                            (entry) => entry.id !== item.id,
++                          );
+                           return content;
+                         });
+                         setOpenId(null);
+diff --git a/src/components/site/program-media.tsx b/src/components/site/program-media.tsx
+new file mode 100644
+index 0000000..b6cd833
+--- /dev/null
++++ b/src/components/site/program-media.tsx
+@@ -0,0 +1,84 @@
++import type { ProgramMedia } from "@/lib/site/types";
++
++function youtubeEmbed(url: string): string | null {
++  try {
++    const u = new URL(url);
++    const host = u.hostname.replace(/^www\./, "");
++    if (host === "youtu.be") {
++      const id = u.pathname.slice(1).split("/")[0];
++      return id ? `https://www.youtube.com/embed/${id}` : null;
++    }
++    if (host === "youtube.com" || host === "m.youtube.com") {
++      const id = u.searchParams.get("v");
++      if (id) return `https://www.youtube.com/embed/${id}`;
++      const parts = u.pathname.split("/").filter(Boolean);
++      if ((parts[0] === "embed" || parts[0] === "shorts") && parts[1]) {
++        return `https://www.youtube.com/embed/${parts[1]}`;
++      }
++    }
++  } catch {
++    /* alamat tidak valid */
++  }
++  return null;
++}
++
++export function ProgramMediaGallery({ media }: { media: ProgramMedia[] }) {
++  if (media.length === 0) return null;
++  return (
++    <section className="mt-12">
++      <h2 className="font-serif text-3xl text-ink">Dokumentasi</h2>
++      <div className="mt-5 grid gap-4 sm:grid-cols-2">
++        {media.map((item) => {
++          const yt = item.kind === "url" ? youtubeEmbed(item.src) : null;
++          return (
++            <figure
++              key={item.id}
++              className="overflow-hidden rounded-xl border border-line bg-sheet"
++            >
++              {item.kind === "image" && item.src ? (
++                <img
++                  src={item.src}
++                  alt={item.caption || "Dokumentasi kegiatan"}
++                  loading="lazy"
++                  className="aspect-video w-full object-cover"
++                />
++              ) : null}
++              {item.kind === "video" && item.src ? (
++                <video src={item.src} controls className="aspect-video w-full bg-ink" />
++              ) : null}
++              {yt ? (
++                <div className="aspect-video w-full bg-ink">
++                  <iframe
++                    title={item.caption || "Video YouTube"}
++                    src={yt}
++                    loading="lazy"
++                    className="size-full border-0"
++                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
++                    allowFullScreen
++                  />
++                </div>
++              ) : null}
++              {item.kind === "url" && item.src && !yt ? (
++                <div className="p-4">
++                  <a
++                    href={item.src}
++                    target="_blank"
++                    rel="noreferrer"
++                    className="font-semibold text-pine underline-offset-2 hover:underline"
++                  >
++                    {item.caption || item.src}
++                  </a>
++                </div>
++              ) : null}
++              {item.caption && item.kind !== "url" ? (
++                <figcaption className="border-t border-line px-4 py-2 text-sm text-muted">
++                  {item.caption}
++                </figcaption>
++              ) : null}
++            </figure>
++          );
++        })}
++      </div>
++    </section>
++  );
++}
+diff --git a/src/lib/site/seed.ts b/src/lib/site/seed.ts
+index 363aa23..a76c8b8 100644
+--- a/src/lib/site/seed.ts
++++ b/src/lib/site/seed.ts
+@@ -66,14 +66,16 @@ export const seedContent: SiteContent = {
+       name: "Dwi Sanderayanti",
+       role: "Kepala Sekolah",
+       photo: "/media/kepala.jpg",
+-      duties: "Memimpin sekolah, membina guru, dan menjaga hubungan dengan orang tua serta lingkungan Kukusan.",
++      duties:
++        "Memimpin sekolah, membina guru, dan menjaga hubungan dengan orang tua serta lingkungan Kukusan.",
+       visible: true,
+     },
+     {
+       id: "wakil-kurikulum",
+       name: "Wakil Kepala Bidang Kurikulum",
+       role: "Wakil Kepala Sekolah",
+-      duties: "Mengkoordinasikan penyusunan kurikulum, jadwal pelajaran, dan evaluasi pembelajaran.",
++      duties:
++        "Mengkoordinasikan penyusunan kurikulum, jadwal pelajaran, dan evaluasi pembelajaran.",
+       visible: true,
+     },
+     {
+@@ -91,8 +93,7 @@ export const seedContent: SiteContent = {
+       visible: true,
+     },
+   ] as StaffMember[],
+-  visi:
+-    "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
++  visi: "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
+   misi: [
+     "Menyelenggarakan pembelajaran yang menumbuhkan adab, rasa ingin tahu, dan kemandirian.",
+     "Membiasakan ibadah dan bacaan Al-Qur'an dalam keseharian sekolah.",
+@@ -103,7 +104,8 @@ export const seedContent: SiteContent = {
+     {
+       id: "intrakurikuler",
+       title: "Intrakurikuler",
+-      summary: "Pelajaran di kelas: membaca, berhitung, dan Al-Qur'an yang menjadi ritme setiap hari.",
++      summary:
++        "Pelajaran di kelas: membaca, berhitung, dan Al-Qur'an yang menjadi ritme setiap hari.",
+       body: "Intrakurikuler adalah pembelajaran yang berlangsung di dalam jam pelajaran. Anak belajar sesuai tingkatan, didampingi guru, dengan adab sebagai bagian dari jam belajar — bukan kegiatan yang terpisah.",
+       image: "/media/program-intra.jpg",
+       visible: true,
+@@ -111,7 +113,8 @@ export const seedContent: SiteContent = {
+     {
+       id: "kokurikuler",
+       title: "Kokurikuler",
+-      summary: "Kegiatan yang memperdalam pelajaran, dikerjakan bersama di luar jam mata pelajaran.",
++      summary:
++        "Kegiatan yang memperdalam pelajaran, dikerjakan bersama di luar jam mata pelajaran.",
+       body: "Kokurikuler menguatkan apa yang sudah dipelajari di kelas. Anak mengerjakan proyek sederhana, membaca bersama, atau berlatih kebiasaan baik dengan pendampingan guru.",
+       image: "/media/program-ko.jpg",
+       visible: true,
+@@ -119,7 +122,8 @@ export const seedContent: SiteContent = {
+     {
+       id: "ekstrakurikuler",
+       title: "Ekstrakurikuler",
+-      summary: "Kegiatan pilihan di luar jam belajar untuk menumbuhkan minat, kemandirian, dan kerjasama.",
++      summary:
++        "Kegiatan pilihan di luar jam belajar untuk menumbuhkan minat, kemandirian, dan kerjasama.",
+       body: "Ekstrakurikuler dipilih sesuai minat anak. Kegiatan seperti Hizbul Wathan, Tapak Suci, dan lainnya melatih keberanian mencoba, bekerjasama, dan menjaga diri di luar ruang kelas.",
+       image: "/media/program-ekstra.jpg",
+       visible: true,
+@@ -134,14 +138,22 @@ export const seedContent: SiteContent = {
+         "Sholat berjamaah, doa harian, dan adab di kelas menjadi bagian dari ritme pagi, bukan kegiatan yang terpisah dari belajar.",
+       body: "Setiap pagi, anak-anak dibiasakan berdoa bersama sebelum belajar. Sholat berjamaah dan adab di kelas dilatih secara bertahap agar menjadi kebiasaan.\n\nGuru mendampingi dengan keteladanan.",
+       cover: "/media/musala.jpg",
+-      media: [{ id: "ibadah-1", kind: "image", src: "/media/musala.jpg", caption: "Suasana ruang ibadah sekolah" }],
++      media: [
++        {
++          id: "ibadah-1",
++          kind: "image",
++          src: "/media/musala.jpg",
++          caption: "Suasana ruang ibadah sekolah",
++        },
++      ],
+       visible: true,
+     },
+     {
+       id: "btq",
+       group: "intrakurikuler",
+       title: "Baca tulis Al-Qur'an",
+-      summary: "Anak-anak dilatih membaca dan menulis Al-Qur'an secara bertahap, sesuai kemampuan masing-masing kelas.",
++      summary:
++        "Anak-anak dilatih membaca dan menulis Al-Qur'an secara bertahap, sesuai kemampuan masing-masing kelas.",
+       body: "Program BTQ disusun per tingkat kemampuan. Tujuan utamanya agar setiap peserta didik nyaman dengan Al-Qur'an sejak dini.",
+       cover: "/media/kelas.jpg",
+       media: [],
+@@ -151,7 +163,8 @@ export const seedContent: SiteContent = {
+       id: "literasi",
+       group: "intrakurikuler",
+       title: "Literasi",
+-      summary: "Kebiasaan membaca di sekolah agar anak nyaman dengan buku, cerita, dan pertanyaan mereka sendiri.",
++      summary:
++        "Kebiasaan membaca di sekolah agar anak nyaman dengan buku, cerita, dan pertanyaan mereka sendiri.",
+       body: "Pojok baca dan waktu literasi membantu anak mengenal buku sebagai teman.",
+       cover: "/media/pustaka.jpg",
+       media: [],
+@@ -161,9 +174,11 @@ export const seedContent: SiteContent = {
+       id: "hizbul-wathan",
+       group: "ekstrakurikuler",
+       title: "Hizbul Wathan",
+-      summary: "Kegiatan kepramukaan Muhammadiyah yang menumbuhkan kemandirian, kerjasama, dan cinta tanah air.",
++      summary:
++        "Kegiatan kepramukaan Muhammadiyah yang menumbuhkan kemandirian, kerjasama, dan cinta tanah air.",
+       body: "Hizbul Wathan adalah organisasi kepanduan Muhammadiyah. Melalui latihan rutin, anak belajar disiplin, gotong royong, dan keterampilan outdoor dengan semangat Islam.",
+-      cover: "/media/program-ekstra.jpg",
++      cover: "/media/ekskul/hizbul-wathan.svg",
++      category: "Kepemimpinan",
+       media: [],
+       activities: [
+         "Latihan rutin mingguan",
+@@ -172,7 +187,12 @@ export const seedContent: SiteContent = {
+         "Pembinaan karakter",
+       ],
+       achievements: [
+-        { id: "hw-2024", year: "2024", title: "Juara 2", result: "Lomba Hizbul Wathan tingkat kota" },
++        {
++          id: "hw-2024",
++          year: "2024",
++          title: "Juara 2",
++          result: "Lomba Hizbul Wathan tingkat kota",
++        },
+       ],
+       visible: true,
+     },
+@@ -180,9 +200,11 @@ export const seedContent: SiteContent = {
+       id: "tapak-suci",
+       group: "ekstrakurikuler",
+       title: "Tapak Suci",
+-      summary: "Pencak silat Muhammadiyah untuk menjaga kesehatan, kepercayaan diri, dan adab bela diri.",
++      summary:
++        "Pencak silat Muhammadiyah untuk menjaga kesehatan, kepercayaan diri, dan adab bela diri.",
+       body: "Tapak Suci mengajarkan teknik dasar pencak silat, fisik, dan mental. Anak belajar menghormati guru, sesama, dan menggunakan keterampilan dengan bijak.",
+-      cover: "/media/lapangan.jpg",
++      cover: "/media/ekskul/tapak-suci.svg",
++      category: "Bela Diri",
+       media: [],
+       activities: [
+         "Latihan teknik dasar",
+@@ -199,7 +221,8 @@ export const seedContent: SiteContent = {
+       title: "Tahfizh",
+       summary: "Program hafalan Al-Qur'an yang didampingi agar anak nyaman dan istiqamah.",
+       body: "Anak-anak dilatih menghafal Al-Qur'an secara bertahap, dimulai dari surat pendek. Fokus pada kelancaran, tartil, dan pemahaman sederhana.",
+-      cover: "/media/nilai-quran.jpg",
++      cover: "/media/ekskul/tahfizh.svg",
++      category: "Keagamaan",
+       media: [],
+       activities: [
+         "Setoran hafalan harian",
+@@ -208,7 +231,12 @@ export const seedContent: SiteContent = {
+         "Pendampingan ustadz",
+       ],
+       achievements: [
+-        { id: "tf-2025", year: "2025", title: "Juara 1", result: "Lomba Tahfidz Juz 30 tingkat kecamatan" },
++        {
++          id: "tf-2025",
++          year: "2025",
++          title: "Juara 1",
++          result: "Lomba Tahfidz Juz 30 tingkat kecamatan",
++        },
+       ],
+       visible: true,
+     },
+@@ -216,16 +244,13 @@ export const seedContent: SiteContent = {
+       id: "paskibra",
+       group: "ekstrakurikuler",
+       title: "Paskibra",
+-      summary: "Pasukan pengibar bendera yang melatih kedisiplinan, kekompakan, dan jiwa nasionalisme.",
++      summary:
++        "Pasukan pengibar bendera yang melatih kedisiplinan, kekompakan, dan jiwa nasionalisme.",
+       body: "Paskibra melatih baris-berbaris, pengibaran bendera, dan kerja sama tim. Cocok untuk anak yang ingin lebih disiplin dan percaya diri di depan umum.",
+-      cover: "/media/program-ekstra.jpg",
++      cover: "/media/ekskul/paskibra.svg",
++      category: "Kepemimpinan",
+       media: [],
+-      activities: [
+-        "Latihan PBB",
+-        "Pengibaran bendera",
+-        "Persiapan upacara",
+-        "Pembinaan mental",
+-      ],
++      activities: ["Latihan PBB", "Pengibaran bendera", "Persiapan upacara", "Pembinaan mental"],
+       achievements: [],
+       visible: true,
+     },
+@@ -233,9 +258,11 @@ export const seedContent: SiteContent = {
+       id: "english-club",
+       group: "ekstrakurikuler",
+       title: "English Club",
+-      summary: "Belajar bahasa Inggris dengan cara menyenangkan melalui percakapan, lagu, dan permainan.",
++      summary:
++        "Belajar bahasa Inggris dengan cara menyenangkan melalui percakapan, lagu, dan permainan.",
+       body: "English Club membantu anak berani berbicara bahasa Inggris. Kegiatan dilakukan dengan suasana santai agar minat belajar tumbuh.",
+-      cover: "/media/kelas.jpg",
++      cover: "/media/ekskul/english-club.svg",
++      category: "Bahasa",
+       media: [],
+       activities: [
+         "Conversation practice",
+@@ -250,9 +277,11 @@ export const seedContent: SiteContent = {
+       id: "menari",
+       group: "ekstrakurikuler",
+       title: "Menari",
+-      summary: "Mengenal tari tradisional dan modern untuk mengembangkan kreativitas dan percaya diri.",
++      summary:
++        "Mengenal tari tradisional dan modern untuk mengembangkan kreativitas dan percaya diri.",
+       body: "Kegiatan menari mengajarkan koordinasi gerak, ekspresi, dan apresiasi seni budaya Indonesia. Anak tampil dalam acara sekolah.",
+-      cover: "/media/nilai-akrab.jpg",
++      cover: "/media/ekskul/menari.svg",
++      category: "Seni",
+       media: [],
+       activities: [
+         "Latihan gerak dasar",
+@@ -267,16 +296,13 @@ export const seedContent: SiteContent = {
+       id: "renang",
+       group: "ekstrakurikuler",
+       title: "Renang",
+-      summary: "Olahraga air yang menyehatkan dan membangun keberanian serta keterampilan berenang.",
++      summary:
++        "Olahraga air yang menyehatkan dan membangun keberanian serta keterampilan berenang.",
+       body: "Renang dilatih secara bertahap sesuai kemampuan. Fokus pada teknik dasar, keselamatan di air, dan kesenangan berolahraga.",
+-      cover: "/media/lapangan.jpg",
++      cover: "/media/ekskul/renang.svg",
++      category: "Olahraga",
+       media: [],
+-      activities: [
+-        "Teknik dasar renang",
+-        "Latihan stamina",
+-        "Permainan di air",
+-        "Keselamatan air",
+-      ],
++      activities: ["Teknik dasar renang", "Latihan stamina", "Permainan di air", "Keselamatan air"],
+       achievements: [],
+       visible: true,
+     },
+@@ -286,14 +312,10 @@ export const seedContent: SiteContent = {
+       title: "Basket",
+       summary: "Olahraga bola basket untuk kerja sama tim, kelincahan, dan sportivitas.",
+       body: "Latihan basket melatih dribble, passing, shooting, dan strategi tim. Anak belajar menghargai kawan dan lawan.",
+-      cover: "/media/lapangan.jpg",
++      cover: "/media/ekskul/basket.svg",
++      category: "Olahraga",
+       media: [],
+-      activities: [
+-        "Latihan teknik",
+-        "Permainan mini",
+-        "Kerja sama tim",
+-        "Persiapan pertandingan",
+-      ],
++      activities: ["Latihan teknik", "Permainan mini", "Kerja sama tim", "Persiapan pertandingan"],
+       achievements: [],
+       visible: true,
+     },
+@@ -303,7 +325,8 @@ export const seedContent: SiteContent = {
+       title: "Angklung",
+       summary: "Belajar memainkan angklung sebagai alat musik tradisional Indonesia yang unik.",
+       body: "Angklung mengajarkan kerjasama karena satu lagu dimainkan bersama. Anak mengenal warisan budaya sekaligus mengembangkan musikalitas.",
+-      cover: "/media/nilai-akrab.jpg",
++      cover: "/media/ekskul/angklung.svg",
++      category: "Seni",
+       media: [],
+       activities: [
+         "Pengenalan nada",
+@@ -347,7 +370,8 @@ export const seedContent: SiteContent = {
+       id: "belajar-pagi",
+       date: "2026-10-08",
+       title: "Belajar berlangsung pagi, Senin hingga Sabtu",
+-      excerpt: "Kegiatan belajar di sekolah ini berlangsung pada pagi hari, enam hari dalam sepekan.",
++      excerpt:
++        "Kegiatan belajar di sekolah ini berlangsung pada pagi hari, enam hari dalam sepekan.",
+       body: "SD Muhammadiyah 01 Kukusan menyelenggarakan pembelajaran pagi, Senin sampai Sabtu. Orang tua dapat menyesuaikan antar-jemput dengan jam tersebut. Perubahan jadwal, bila ada, disampaikan lewat pengumuman.",
+       image: "/media/kelas.jpg",
+       visible: true,
+@@ -363,7 +387,12 @@ export const seedContent: SiteContent = {
+     },
+   ],
+   gallery: [
+-    { id: "halaman", src: "/media/halaman.jpg", caption: "Ilustrasi halaman dan selasar.", visible: true },
++    {
++      id: "halaman",
++      src: "/media/halaman.jpg",
++      caption: "Ilustrasi halaman dan selasar.",
++      visible: true,
++    },
+     { id: "kelas", src: "/media/kelas.jpg", caption: "Ilustrasi ruang kelas.", visible: true },
+     { id: "musala", src: "/media/musala.jpg", caption: "Ilustrasi ruang ibadah.", visible: true },
+     { id: "pustaka", src: "/media/pustaka.jpg", caption: "Ilustrasi pojok baca.", visible: true },
+@@ -486,7 +515,8 @@ const DEFAULT_GROUP: Record<string, ProgramGroupId> = {
+ };
+ 
+ function asGroup(value: unknown, id: string): ProgramGroupId {
+-  if (value === "intrakurikuler" || value === "kokurikuler" || value === "ekstrakurikuler") return value;
++  if (value === "intrakurikuler" || value === "kokurikuler" || value === "ekstrakurikuler")
++    return value;
+   return DEFAULT_GROUP[id] ?? "intrakurikuler";
+ }
+ 
+@@ -497,7 +527,8 @@ function normalizeProgramGroups(raw: unknown, base: ProgramGroup[]): ProgramGrou
+       return Boolean(entry) && typeof entry === "object" && "id" in entry && entry.id === item.id;
+     });
+     if (!found) return item;
+-    const text = (value: unknown, fallback: string) => (typeof value === "string" ? value : fallback);
++    const text = (value: unknown, fallback: string) =>
++      typeof value === "string" ? value : fallback;
+     return {
+       id: item.id,
+       title: text(found.title, item.title),
+@@ -544,7 +575,8 @@ function normalizeProgram(item: Partial<SiteContent["programs"][number]> | null
+       : [],
+     activities,
+     achievements,
+-    visible: Boolean(item.visible),
++    category: typeof item.category === "string" ? item.category : "",
++    visible: item.visible !== false,
+   };
+ }
+ 
+@@ -555,7 +587,8 @@ function normalizeNews(raw: unknown, base: SiteContent["news"]): SiteContent["ne
+     const item = entry as Record<string, unknown>;
+     if (typeof item.id !== "string" || !item.id) return [];
+     const fallback = base.find((row) => row.id === item.id);
+-    const text = (value: unknown, spare: string) => (typeof value === "string" && value.trim() ? value : spare);
++    const text = (value: unknown, spare: string) =>
++      typeof value === "string" && value.trim() ? value : spare;
+     return [
+       {
+         id: item.id,
+@@ -573,14 +606,18 @@ function normalizeNews(raw: unknown, base: SiteContent["news"]): SiteContent["ne
+   return [...saved, ...base.filter((item) => !ids.has(item.id))];
+ }
+ 
+-function normalizeAchievements(raw: unknown, base: SiteContent["achievements"]): SiteContent["achievements"] {
++function normalizeAchievements(
++  raw: unknown,
++  base: SiteContent["achievements"],
++): SiteContent["achievements"] {
+   if (!Array.isArray(raw)) return base;
+   const items = raw.flatMap((entry) => {
+     if (!entry || typeof entry !== "object") return [];
+     const item = entry as Record<string, unknown>;
+     if (typeof item.id !== "string" || !item.id) return [];
+     const fallback = base.find((row) => row.id === item.id);
+-    const text = (value: unknown, spare: string) => (typeof value === "string" && value.trim() ? value : spare);
++    const text = (value: unknown, spare: string) =>
++      typeof value === "string" && value.trim() ? value : spare;
+     return [
+       {
+         id: item.id,
+@@ -602,9 +639,14 @@ function normalizeAchievements(raw: unknown, base: SiteContent["achievements"]):
+ export function mergeContent(raw: Partial<SiteContent> | null | undefined): SiteContent {
+   if (!raw || typeof raw !== "object") return structuredClone(seedContent);
+   const base = structuredClone(seedContent);
+-  const programs = Array.isArray(raw.programs)
++  let programs = Array.isArray(raw.programs)
+     ? raw.programs.map(normalizeProgram).filter((p): p is NonNullable<typeof p> => Boolean(p?.id))
+     : base.programs;
++  // Data tersimpan dari versi lama belum memuat ekstrakurikuler: isi dari data awal satu kali,
++  // supaya halaman ekskul tidak kosong. Jika admin sudah punya ekskul, daftarnya tidak diubah.
++  if (!programs.some((item) => item.group === "ekstrakurikuler")) {
++    programs = [...programs, ...base.programs.filter((item) => item.group === "ekstrakurikuler")];
++  }
+   return {
+     ...base,
+     ...raw,
+diff --git a/src/lib/site/types.ts b/src/lib/site/types.ts
+index 0e08e93..b4d8a12 100644
+--- a/src/lib/site/types.ts
++++ b/src/lib/site/types.ts
+@@ -30,6 +30,7 @@ export type Program = {
+   summary: string;
+   body: string;
+   cover?: string;
++  category?: string;
+   media: ProgramMedia[];
+   activities?: string[];
+   achievements?: ProgramAchievement[];
+diff --git a/src/routeTree.gen.ts b/src/routeTree.gen.ts
+index 1fb8f13..2d2125e 100644
+--- a/src/routeTree.gen.ts
++++ b/src/routeTree.gen.ts
+@@ -10,7 +10,6 @@
+ 
+ import { Route as rootRouteImport } from './routes/__root'
+ import { Route as IndexRouteImport } from './routes/index'
+-import { Route as BeritaRouteImport } from './routes/berita'
+ import { Route as GaleriRouteImport } from './routes/galeri'
+ import { Route as GuruRouteImport } from './routes/guru'
+ import { Route as KelolaRouteImport } from './routes/kelola'
+@@ -20,7 +19,7 @@ import { Route as PengumumanRouteImport } from './routes/pengumuman'
+ import { Route as PratinjauRouteImport } from './routes/pratinjau'
+ import { Route as PrestasiRouteImport } from './routes/prestasi'
+ import { Route as ProfilRouteImport } from './routes/profil'
+-import { Route as ProgramRouteImport } from './routes/program'
++import { Route as BeritaIndexRouteImport } from './routes/berita.index'
+ import { Route as BeritaIdRouteImport } from './routes/berita.$id'
+ import { Route as GuruProfilRouteImport } from './routes/guru_.profil'
+ import { Route as PratinjauBeritaRouteImport } from './routes/pratinjau.berita'
+@@ -28,6 +27,7 @@ import { Route as PratinjauGaleriRouteImport } from './routes/pratinjau.galeri'
+ import { Route as PratinjauKontakRouteImport } from './routes/pratinjau.kontak'
+ import { Route as PratinjauProfilRouteImport } from './routes/pratinjau.profil'
+ import { Route as PratinjauProgramRouteImport } from './routes/pratinjau.program'
++import { Route as ProgramIndexRouteImport } from './routes/program.index'
+ import { Route as ProgramIdRouteImport } from './routes/program.$id'
+ import { Route as ApiMediaIdRouteImport } from './routes/api/media.$id'
+ import { Route as PratinjauBeritaIdRouteImport } from './routes/pratinjau.berita.$id'
+@@ -37,11 +37,6 @@ const IndexRoute = IndexRouteImport.update({
+   path: '/',
+   getParentRoute: () => rootRouteImport,
+ } as any)
+-const BeritaRoute = BeritaRouteImport.update({
+-  id: '/berita',
+-  path: '/berita',
+-  getParentRoute: () => rootRouteImport,
+-} as any)
+ const GaleriRoute = GaleriRouteImport.update({
+   id: '/galeri',
+   path: '/galeri',
+@@ -87,9 +82,9 @@ const ProfilRoute = ProfilRouteImport.update({
+   path: '/profil',
+   getParentRoute: () => rootRouteImport,
+ } as any)
+-const ProgramRoute = ProgramRouteImport.update({
+-  id: '/program',
+-  path: '/program',
++const BeritaIndexRoute = BeritaIndexRouteImport.update({
++  id: '/berita/',
++  path: '/berita/',
+   getParentRoute: () => rootRouteImport,
+ } as any)
+ const BeritaIdRoute = BeritaIdRouteImport.update({
+@@ -127,10 +122,15 @@ const PratinjauProgramRoute = PratinjauProgramRouteImport.update({
+   path: '/program',
+   getParentRoute: () => PratinjauRoute,
+ } as any)
++const ProgramIndexRoute = ProgramIndexRouteImport.update({
++  id: '/program/',
++  path: '/program/',
++  getParentRoute: () => rootRouteImport,
++} as any)
+ const ProgramIdRoute = ProgramIdRouteImport.update({
+-  id: '/$id',
+-  path: '/$id',
+-  getParentRoute: () => ProgramRoute,
++  id: '/program/$id',
++  path: '/program/$id',
++  getParentRoute: () => rootRouteImport,
+ } as any)
+ const ApiMediaIdRoute = ApiMediaIdRouteImport.update({
+   id: '/api/media/$id',
+@@ -145,7 +145,6 @@ const PratinjauBeritaIdRoute = PratinjauBeritaIdRouteImport.update({
+ 
+ export interface FileRoutesByFullPath {
+   '/': typeof IndexRoute
+-  '/berita': typeof BeritaRouteWithChildren
+   '/galeri': typeof GaleriRoute
+   '/guru': typeof GuruRoute
+   '/kelola': typeof KelolaRoute
+@@ -155,7 +154,6 @@ export interface FileRoutesByFullPath {
+   '/pratinjau': typeof PratinjauRouteWithChildren
+   '/prestasi': typeof PrestasiRoute
+   '/profil': typeof ProfilRoute
+-  '/program': typeof ProgramRouteWithChildren
+   '/berita/$id': typeof BeritaIdRoute
+   '/guru/profil': typeof GuruProfilRoute
+   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+@@ -164,12 +162,13 @@ export interface FileRoutesByFullPath {
+   '/pratinjau/profil': typeof PratinjauProfilRoute
+   '/pratinjau/program': typeof PratinjauProgramRoute
+   '/program/$id': typeof ProgramIdRoute
++  '/berita/': typeof BeritaIndexRoute
++  '/program/': typeof ProgramIndexRoute
+   '/api/media/$id': typeof ApiMediaIdRoute
+   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
+ }
+ export interface FileRoutesByTo {
+   '/': typeof IndexRoute
+-  '/berita': typeof BeritaRouteWithChildren
+   '/galeri': typeof GaleriRoute
+   '/guru': typeof GuruRoute
+   '/kelola': typeof KelolaRoute
+@@ -179,7 +178,6 @@ export interface FileRoutesByTo {
+   '/pratinjau': typeof PratinjauRouteWithChildren
+   '/prestasi': typeof PrestasiRoute
+   '/profil': typeof ProfilRoute
+-  '/program': typeof ProgramRouteWithChildren
+   '/berita/$id': typeof BeritaIdRoute
+   '/guru/profil': typeof GuruProfilRoute
+   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+@@ -188,13 +186,14 @@ export interface FileRoutesByTo {
+   '/pratinjau/profil': typeof PratinjauProfilRoute
+   '/pratinjau/program': typeof PratinjauProgramRoute
+   '/program/$id': typeof ProgramIdRoute
++  '/berita': typeof BeritaIndexRoute
++  '/program': typeof ProgramIndexRoute
+   '/api/media/$id': typeof ApiMediaIdRoute
+   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
+ }
+ export interface FileRoutesById {
+   __root__: typeof rootRouteImport
+   '/': typeof IndexRoute
+-  '/berita': typeof BeritaRouteWithChildren
+   '/galeri': typeof GaleriRoute
+   '/guru': typeof GuruRoute
+   '/kelola': typeof KelolaRoute
+@@ -204,7 +203,6 @@ export interface FileRoutesById {
+   '/pratinjau': typeof PratinjauRouteWithChildren
+   '/prestasi': typeof PrestasiRoute
+   '/profil': typeof ProfilRoute
+-  '/program': typeof ProgramRouteWithChildren
+   '/berita/$id': typeof BeritaIdRoute
+   '/guru_/profil': typeof GuruProfilRoute
+   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
+@@ -213,6 +211,8 @@ export interface FileRoutesById {
+   '/pratinjau/profil': typeof PratinjauProfilRoute
+   '/pratinjau/program': typeof PratinjauProgramRoute
+   '/program/$id': typeof ProgramIdRoute
++  '/berita/': typeof BeritaIndexRoute
++  '/program/': typeof ProgramIndexRoute
+   '/api/media/$id': typeof ApiMediaIdRoute
+   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
+ }
+@@ -220,7 +220,6 @@ export interface FileRouteTypes {
+   fileRoutesByFullPath: FileRoutesByFullPath
+   fullPaths:
+     | '/'
+-    | '/berita'
+     | '/galeri'
+     | '/guru'
+     | '/kelola'
+@@ -230,7 +229,6 @@ export interface FileRouteTypes {
+     | '/pratinjau'
+     | '/prestasi'
+     | '/profil'
+-    | '/program'
+     | '/berita/$id'
+     | '/guru/profil'
+     | '/pratinjau/berita'
+@@ -239,12 +237,13 @@ export interface FileRouteTypes {
+     | '/pratinjau/profil'
+     | '/pratinjau/program'
+     | '/program/$id'
++    | '/berita/'
++    | '/program/'
+     | '/api/media/$id'
+     | '/pratinjau/berita/$id'
+   fileRoutesByTo: FileRoutesByTo
+   to:
+     | '/'
+-    | '/berita'
+     | '/galeri'
+     | '/guru'
+     | '/kelola'
+@@ -254,7 +253,6 @@ export interface FileRouteTypes {
+     | '/pratinjau'
+     | '/prestasi'
+     | '/profil'
+-    | '/program'
+     | '/berita/$id'
+     | '/guru/profil'
+     | '/pratinjau/berita'
+@@ -263,12 +261,13 @@ export interface FileRouteTypes {
+     | '/pratinjau/profil'
+     | '/pratinjau/program'
+     | '/program/$id'
++    | '/berita'
++    | '/program'
+     | '/api/media/$id'
+     | '/pratinjau/berita/$id'
+   id:
+     | '__root__'
+     | '/'
+-    | '/berita'
+     | '/galeri'
+     | '/guru'
+     | '/kelola'
+@@ -278,7 +277,6 @@ export interface FileRouteTypes {
+     | '/pratinjau'
+     | '/prestasi'
+     | '/profil'
+-    | '/program'
+     | '/berita/$id'
+     | '/guru_/profil'
+     | '/pratinjau/berita'
+@@ -287,13 +285,14 @@ export interface FileRouteTypes {
+     | '/pratinjau/profil'
+     | '/pratinjau/program'
+     | '/program/$id'
++    | '/berita/'
++    | '/program/'
+     | '/api/media/$id'
+     | '/pratinjau/berita/$id'
+   fileRoutesById: FileRoutesById
+ }
+ export interface RootRouteChildren {
+   IndexRoute: typeof IndexRoute
+-  BeritaRoute: typeof BeritaRouteWithChildren
+   GaleriRoute: typeof GaleriRoute
+   GuruRoute: typeof GuruRoute
+   KelolaRoute: typeof KelolaRoute
+@@ -303,8 +302,10 @@ export interface RootRouteChildren {
+   PratinjauRoute: typeof PratinjauRouteWithChildren
+   PrestasiRoute: typeof PrestasiRoute
+   ProfilRoute: typeof ProfilRoute
+-  ProgramRoute: typeof ProgramRouteWithChildren
+   GuruProfilRoute: typeof GuruProfilRoute
++  ProgramIdRoute: typeof ProgramIdRoute
++  BeritaIndexRoute: typeof BeritaIndexRoute
++  ProgramIndexRoute: typeof ProgramIndexRoute
+   ApiMediaIdRoute: typeof ApiMediaIdRoute
+ }
+ 
+@@ -317,13 +318,6 @@ declare module '@tanstack/react-router' {
+       preLoaderRoute: typeof IndexRouteImport
+       parentRoute: typeof rootRouteImport
+     }
+-    '/berita': {
+-      id: '/berita'
+-      path: '/berita'
+-      fullPath: '/berita'
+-      preLoaderRoute: typeof BeritaRouteImport
+-      parentRoute: typeof rootRouteImport
+-    }
+     '/galeri': {
+       id: '/galeri'
+       path: '/galeri'
+@@ -387,11 +381,11 @@ declare module '@tanstack/react-router' {
+       preLoaderRoute: typeof ProfilRouteImport
+       parentRoute: typeof rootRouteImport
+     }
+-    '/program': {
+-      id: '/program'
+-      path: '/program'
+-      fullPath: '/program'
+-      preLoaderRoute: typeof ProgramRouteImport
++    '/berita/': {
++      id: '/berita/'
++      path: '/berita'
++      fullPath: '/berita/'
++      preLoaderRoute: typeof BeritaIndexRouteImport
+       parentRoute: typeof rootRouteImport
+     }
+     '/berita/$id': {
+@@ -443,12 +437,19 @@ declare module '@tanstack/react-router' {
+       preLoaderRoute: typeof PratinjauProgramRouteImport
+       parentRoute: typeof PratinjauRoute
+     }
++    '/program/': {
++      id: '/program/'
++      path: '/program'
++      fullPath: '/program/'
++      preLoaderRoute: typeof ProgramIndexRouteImport
++      parentRoute: typeof rootRouteImport
++    }
+     '/program/$id': {
+       id: '/program/$id'
+-      path: '/$id'
++      path: '/program/$id'
+       fullPath: '/program/$id'
+       preLoaderRoute: typeof ProgramIdRouteImport
+-      parentRoute: typeof ProgramRoute
++      parentRoute: typeof rootRouteImport
+     }
+     '/api/media/$id': {
+       id: '/api/media/$id'
+@@ -467,17 +468,6 @@ declare module '@tanstack/react-router' {
+   }
+ }
+ 
+-interface BeritaRouteChildren {
+-  BeritaIdRoute: typeof BeritaIdRoute
+-}
+-
+-const BeritaRouteChildren: BeritaRouteChildren = {
+-  BeritaIdRoute: BeritaIdRoute,
+-}
+-
+-const BeritaRouteWithChildren =
+-  BeritaRoute._addFileChildren(BeritaRouteChildren)
+-
+ interface PratinjauBeritaRouteChildren {
+   PratinjauBeritaIdRoute: typeof PratinjauBeritaIdRoute
+ }
+@@ -510,20 +500,8 @@ const PratinjauRouteWithChildren = PratinjauRoute._addFileChildren(
+   PratinjauRouteChildren,
+ )
+ 
+-interface ProgramRouteChildren {
+-  ProgramIdRoute: typeof ProgramIdRoute
+-}
+-
+-const ProgramRouteChildren: ProgramRouteChildren = {
+-  ProgramIdRoute: ProgramIdRoute,
+-}
+-
+-const ProgramRouteWithChildren =
+-  ProgramRoute._addFileChildren(ProgramRouteChildren)
+-
+ const rootRouteChildren: RootRouteChildren = {
+   IndexRoute: IndexRoute,
+-  BeritaRoute: BeritaRouteWithChildren,
+   GaleriRoute: GaleriRoute,
+   GuruRoute: GuruRoute,
+   KelolaRoute: KelolaRoute,
+@@ -533,8 +511,10 @@ const rootRouteChildren: RootRouteChildren = {
+   PratinjauRoute: PratinjauRouteWithChildren,
+   PrestasiRoute: PrestasiRoute,
+   ProfilRoute: ProfilRoute,
+-  ProgramRoute: ProgramRouteWithChildren,
+   GuruProfilRoute: GuruProfilRoute,
++  ProgramIdRoute: ProgramIdRoute,
++  BeritaIndexRoute: BeritaIndexRoute,
++  ProgramIndexRoute: ProgramIndexRoute,
+   ApiMediaIdRoute: ApiMediaIdRoute,
+ }
+ export const routeTree = rootRouteImport
+diff --git a/src/routes/program.$id.tsx b/src/routes/program.$id.tsx
+index 07bd69a..e22a3f9 100644
+--- a/src/routes/program.$id.tsx
++++ b/src/routes/program.$id.tsx
+@@ -1,33 +1,14 @@
+ import { createFileRoute, Link } from "@tanstack/react-router";
+ import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
+ import { useSiteStore } from "@/lib/site/store";
++import { EkskulDetailPage, EkskulListPage } from "@/components/site/ekskul";
++import { ProgramMediaGallery } from "@/components/site/program-media";
+ import type { Program, ProgramGroup } from "@/lib/site/types";
+ 
+ export const Route = createFileRoute("/program/$id")({
+   component: ProgramDetail,
+ });
+ 
+-function youtubeEmbed(url: string): string | null {
+-  try {
+-    const u = new URL(url);
+-    const host = u.hostname.replace(/^www\\./, "");
+-    if (host === "youtu.be") {
+-      const id = u.pathname.slice(1).split("/")[0];
+-      return id ? `https://www.youtube.com/embed/${id}` : null;
+-    }
+-    if (host === "youtube.com" || host === "m.youtube.com") {
+-      const id = u.searchParams.get("v");
+-      if (id) return `https://www.youtube.com/embed/${id}`;
+-      const parts = u.pathname.split("/").filter(Boolean);
+-      if (parts[0] === "embed" && parts[1]) return `https://www.youtube.com/embed/${parts[1]}`;
+-      if (parts[0] === "shorts" && parts[1]) return `https://www.youtube.com/embed/${parts[1]}`;
+-    }
+-  } catch {
+-    /* ignore */
+-  }
+-  return null;
+-}
+-
+ function ProgramDetail() {
+   const { id } = Route.useParams();
+   const content = useSiteStore((state) => state.content);
+@@ -59,10 +40,17 @@ function ProgramPage({ program }: { program: Program }) {
+   const content = useSiteStore((state) => state.content);
+   const media = program.media ?? [];
+   const parent = (content.programGroups ?? []).find((item) => item.id === program.group);
+-  const isEkskul = program.group === "ekstrakurikuler";
+   const activities = program.activities ?? [];
+   const achievements = program.achievements ?? [];
+ 
++  if (program.group === "ekstrakurikuler") {
++    return (
++      <SiteFrame>
++        <EkskulDetailPage program={program} />
++      </SiteFrame>
++    );
++  }
++
+   return (
+     <SiteFrame>
+       <PageIntro kicker={parent?.title ?? "Program"} title={program.title} lead={program.summary} />
+@@ -95,69 +83,11 @@ function ProgramPage({ program }: { program: Program }) {
+               </section>
+             ) : null}
+ 
+-            {media.length > 0 ? (
+-              <section className="mt-10">
+-                <h2 className="text-2xl font-semibold text-ink">Dokumentasi</h2>
+-                <div className="mt-4 grid gap-4">
+-                  {media.map((item) => {
+-                    const yt = item.kind === "url" ? youtubeEmbed(item.src) : null;
+-                    return (
+-                      <figure key={item.id} className="overflow-hidden rounded-xl border border-line bg-sheet">
+-                        {item.kind === "image" && item.src ? (
+-                          <img src={item.src} alt={item.caption} className="aspect-video w-full object-cover" />
+-                        ) : null}
+-                        {item.kind === "video" && item.src ? (
+-                          <video src={item.src} controls className="aspect-video w-full bg-ink" />
+-                        ) : null}
+-                        {item.kind === "url" && item.src && yt ? (
+-                          <div className="aspect-video w-full bg-ink">
+-                            <iframe
+-                              title={item.caption || "Video YouTube"}
+-                              src={yt}
+-                              className="size-full border-0"
+-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+-                              allowFullScreen
+-                            />
+-                          </div>
+-                        ) : null}
+-                        {item.kind === "url" && item.src && !yt ? (
+-                          <div className="p-4">
+-                            <a
+-                              href={item.src}
+-                              target="_blank"
+-                              rel="noreferrer"
+-                              className="font-semibold text-pine underline-offset-2 hover:underline"
+-                            >
+-                              {item.caption || item.src}
+-                            </a>
+-                          </div>
+-                        ) : null}
+-                        {item.caption && item.kind !== "url" ? (
+-                          <figcaption className="border-t border-line px-4 py-2 text-sm text-muted">{item.caption}</figcaption>
+-                        ) : null}
+-                      </figure>
+-                    );
+-                  })}
+-                </div>
+-              </section>
+-            ) : null}
++            <ProgramMediaGallery media={media} />
+           </div>
+ 
+           <aside className="lg:col-span-5">
+             <div className="sticky top-24 space-y-6">
+-              {isEkskul ? (
+-                <div className="rounded-2xl bg-pine p-6 text-sheet">
+-                  <p className="text-sm font-semibold uppercase tracking-wide opacity-80">Ekstrakurikuler</p>
+-                  <h2 className="mt-1 text-2xl font-semibold">{program.title}</h2>
+-                  <Link
+-                    to="/kontak"
+-                    className="mt-4 inline-flex h-11 items-center rounded-full bg-sheet px-5 text-sm font-semibold text-pine transition-colors hover:bg-mint"
+-                  >
+-                    Daftar sekarang
+-                  </Link>
+-                </div>
+-              ) : null}
+-
+               {activities.length > 0 ? (
+                 <div className="rounded-2xl border border-line bg-sheet p-6">
+                   <h3 className="font-semibold text-ink">Kegiatan kami</h3>
+@@ -201,6 +131,14 @@ function GroupPage({ group }: { group: ProgramGroup }) {
+   const items = programs.filter((item) => item.group === group.id && (item.visible || admin));
+   const isEkskul = group.id === "ekstrakurikuler";
+ 
++  if (isEkskul) {
++    return (
++      <SiteFrame>
++        <EkskulListPage group={group} items={items} />
++      </SiteFrame>
++    );
++  }
++
+   return (
+     <SiteFrame>
+       <PageIntro kicker="Program" title={group.title} lead={group.summary} />
+@@ -212,38 +150,11 @@ function GroupPage({ group }: { group: ProgramGroup }) {
+         <section className="mt-12">
+           <div className="flex items-end justify-between gap-4">
+             <h2 className="text-2xl font-semibold text-ink md:text-3xl">
+-              {isEkskul ? "Kegiatan ekstrakurikuler" : "Kegiatan di kelompok ini"}
++              Kegiatan di kelompok ini
+             </h2>
+           </div>
+           {items.length === 0 ? (
+             <p className="mt-4 text-muted">Belum ada kegiatan yang dimasukkan ke kelompok ini.</p>
+-          ) : isEkskul ? (
+-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+-              {items.map((item) => (
+-                <Link
+-                  key={item.id}
+-                  to="/program/$id"
+-                  params={{ id: item.id }}
+-                  className="group overflow-hidden rounded-2xl border border-line bg-sheet transition-shadow hover:shadow-md"
+-                >
+-                  <div className="relative">
+-                    {item.cover ? (
+-                      <img src={item.cover} alt="" className="aspect-[4/3] w-full object-cover" />
+-                    ) : (
+-                      <div className="grid aspect-[4/3] place-items-center bg-mint text-sm text-muted">Gambar</div>
+-                    )}
+-                    <span className="absolute left-3 top-3 rounded-full bg-pine px-2.5 py-1 text-xs font-semibold text-sheet">
+-                      Ekskul
+-                    </span>
+-                  </div>
+-                  <div className="p-4">
+-                    {!item.visible ? <p className="text-xs text-brass">Tersembunyi</p> : null}
+-                    <h3 className="font-semibold text-ink group-hover:text-pine">{item.title}</h3>
+-                    <p className="mt-1 line-clamp-3 text-sm text-muted">{item.summary}</p>
+-                  </div>
+-                </Link>
+-              ))}
+-            </div>
+           ) : (
+             <div className="mt-6 grid gap-4">
+               {items.map((item) => (
