@@ -120,7 +120,10 @@ const IDENTITY_GROUPS: { title: string; keys: Array<keyof SiteContent["identity"
     title: "Keterangan sekolah",
     keys: ["npsn", "accreditation", "founded", "skFounded", "operational", "principal", "foundation", "studentsNote", "hours"],
   },
-  { title: "Yang dihubungi orang tua", keys: ["address", "phone", "email"] },
+  {
+    title: "Yang dihubungi orang tua",
+    keys: ["address", "phone", "whatsapp", "email", "instagram", "mapLat", "mapLng"],
+  },
 ];
 
 export function IdentityPanel() {
@@ -145,11 +148,15 @@ export function IdentityPanel() {
     principal: "Kepala sekolah",
     address: "Alamat",
     phone: "Telepon",
+    whatsapp: "WhatsApp (628… tanpa +)",
     email: "Surel",
+    instagram: "Instagram (tanpa @)",
     foundation: "Naungan",
     hours: "Waktu belajar",
     studentsNote: "Catatan peserta didik",
     logoUrl: "Logo sekolah",
+    mapLat: "Lintang peta (contoh -6.3664483)",
+    mapLng: "Bujur peta (contoh 106.8154283)",
   };
 
   return (
@@ -164,7 +171,7 @@ export function IdentityPanel() {
             <Field
               key={key}
               label={labels[key]}
-              value={identity[key]}
+              value={identity[key] ?? ""}
               multiline={key === "address" || key === "tagline"}
               onChange={(value) => set(key, value)}
             />
