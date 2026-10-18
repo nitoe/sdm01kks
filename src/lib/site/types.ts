@@ -118,11 +118,19 @@ export type SiteContent = {
     principal: string;
     address: string;
     phone: string;
+    /** Nomor WhatsApp internasional tanpa +, contoh: 6285720848358 */
+    whatsapp: string;
     email: string;
+    /** Handle Instagram tanpa @, contoh: sdmuhammadiyah01kukusan */
+    instagram: string;
     foundation: string;
     hours: string;
     studentsNote: string;
     logoUrl: string;
+    /** Lintang lokasi sekolah untuk peta (contoh: -6.3664483) */
+    mapLat: string;
+    /** Bujur lokasi sekolah untuk peta (contoh: 106.8154283) */
+    mapLng: string;
   };
   hero: {
     kicker: string;
