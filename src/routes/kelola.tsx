@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
@@ -50,29 +50,34 @@ export const Route = createFileRoute("/kelola")({
   component: KelolaPage,
 });
 
-const GROUPS: { label: string; tabs: Tab[] }[] = [
+const GROUPS: { id: string; label: string; tabs: Tab[] }[] = [
   {
-    label: "Konten situs",
-    tabs: [
-      "Identitas",
-      "Manajerial",
-      "Beranda",
-      "Sambutan",
-      "Nilai",
-      "Pengumuman",
-      "Berita",
-      "Program",
-      "Prestasi",
-      "Galeri",
-      "Visi",
-      "Tampilan",
-    ],
+    id: "sekolah",
+    label: "Sekolah",
+    tabs: ["Identitas", "Manajerial"],
   },
   {
+    id: "depan",
+    label: "Halaman depan",
+    tabs: ["Beranda", "Sambutan", "Nilai", "Visi", "Tampilan"],
+  },
+  {
+    id: "informasi",
+    label: "Informasi",
+    tabs: ["Pengumuman", "Berita"],
+  },
+  {
+    id: "kegiatan",
+    label: "Kegiatan",
+    tabs: ["Program", "Prestasi", "Galeri"],
+  },
+  {
+    id: "guru",
     label: "Guru",
     tabs: ["Akun guru"],
   },
   {
+    id: "pengaturan",
     label: "Pengaturan",
     tabs: ["Sandi"],
   },
@@ -100,6 +105,10 @@ const TAB_HELP: Record<Tab, string> = {
 
 function tabLabel(tab: Tab) {
   return tab === "Visi" ? "Visi dan misi" : tab;
+}
+
+function groupOf(tab: Tab): string {
+  return GROUPS.find((g) => g.tabs.includes(tab))?.id ?? "sekolah";
 }
 
 function KelolaPage() {
@@ -198,6 +207,7 @@ function Editor() {
   const search = Route.useSearch();
   const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openGroups, setOpenGroups] = useState<Set<string>>(() => new Set([groupOf(search.tab ?? "Beranda")]));
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
   const source = useSiteStore((state) => state.source);
@@ -210,7 +220,21 @@ function Editor() {
   function choose(next: Tab) {
     setTab(next);
     setSidebarOpen(false);
+    setOpenGroups((prev) => {
+      const nextSet = new Set(prev);
+      nextSet.add(groupOf(next));
+      return nextSet;
+    });
     void navigate({ to: "/kelola", search: next === "Beranda" ? {} : { tab: next }, replace: true });
+  }
+
+  function toggleGroup(id: string) {
+    setOpenGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   }
 
   const status = saveError
@@ -245,29 +269,48 @@ function Editor() {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-3 py-4">
-          {GROUPS.map((group) => (
-            <div key={group.label} className="mb-5">
-              <p className="mb-1.5 px-2 text-xs font-semibold tracking-wide text-muted uppercase">{group.label}</p>
-              <ul className="grid gap-0.5">
-                {group.tabs.map((item) => (
-                  <li key={item}>
-                    <button
-                      type="button"
-                      onClick={() => choose(item)}
-                      className={
-                        tab === item
-                          ? "flex w-full items-center rounded-xl bg-pine px-3 py-2.5 text-left text-sm font-semibold text-sheet"
-                          : "flex w-full items-center rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink hover:bg-mint"
-                      }
-                    >
-                      {tabLabel(item)}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <nav className="flex-1 overflow-y-auto px-2 py-3">
+          {GROUPS.map((group) => {
+            const open = openGroups.has(group.id);
+            const hasActive = group.tabs.includes(tab);
+            return (
+              <div key={group.id} className="mb-1">
+                <button
+                  type="button"
+                  onClick={() => toggleGroup(group.id)}
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-semibold ${
+                    hasActive ? "text-pine" : "text-ink"
+                  } hover:bg-mint/60`}
+                >
+                  <span>{group.label}</span>
+                  <ChevronDown
+                    className={`size-4 shrink-0 text-muted transition-transform ${
+                      open ? "rotate-0" : "-rotate-90"
+                    }`}
+                  />
+                </button>
+                {open ? (
+                  <ul className="mt-0.5 grid gap-0.5 pl-2">
+                    {group.tabs.map((item) => (
+                      <li key={item}>
+                        <button
+                          type="button"
+                          onClick={() => choose(item)}
+                          className={
+                            tab === item
+                              ? "flex w-full items-center rounded-lg bg-pine px-3 py-2 text-left text-sm font-semibold text-sheet"
+                              : "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm font-medium text-ink hover:bg-mint"
+                          }
+                        >
+                          {tabLabel(item)}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="shrink-0 border-t border-line p-3">
