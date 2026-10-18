@@ -109,6 +109,7 @@ export function AnnouncementLightbox() {
     .filter(Boolean);
   const many = items.length > 1;
   const shownClass = shown ? "is-shown" : "";
+  const hasImage = Boolean(item.image);
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center p-4 sm:p-8">
@@ -123,7 +124,9 @@ export function AnnouncementLightbox() {
         aria-modal="true"
         aria-labelledby="pengumuman-judul"
         onTransitionEnd={finishExit}
-        className={`lightbox-panel relative z-10 w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-line bg-sheet shadow-xl ${shownClass}`}
+        className={`lightbox-panel relative z-10 w-full overflow-hidden rounded-[1.75rem] border border-line bg-sheet shadow-xl ${shownClass} ${
+          hasImage ? "max-w-2xl" : "max-w-xl"
+        }`}
       >
         <div className="lightbox-accent h-1.5 bg-brass" />
         <button
@@ -134,9 +137,13 @@ export function AnnouncementLightbox() {
         >
           <X className="size-5" />
         </button>
-        <div key={item.id} className="announce-pane" data-motion={motion}>
-          {item.image ? (
-            <img src={item.image} alt="" className="aspect-16/9 w-full object-cover" />
+        <div key={item.id} className="announce-pane max-h-[85vh] overflow-y-auto" data-motion={motion}>
+          {hasImage ? (
+            <img
+              src={item.image}
+              alt=""
+              className="w-full max-h-[50vh] object-contain bg-mint"
+            />
           ) : (
             <div className="bg-mint px-6 pt-6 pb-2">
               <p className="text-xs font-semibold tracking-wide text-pine uppercase">Pengumuman sekolah</p>
@@ -145,7 +152,7 @@ export function AnnouncementLightbox() {
           <div className="px-6 pt-5 pb-6">
             <p className="text-sm text-pine">
               {formatDate(item.date)}
-              {many ? ` · ${index + 1} dari ${items.length}` : ""}
+              {many ? ` \u00b7 ${index + 1} dari ${items.length}` : ""}
             </p>
             <h2 id="pengumuman-judul" className="mt-2 font-serif text-3xl leading-tight text-ink">
               {item.title}
