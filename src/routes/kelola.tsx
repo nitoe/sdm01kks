@@ -17,10 +17,12 @@ import { ProgramPanel } from "@/components/site/kelola-panels-b1";
 import { GalleryPanel } from "@/components/site/kelola-panels-b2a";
 import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b2b";
 import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
+import { StaffPanel } from "@/components/site/kelola-panels-staff";
 import { getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
   "Identitas",
+  "Manajerial",
   "Beranda",
   "Sambutan",
   "Nilai",
@@ -50,7 +52,7 @@ export const Route = createFileRoute("/kelola")({
 const GROUPS: { label: string; tabs: Tab[] }[] = [
   {
     label: "Tampil di halaman depan",
-    tabs: ["Identitas", "Beranda", "Sambutan", "Nilai", "Pengumuman", "Berita", "Program", "Prestasi", "Galeri", "Visi", "Tampilan"],
+    tabs: ["Identitas", "Manajerial", "Beranda", "Sambutan", "Nilai", "Pengumuman", "Berita", "Program", "Prestasi", "Galeri", "Visi", "Tampilan"],
   },
   {
     label: "Guru",
@@ -66,6 +68,7 @@ type Tab = KelolaTab;
 
 const TAB_HELP: Record<Tab, string> = {
   Identitas: "Nama, NPSN, alamat, dan telepon. Muncul di kepala situs, profil, dan kontak.",
+  Manajerial: "Kepala sekolah, wakil, dan guru yang tampil di halaman Profil. Nama, jabatan, foto, dan tugas.",
   Beranda: "Judul besar dan gambar di bagian atas halaman depan.",
   Sambutan: "Foto dan kalimat kepala sekolah, tepat di bawah bagian atas.",
   Nilai: "Kartu di bawah sambutan. Tiap kartu punya judul, kalimat, dan gambar.",
@@ -253,6 +256,7 @@ function Editor() {
       </div>
       <section className="rounded-card border border-line bg-sheet p-5">
         {tab === "Identitas" ? <IdentityPanel /> : null}
+        {tab === "Manajerial" ? <StaffPanel /> : null}
         {tab === "Beranda" ? <HeroPanel /> : null}
         {tab === "Sambutan" ? <WelcomePanel /> : null}
         {tab === "Nilai" ? <ValuesPanel /> : null}
