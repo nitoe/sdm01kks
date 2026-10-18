@@ -7,6 +7,7 @@ import { test } from "node:test";
 import { promisify } from "node:util";
 import {
   APP_ENV_REL_PATH,
+  commandForPlatform,
   mergeAppEnv,
   parseAppEnv,
   projectRoot,
@@ -71,6 +72,30 @@ test("vite loadEnv resolves the wrapped value", () => {
   const root = makeWorkspace('{"VITE_AUTH_ENABLED":"false"}');
   const merged = mergeAppEnv(readAppEnv(root), { PATH: "/usr/bin" });
   assert.equal(merged.VITE_AUTH_ENABLED, "false");
+});
+
+test("vite is launched through its javascript entry, not the windows shim", () => {
+  const root = mkdtempSync(join(tmpdir(), "app-env-vite-"));
+  const bin = join(root, "node_modules", "vite", "bin");
+  mkdirSync(bin, { recursive: true });
+  const entry = join(bin, "vite.js");
+  writeFileSync(entry, "");
+  const resolved = commandForPlatform(root, "vite", ["dev", "--port", "8080"]);
+  assert.equal(resolved.file, process.execPath);
+  assert.deepEqual(resolved.args, [entry, "dev", "--port", "8080"]);
+});
+
+test("a missing vite install is reported instead of spawned", () => {
+  const root = mkdtempSync(join(tmpdir(), "app-env-novite-"));
+  const resolved = commandForPlatform(root, "vite", ["build"]);
+  assert.equal(resolved.file, null);
+  assert.match(resolved.missing, /vite\.js$/);
+});
+
+test("commands other than vite are left untouched", () => {
+  const resolved = commandForPlatform(projectRoot(), process.execPath, ["-e", "0"]);
+  assert.equal(resolved.file, process.execPath);
+  assert.deepEqual(resolved.args, ["-e", "0"]);
 });
 
 test("the wrapped command runs with the app env applied", async () => {

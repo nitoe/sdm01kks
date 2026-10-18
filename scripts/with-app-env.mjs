@@ -20,8 +20,8 @@
  * `process.env`, which is why the merge has to happen before Vite starts.
  */
 import { spawn } from "node:child_process";
-import { readFileSync, realpathSync } from "node:fs";
-import { constants as osConstants, platform } from "node:os";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
+import { constants as osConstants } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -88,6 +88,25 @@ export function projectRoot() {
 }
 
 /**
+ * npm exposes local CLIs as `node_modules/.bin/<name>.cmd` on Windows.
+ * `spawn("vite")` does not apply PATHEXT, so it looks for `vite.exe` and
+ * fails with `spawn vite ENOENT`. `shell: true` still reports that same
+ * error on some Node builds. The package bin is plain JavaScript, so run it
+ * with the node process that started this wrapper.
+ */
+const LOCAL_JS_BINS = {
+  vite: ["node_modules", "vite", "bin", "vite.js"],
+};
+
+export function commandForPlatform(root, command, args) {
+  const rel = LOCAL_JS_BINS[command];
+  if (!rel) return { file: command, args };
+  const bin = join(root, ...rel);
+  if (!existsSync(bin)) return { file: null, args, missing: bin };
+  return { file: process.execPath, args: [bin, ...args] };
+}
+
+/**
  * Whether `moduleUrl` is the script node was asked to run.
  *
  * Both sides are resolved through symlinks: node realpaths `import.meta.url`
@@ -111,13 +130,18 @@ function main(argv) {
     process.exit(2);
   }
   const env = mergeAppEnv(readAppEnv(projectRoot()), process.env);
-  // On Windows, npm puts node_modules/.bin on PATH as .cmd shims. spawn() without
-  // a shell looks for vite.exe and fails with ENOENT. shell:true uses cmd.exe so
-  // the .cmd shim is found the same way a normal npm script would find it.
-  const child = spawn(command, args, {
+  const root = projectRoot();
+  const resolved = commandForPlatform(root, command, args);
+  if (!resolved.file) {
+    console.error(
+      `[with-app-env] failed to run ${command}: ${resolved.missing} is missing. Run npm install in the project folder, then try again.`,
+    );
+    process.exit(127);
+  }
+  const child = spawn(resolved.file, resolved.args, {
     stdio: "inherit",
     env,
-    shell: platform() === "win32",
+    windowsHide: true,
   });
   // The dev server is long-running and is stopped by signalling this wrapper.
   for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
