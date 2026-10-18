@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { loadSiteContent, saveSiteContent } from "./api";
-import { getAdminAccount, logoutAdminAccount } from "@/lib/teachers/api";
+import { getAdminAccount, logoutAdminAccount, type AccountRole } from "@/lib/teachers/api";
 import { seedContent } from "./seed";
 import type { SiteContent } from "./types";
 
@@ -12,13 +12,15 @@ type SiteState = {
   source: SyncSource;
   admin: boolean;
   adminEmail: string;
+  /** Peran akun yang sedang masuk; null bila belum masuk. */
+  role: AccountRole | null;
   usingDefaultPassword: boolean;
   saving: boolean;
   saveError: string;
   boot: () => void;
   update: (recipe: (content: SiteContent) => SiteContent) => void;
   resetContent: () => void;
-  markAdmin: (email: string, usingDefaultPassword: boolean) => void;
+  markAdmin: (email: string, usingDefaultPassword: boolean, role: AccountRole) => void;
   lock: () => Promise<void>;
 };
 
@@ -42,6 +44,7 @@ export const useSiteStore = create<SiteState>((set, get) => ({
   source: "awal",
   admin: false,
   adminEmail: "",
+  role: null,
   usingDefaultPassword: false,
   saving: false,
   saveError: "",
@@ -57,6 +60,7 @@ export const useSiteStore = create<SiteState>((set, get) => ({
         source: "basis",
         admin: signedIn,
         adminEmail: signedIn && session && "email" in session ? session.email : "",
+        role: signedIn && session && "role" in session ? session.role : null,
         usingDefaultPassword: Boolean(
           session && "usingDefaultPassword" in session && session.usingDefaultPassword,
         ),
@@ -73,12 +77,12 @@ export const useSiteStore = create<SiteState>((set, get) => ({
     set({ content: next, source: "awal", saveError: "" });
     scheduleSave(next);
   },
-  markAdmin: (email, usingDefaultPassword) => {
-    set({ admin: true, adminEmail: email, usingDefaultPassword });
+  markAdmin: (email, usingDefaultPassword, role) => {
+    set({ admin: true, adminEmail: email, usingDefaultPassword, role });
   },
   lock: async () => {
     // Anggap keluar seketika agar tampilan tidak tertahan menunggu server.
-    set({ admin: false, adminEmail: "", usingDefaultPassword: false });
+    set({ admin: false, adminEmail: "", role: null, usingDefaultPassword: false });
     try {
       await logoutAdminAccount();
     } catch {

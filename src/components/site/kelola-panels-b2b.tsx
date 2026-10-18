@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSiteStore } from "@/lib/site/store";
 import type { SiteContent } from "@/lib/site/types";
-import { changeAdminPassword, createAdminAccount } from "@/lib/teachers/api";
+import { changeAdminPassword } from "@/lib/teachers/api";
 
 export function VisibilityPanel() {
   const show = useSiteStore((state) => state.content.show);
@@ -57,10 +57,6 @@ export function AccountPanel() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [nextPassword, setNextPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [added, setAdded] = useState("");
 
   return (
     <div className="grid gap-10">
@@ -94,42 +90,6 @@ export function AccountPanel() {
           {message ? <p className="text-sm">{message}</p> : null}
           <button type="submit" className="h-12 rounded-full bg-pine font-semibold text-sheet">
             Simpan sandi
-          </button>
-        </form>
-      </div>
-
-      <div>
-        <h2 className="font-serif text-3xl">Tambah admin</h2>
-        <form
-          className="mt-4 grid max-w-md gap-3"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setAdded("");
-            void createAdminAccount({ data: { email: newEmail, name: newName, password: newPassword } }).then((result) => {
-              setAdded(result.ok ? "Admin ditambahkan." : result.message);
-              if (result.ok) {
-                setNewEmail("");
-                setNewName("");
-                setNewPassword("");
-              }
-            });
-          }}
-        >
-          <label className="text-sm font-semibold text-muted">
-            Surel
-            <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3" />
-          </label>
-          <label className="text-sm font-semibold text-muted">
-            Nama
-            <input value={newName} onChange={(e) => setNewName(e.target.value)} className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3" />
-          </label>
-          <label className="text-sm font-semibold text-muted">
-            Sandi
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3" />
-          </label>
-          {added ? <p className="text-sm">{added}</p> : null}
-          <button type="submit" className="h-12 rounded-full border border-line font-semibold">
-            Tambah admin
           </button>
         </form>
       </div>

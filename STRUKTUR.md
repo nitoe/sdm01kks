@@ -28,5 +28,8 @@ Hosting belum masuk tahap ini. Isi situs disimpan di basis data. Daftar di bawah
 | `src/lib/site/types.ts` | Bentuk data |
 | `src/lib/site/store.ts` | Salinan di peramban, disamakan dengan basis data |
 | `migrations/0003_site_cms.sql` | Akun admin, isi situs, dan gambar |
+| `migrations/0004_admin_roles.sql` | Peran akun: admin dan operator |
+| `src/lib/teachers/service.server.ts` | Masuk, sesi, peran, dan kelola akun (nama folder warisan) |
+| `src/components/site/kelola-panels-accounts.tsx` | Tab Kelola akun (khusus admin) |
 
-Berkas lain di repo (skrip, akun guru, dan konfigurasi Vite) hanya agar proyek bisa dijalankan. Bukan isi sekolah.
+Berkas lain di repo (skrip, daftar guru lama di `src/lib/teachers/roster.ts`, dan konfigurasi Vite) hanya agar proyek bisa dijalankan. Bukan isi sekolah.

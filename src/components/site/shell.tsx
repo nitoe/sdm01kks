@@ -45,6 +45,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
   useBootSite();
   const identity = useSiteStore((state) => state.content.identity);
   const admin = useSiteStore((state) => state.admin);
+  const role = useSiteStore((state) => state.role);
   const [open, setOpen] = useState(false);
 
   return (
@@ -52,7 +53,10 @@ export function SiteFrame({ children }: { children: ReactNode }) {
       {admin ? (
         <div className="bg-pine text-sheet">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 text-sm">
-            <p>Anda masuk sebagai admin. Perubahan tersimpan dan terbaca pengunjung lain.</p>
+            <p>
+              Anda masuk sebagai {role === "operator" ? "operator" : "admin"}. Perubahan tersimpan dan terbaca
+              pengunjung lain.
+            </p>
             <Link to="/kelola" className="shrink-0 font-semibold underline-offset-2 hover:underline">
               Panel kelola
             </Link>

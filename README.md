@@ -22,6 +22,13 @@ Masuk di `/masuk` atau `/kelola`.
 
 Ganti sandi setelah masuk pertama kali (tab **Sandi**).
 
+### Peran akun
+
+- **Admin**: semua akses, termasuk tab **Kelola akun** (tambah, ubah, hapus akun admin dan operator).
+- **Operator**: mengubah semua isi situs seperti admin, tetapi tidak melihat atau mengubah akun.
+
+Tidak ada login guru di situs ini. Guru memakai aplikasi penilaian yang terpisah.
+
 ## Deploy (Hostinger)
 
 Situs ini membutuhkan **Node.js**, bukan hosting PHP statis.

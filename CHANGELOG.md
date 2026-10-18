@@ -32,3 +32,13 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 
 ### Header
 - Tombol **Hubungi kami** dihapus dari header (desktop, bar atas layar sedang, dan menu geser di ponsel) karena fungsinya sama dengan menu **Kontak**. Menu Kontak, halaman `/kontak`, dan tautan **Masuk** tidak berubah.
+
+### Akun dan peran
+- Login guru ditiadakan: halaman `/guru` dan `/guru/profil`, tab **Akun guru** di panel kelola, pilihan **Guru** di halaman Masuk, dan tautan "Akun guru" di halaman sementara dihapus. Data lama di tabel `teacher_*` tidak dihapus dari basis data. Tautan ke aplikasi penilaian tetap ada di halaman Masuk.
+- Ada dua peran akun panel kelola. **Admin**: semua akses, termasuk kelola akun. **Operator**: semua akses isi situs (identitas, beranda, pengumuman, berita, program, prestasi, galeri, tampilan, ganti sandi sendiri), tetapi tidak melihat atau mengubah akun.
+- Tab baru **Kelola akun** (hanya admin, di grup Pengaturan): daftar akun, tambah, ubah nama/surel/peran, atur ulang sandi, dan hapus. "Tambah admin" dipindah dari tab Sandi ke sini, dengan pilihan peran.
+- Akun yang sudah ada otomatis menjadi admin (`migrations/0004_admin_roles.sql`, kolom `role`).
+- Peran dibaca dari basis data pada setiap permintaan, jadi perubahan peran, reset sandi, dan penghapusan akun langsung berlaku di sesi yang sedang berjalan.
+- Jalur masuk lama dengan sandi-PIN (sandi bawaan `kukusan-admin`) dihapus. Sesi tanpa akun tidak lagi dianggap masuk.
+- Akun admin bawaan hanya dibuat bila belum ada akun sama sekali, sehingga tidak muncul lagi dengan sandi awal setelah surelnya diganti atau akunnya dihapus.
+- Halaman Masuk dan Gate panel kelola tidak lagi mengisi surel admin secara otomatis.

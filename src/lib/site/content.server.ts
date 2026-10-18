@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { getSql } from "@/lib/db";
-import { assertAdmin } from "@/lib/teachers/service.server";
+import { assertStaff } from "@/lib/teachers/service.server";
 import { mergeContent, seedContent } from "./seed";
 import type { SiteContent } from "./types";
 
@@ -20,7 +20,7 @@ export async function readSiteContent(): Promise<SiteContent> {
 export async function writeSiteContent(
   raw: unknown,
 ): Promise<{ ok: true } | { ok: false; message: string }> {
-  if (!(await assertAdmin())) return { ok: false, message: "Masuk sebagai admin dulu." };
+  if (!(await assertStaff())) return { ok: false, message: "Masuk dulu sebagai admin atau operator." };
   if (!raw || typeof raw !== "object") return { ok: false, message: "Isi tidak lengkap." };
   const content = mergeContent(raw as Partial<SiteContent>);
   const text = JSON.stringify(content);
@@ -40,7 +40,7 @@ export async function storeMedia(
   mime: string,
   data: string,
 ): Promise<{ ok: true; url: string } | { ok: false; message: string }> {
-  if (!(await assertAdmin())) return { ok: false, message: "Masuk sebagai admin dulu." };
+  if (!(await assertStaff())) return { ok: false, message: "Masuk dulu sebagai admin atau operator." };
   const type = mime.trim().toLowerCase();
   if (!ALLOWED_MIME.has(type)) return { ok: false, message: "Jenis gambar harus JPG, PNG, WEBP, atau GIF." };
   const clean = data.replace(/\s/g, "");

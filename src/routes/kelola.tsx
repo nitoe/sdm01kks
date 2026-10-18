@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 
-import { AdminGuruPanel } from "@/components/teachers/admin-panel";
 import { AchievementPanel } from "@/components/site/achievement-panel";
 import {
   Field,
@@ -19,6 +18,7 @@ import { GalleryPanel } from "@/components/site/kelola-panels-b2a";
 import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b2b";
 import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
 import { StaffPanel } from "@/components/site/kelola-panels-staff";
+import { AccountManagerPanel } from "@/components/site/kelola-panels-accounts";
 import { getAdminAccount, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
@@ -35,7 +35,7 @@ const TABS = [
   "Visi",
   "Tampilan",
   "Sandi",
-  "Akun guru",
+  "Akun",
 ] as const;
 
 export type KelolaTab = (typeof TABS)[number];
@@ -72,16 +72,14 @@ const GROUPS: { id: string; label: string; tabs: Tab[] }[] = [
     tabs: ["Program", "Prestasi", "Galeri"],
   },
   {
-    id: "guru",
-    label: "Guru",
-    tabs: ["Akun guru"],
-  },
-  {
     id: "pengaturan",
     label: "Pengaturan",
-    tabs: ["Sandi"],
+    tabs: ["Sandi", "Akun"],
   },
 ];
+
+/** Tab yang hanya boleh dibuka admin. Operator tidak melihatnya. */
+const ADMIN_ONLY_TABS: readonly Tab[] = ["Akun"];
 
 type Tab = KelolaTab;
 
@@ -101,12 +99,14 @@ const TAB_HELP: Record<Tab, string> = {
   Galeri: "Foto suasana sekolah. Pilih berkas dari komputer.",
   Visi: "Visi satu paragraf. Misi diisi satu baris untuk satu butir.",
   Tampilan: "Sembunyikan bagian dari tamu tanpa menghapus isinya.",
-  Sandi: "Ganti sandi akun ini, atau tambah admin lain.",
-  "Akun guru": "Setujui guru, atur sandi, dan cadangkan data.",
+  Sandi: "Ganti sandi akun yang sedang dipakai.",
+  Akun: "Tambah, ubah, atau hapus akun operator dan admin. Hanya admin yang melihat tab ini.",
 };
 
 function tabLabel(tab: Tab) {
-  return tab === "Visi" ? "Visi dan misi" : tab;
+  if (tab === "Visi") return "Visi dan misi";
+  if (tab === "Akun") return "Kelola akun";
+  return tab;
 }
 
 function groupOf(tab: Tab): string {
@@ -134,7 +134,7 @@ function KelolaPage() {
 
 function Gate() {
   const markAdmin = useSiteStore((state) => state.markAdmin);
-  const [email, setEmail] = useState("admin@sdmuhammadiyah01kks.sch.id");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -153,18 +153,19 @@ function Gate() {
             return;
           }
           void getAdminAccount().then((status) => {
-            markAdmin(
-              email.trim().toLowerCase(),
-              "usingDefaultPassword" in status && status.usingDefaultPassword === true,
-            );
+            if (!("signedIn" in status) || !status.signedIn || !status.role) {
+              setError("Gagal membaca akun. Coba masuk lagi.");
+              return;
+            }
+            markAdmin(email.trim().toLowerCase(), status.usingDefaultPassword === true, status.role);
           });
         });
       }}
     >
-      <h1 className="font-serif text-3xl">Masuk sebagai admin</h1>
+      <h1 className="font-serif text-3xl">Masuk panel kelola</h1>
       <p className="mt-3 text-muted">
-        Tamu tetap melihat situs tanpa akun. Perubahan identitas, beranda, pengumuman, artikel,
-        program, dan galeri tersimpan di basis data.
+        Untuk admin dan operator sekolah. Tamu tetap melihat situs tanpa akun. Perubahan identitas,
+        beranda, pengumuman, artikel, program, dan galeri tersimpan di basis data.
       </p>
       <label className="mt-6 block text-sm font-semibold text-muted">
         Surel
@@ -207,21 +208,25 @@ function Gate() {
 function Editor() {
   const navigate = useNavigate();
   const search = Route.useSearch();
-  const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
+  const role = useSiteStore((state) => state.role);
+  const isAdminRole = role === "admin";
+  const allowed = (item: Tab) => isAdminRole || !ADMIN_ONLY_TABS.includes(item);
+  const firstTab: Tab = search.tab && allowed(search.tab) ? search.tab : "Beranda";
+  const [tab, setTab] = useState<Tab>(firstTab);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [openGroups, setOpenGroups] = useState<Set<string>>(
-    () => new Set([groupOf(search.tab ?? "Beranda")]),
-  );
+  const [openGroups, setOpenGroups] = useState<Set<string>>(() => new Set([groupOf(firstTab)]));
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
   const source = useSiteStore((state) => state.source);
   const lock = useSiteStore((state) => state.lock);
 
   useEffect(() => {
-    if (search.tab) setTab(search.tab);
-  }, [search.tab]);
+    if (search.tab && allowed(search.tab)) setTab(search.tab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search.tab, isAdminRole]);
 
   function choose(next: Tab) {
+    if (!allowed(next)) return;
     setTab(next);
     setSidebarOpen(false);
     setOpenGroups((prev) => {
@@ -279,6 +284,7 @@ function Editor() {
 
         <nav className="flex-1 overflow-y-auto px-2 py-3">
           {GROUPS.map((group) => {
+            const visibleTabs = group.tabs.filter(allowed);
             const open = openGroups.has(group.id);
             const hasActive = group.tabs.includes(tab);
             return (
@@ -299,7 +305,7 @@ function Editor() {
                 </button>
                 {open ? (
                   <ul className="mt-0.5 grid gap-0.5 pl-2">
-                    {group.tabs.map((item) => (
+                    {visibleTabs.map((item) => (
                       <li key={item}>
                         <button
                           type="button"
@@ -396,7 +402,7 @@ function Editor() {
             {tab === "Visi" ? <VisiPanel /> : null}
             {tab === "Tampilan" ? <VisibilityPanel /> : null}
             {tab === "Sandi" ? <AccountPanel /> : null}
-            {tab === "Akun guru" ? <AdminGuruPanel /> : null}
+            {tab === "Akun" && isAdminRole ? <AccountManagerPanel /> : null}
           </section>
         </main>
       </div>

@@ -36,3 +36,14 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 ## Header (2026-10-19)
 - Jangan tambahkan lagi tombol "Hubungi kami" di header. Fungsinya sama dengan menu Kontak (`/kontak`).
 - Aturan lama "Tautan Masuk di desktop berada di antara Kontak dan Hubungi kami" diganti: Masuk kini berada tepat setelah Kontak, dan tetap kelihatan di layar kecil.
+
+## Akun dan peran (2026-10-19)
+- Tidak ada login guru di situs ini. Jangan kembalikan `/guru`, `/guru/profil`, tab "Akun guru", atau pilihan "Guru" di halaman Masuk. Tautan ke aplikasi penilaian di halaman Masuk tetap ada.
+- Hanya dua peran: `admin` dan `operator`. Nilai peran tak dikenal dianggap `operator`, bukan `admin`.
+- Operator tidak boleh melihat, menambah, mengubah, atau menghapus akun. Pembatasan ini wajib dijaga di server (`guardAdmin` di `src/lib/teachers/service.server.ts`), bukan hanya dengan menyembunyikan tab.
+- Perubahan isi situs dan unggah gambar memakai `assertStaff` (admin dan operator). Jangan ganti kembali ke pemeriksaan khusus admin.
+- Setiap sesi harus terhubung ke akun (`admin_sessions.account_id`). Jangan buat lagi jalur masuk tanpa akun, seperti sandi-PIN.
+- Peran dibaca dari `admin_accounts` pada setiap permintaan. Jangan menyimpan peran di cookie atau sesi.
+- Akun yang sedang dipakai tidak boleh dihapus dan tidak boleh mengubah perannya sendiri, supaya selalu tersisa minimal satu admin.
+- Akun admin bawaan hanya dibuat saat tabel `admin_accounts` kosong. Jangan kembali memeriksanya per surel.
+- Tab "Kelola akun" hanya tampil untuk admin. Jangan pasang kembali "Tambah admin" di tab Sandi.
