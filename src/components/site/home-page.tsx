@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { SiteFrame } from "@/components/site/shell";
 import { formatDate } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
+import type { KelolaTab } from "@/routes/kelola";
 
 export function HomePage() {
   const content = useSiteStore((state) => state.content);
@@ -15,6 +17,7 @@ export function HomePage() {
 
   return (
     <SiteFrame>
+      <Slot tab="Beranda">
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 lg:grid-cols-12 lg:py-16">
         <div className="lg:col-span-6">
           <p className="text-sm font-semibold tracking-wide text-pine uppercase">{hero.kicker || "Selamat datang"}</p>
@@ -41,7 +44,9 @@ export function HomePage() {
           {hero.imageCaption ? <figcaption className="mt-3 text-sm text-muted">{hero.imageCaption}</figcaption> : null}
         </figure>
       </section>
+      </Slot>
 
+      <Slot tab="Identitas">
       <section className="border-y border-line bg-sheet">
         <dl className="mx-auto grid max-w-6xl gap-6 px-5 py-8 sm:grid-cols-2 lg:grid-cols-4">
           <Fact term="Berdiri" detail={identity.founded} />
@@ -65,8 +70,10 @@ export function HomePage() {
           <Row term="Naungan" detail={identity.foundation} />
         </dl>
       </section>
+      </Slot>
 
       {show.pengumuman || admin ? (
+        <Slot tab="Pengumuman">
         <section id="pengumuman" className="mx-auto max-w-6xl px-5 pb-16">
           <SectionTitle kicker="Papan sekolah" title="Pengumuman" />
           {!show.pengumuman && admin ? <HiddenNote /> : null}
@@ -87,14 +94,26 @@ export function HomePage() {
                   <p className="text-sm text-brass">{formatDate(item.date)}</p>
                   <h3 className="mt-2 font-serif text-2xl md:text-3xl">{item.title}</h3>
                   <p className="mt-3 max-w-3xl text-muted">{item.excerpt}</p>
+                  {item.body ? (
+                    <details className="mt-4 max-w-3xl">
+                      <summary className="cursor-pointer font-semibold text-pine">Baca pengumuman</summary>
+                      <div className="mt-3 grid gap-3">
+                        {item.body.split(/\n\n+/).filter(Boolean).map((block) => (
+                          <p key={block.slice(0, 48)}>{block}</p>
+                        ))}
+                      </div>
+                    </details>
+                  ) : null}
                 </article>
               ))}
             </div>
           )}
         </section>
+        </Slot>
       ) : null}
 
       {show.program || admin ? (
+        <Slot tab="Program">
         <section id="program" className="bg-pine-deep text-sheet">
           <div className="mx-auto max-w-6xl px-5 py-16">
             <p className="text-sm font-semibold tracking-wide text-brass-soft uppercase">Keseharian</p>
@@ -121,9 +140,11 @@ export function HomePage() {
             </Link>
           </div>
         </section>
+        </Slot>
       ) : null}
 
       {show.berita || admin ? (
+        <Slot tab="Berita">
         <section id="berita" className="mx-auto max-w-6xl px-5 py-16">
           <SectionTitle kicker="Catatan" title="Berita" />
           {!show.berita && admin ? <HiddenNote /> : null}
@@ -156,9 +177,11 @@ export function HomePage() {
             </div>
           )}
         </section>
+        </Slot>
       ) : null}
 
       {show.galeri || admin ? (
+        <Slot tab="Galeri">
         <section id="galeri" className="mx-auto max-w-6xl px-5 pb-4">
           <SectionTitle kicker="Suasana" title="Galeri" />
           {!show.galeri && admin ? <HiddenNote /> : null}
@@ -181,9 +204,11 @@ export function HomePage() {
             Semua foto
           </Link>
         </section>
+        </Slot>
       ) : null}
 
       {show.visi || admin ? (
+        <Slot tab="Visi">
         <section id="visi" className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-2">
           <div>
             <p className="text-sm font-semibold tracking-wide text-pine uppercase">Arah sekolah</p>
@@ -207,8 +232,10 @@ export function HomePage() {
             )}
           </div>
         </section>
+        </Slot>
       ) : null}
 
+      <Slot tab="Identitas">
       <section id="kontak" className="mx-auto grid max-w-6xl gap-8 px-5 pb-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="text-sm font-semibold tracking-wide text-pine uppercase">Hubungi</p>
@@ -239,7 +266,26 @@ export function HomePage() {
           </Link>
         </div>
       </section>
+      </Slot>
     </SiteFrame>
+  );
+}
+
+function Slot({ tab, children }: { tab: KelolaTab; children: ReactNode }) {
+  const admin = useSiteStore((state) => state.admin);
+  if (!admin) return children;
+  return (
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-x-2 inset-y-1 rounded-card border border-dashed border-brass" />
+      <Link
+        to="/kelola"
+        search={{ tab }}
+        className="absolute top-3 right-4 z-10 inline-flex h-9 items-center rounded-full bg-sheet px-3 text-sm font-semibold text-pine ring-1 ring-brass"
+      >
+        Ubah
+      </Link>
+      {children}
+    </div>
   );
 }
 

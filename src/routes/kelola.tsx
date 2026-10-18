@@ -9,7 +9,28 @@ import type { Article, GalleryItem, Program, SiteContent } from "@/lib/site/type
 import { AdminGuruPanel } from "@/components/teachers/admin-panel";
 import { changeAdminPassword, createAdminAccount, getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
 
+const TABS = [
+  "Identitas",
+  "Beranda",
+  "Pengumuman",
+  "Berita",
+  "Program",
+  "Galeri",
+  "Visi",
+  "Tampilan",
+  "Sandi",
+  "Akun guru",
+] as const;
+
+export type KelolaTab = (typeof TABS)[number];
+
+function isKelolaTab(value: unknown): value is KelolaTab {
+  return typeof value === "string" && (TABS as readonly string[]).includes(value);
+}
+
 export const Route = createFileRoute("/kelola")({
+  validateSearch: (search: Record<string, unknown>): { tab?: KelolaTab } =>
+    isKelolaTab(search.tab) ? { tab: search.tab } : {},
   component: KelolaPage,
 });
 
@@ -31,17 +52,7 @@ const GROUPS: { label: string; note: string; tabs: Tab[] }[] = [
   },
 ];
 
-type Tab =
-  | "Identitas"
-  | "Beranda"
-  | "Pengumuman"
-  | "Berita"
-  | "Program"
-  | "Galeri"
-  | "Visi"
-  | "Tampilan"
-  | "Sandi"
-  | "Akun guru";
+type Tab = KelolaTab;
 
 function KelolaPage() {
   useBootSite();
@@ -146,11 +157,16 @@ function Gate() {
 }
 
 function Editor() {
-  const [tab, setTab] = useState<Tab>("Beranda");
+  const search = Route.useSearch();
+  const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
   const source = useSiteStore((state) => state.source);
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
   const lock = useSiteStore((state) => state.lock);
+
+  useEffect(() => {
+    if (search.tab) setTab(search.tab);
+  }, [search.tab]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-12">
@@ -208,19 +224,21 @@ function Field({
   onChange,
   multiline = false,
   type = "text",
+  rows = 4,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   multiline?: boolean;
   type?: string;
+  rows?: number;
 }) {
   const className = "mt-1 w-full rounded-xl border border-line bg-paper px-3 py-3";
   return (
     <label className="block text-sm font-semibold text-muted">
       {label}
       {multiline ? (
-        <textarea className={className} rows={4} value={value} onChange={(event) => onChange(event.target.value)} />
+        <textarea className={className} rows={rows} value={value} onChange={(event) => onChange(event.target.value)} />
       ) : (
         <input
           type={type}
@@ -426,7 +444,7 @@ function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
             value={item.image ?? ""}
             onChange={(value) => patch(item.id, (entry) => (entry.image = value))}
           />
-          <Field label="Isi" value={item.body} multiline onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
+          <Field label="Isi" value={item.body} multiline rows={10} onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
           <div className="flex gap-3">
             <button type="button" className="h-11 px-2 font-semibold text-pine" onClick={() => patch(item.id, (entry) => (entry.visible = !entry.visible))}>
               {item.visible ? "Sembunyikan" : "Tampilkan"}
