@@ -18,13 +18,13 @@ function BeritaDetail() {
         <PageIntro kicker="Berita" title="Tulisan tidak ditemukan" />
       ) : (
         <>
-          <PageIntro kicker={formatDate(article.date)} title={article.title} lead={article.excerpt} />
+          <PageIntro kicker={formatDate(article.date)} title={article.title} />
           <article className="mx-auto max-w-3xl px-5">
             {!article.visible ? <p className="mb-4 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
             {article.image ? (
               <img src={article.image} alt="" className="mb-6 aspect-3/2 w-full rounded-card object-cover" />
             ) : null}
-            <Prose text={article.body} />
+            <Prose text={article.body || article.excerpt} />
           </article>
         </>
       )}

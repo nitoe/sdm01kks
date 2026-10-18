@@ -5,8 +5,20 @@ export type ProgramMedia = {
   caption: string;
 };
 
+export type ProgramGroupId = "intrakurikuler" | "kokurikuler" | "ekstrakurikuler";
+
+export type ProgramGroup = {
+  id: ProgramGroupId;
+  title: string;
+  summary: string;
+  body: string;
+  image: string;
+  visible: boolean;
+};
+
 export type Program = {
   id: string;
+  group: ProgramGroupId;
   title: string;
   summary: string;
   body: string;
@@ -45,6 +57,24 @@ export type Achievement = {
   visible: boolean;
 };
 
+export type Welcome = {
+  kicker: string;
+  title: string;
+  name: string;
+  role: string;
+  body: string;
+  image: string;
+  imageCaption: string;
+};
+
+export type SchoolValue = {
+  id: string;
+  title: string;
+  text: string;
+  image: string;
+  visible: boolean;
+};
+
 export type SiteContent = {
   identity: {
     name: string;
@@ -72,14 +102,19 @@ export type SiteContent = {
     image: string;
     imageCaption: string;
   };
+  welcome: Welcome;
+  values: SchoolValue[];
   visi: string;
   misi: string[];
+  programGroups: ProgramGroup[];
   programs: Program[];
   announcements: Article[];
   news: Article[];
   gallery: GalleryItem[];
   achievements: Achievement[];
   show: {
+    sambutan: boolean;
+    nilai: boolean;
     pengumuman: boolean;
     program: boolean;
     berita: boolean;

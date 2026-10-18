@@ -8,7 +8,9 @@ export function VisibilityPanel() {
   const update = useSiteStore((state) => state.update);
   const resetContent = useSiteStore((state) => state.resetContent);
   const labels: Record<keyof SiteContent["show"], string> = {
-    pengumuman: "Pengumuman di beranda",
+    sambutan: "Sambutan kepala sekolah",
+    nilai: "Kartu nilai di bawah sambutan",
+    pengumuman: "Jendela pengumuman saat kunjungan",
     program: "Program",
     berita: "Berita",
     galeri: "Galeri",
@@ -19,7 +21,7 @@ export function VisibilityPanel() {
   return (
     <div className="grid gap-4">
       <h2 className="font-serif text-3xl">Bagian halaman depan</h2>
-      <p className="text-muted">Matikan sakelar untuk menyembunyikan bagian dari tamu. Identitas, beranda, dan kontak tetap tampil.</p>
+      <p className="text-muted">Matikan sakelar untuk menyembunyikan bagian dari tamu. Identitas, bagian atas beranda, dan kontak tetap tampil.</p>
       {(Object.keys(labels) as Array<keyof SiteContent["show"]>).map((key) => (
         <label key={key} className="flex items-center justify-between gap-4 rounded-xl border border-line px-4 py-3">
           <span className="font-semibold">{labels[key]}</span>
@@ -56,6 +58,7 @@ export function AccountPanel() {
   const [nextPassword, setNextPassword] = useState("");
   const [message, setMessage] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [newName, setNewName] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [added, setAdded] = useState("");
 
@@ -70,7 +73,7 @@ export function AccountPanel() {
             event.preventDefault();
             setMessage("");
             void changeAdminPassword({
-              data: { email: adminEmail || "", currentPassword, nextPassword },
+              data: { next: nextPassword },
             }).then((result) => {
               setMessage(result.ok ? "Sandi diganti." : result.message);
               if (result.ok) {
@@ -102,10 +105,11 @@ export function AccountPanel() {
           onSubmit={(event) => {
             event.preventDefault();
             setAdded("");
-            void createAdminAccount({ data: { email: newEmail, password: newPassword } }).then((result) => {
+            void createAdminAccount({ data: { email: newEmail, name: newName, password: newPassword } }).then((result) => {
               setAdded(result.ok ? "Admin ditambahkan." : result.message);
               if (result.ok) {
                 setNewEmail("");
+                setNewName("");
                 setNewPassword("");
               }
             });
@@ -114,6 +118,10 @@ export function AccountPanel() {
           <label className="text-sm font-semibold text-muted">
             Surel
             <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3" />
+          </label>
+          <label className="text-sm font-semibold text-muted">
+            Nama
+            <input value={newName} onChange={(e) => setNewName(e.target.value)} className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3" />
           </label>
           <label className="text-sm font-semibold text-muted">
             Sandi

@@ -26,7 +26,6 @@ function BeritaPage() {
                 {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
                 <p className="text-sm text-muted">{formatDate(item.date)}</p>
                 <h2 className="mt-2 font-serif text-3xl">{item.title}</h2>
-                <p className="mt-3 text-muted">{item.excerpt}</p>
               </div>
             </Link>
           ))}

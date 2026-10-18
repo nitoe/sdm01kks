@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import { uid } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
 import type { Achievement } from "@/lib/site/types";
@@ -14,8 +14,8 @@ export function AchievementPanel({
     multiline?: boolean;
     type?: string;
     rows?: number;
-  }) => JSX.Element;
-  ImageField: (props: { label: string; value: string; onChange: (value: string) => void }) => JSX.Element;
+  }) => ReactElement;
+  ImageField: (props: { label: string; value: string; onChange: (value: string) => void }) => ReactElement;
 }) {
   const items = useSiteStore((state) => state.content.achievements ?? []);
   const update = useSiteStore((state) => state.update);
@@ -82,15 +82,15 @@ export function AchievementPanel({
                 {open ? (
                   <div className="grid gap-3 border-t border-line p-4">
                     <Field label="Nama lomba" value={item.title} onChange={(v) => patch(item.id, (e) => (e.title = v))} />
-                    <Field label="Peserta" value={item.student} onChange={(v) => patch(item.id, (e) => (e.student = v))} />
+                    <Field label="Nama siswa" value={item.student} onChange={(v) => patch(item.id, (e) => (e.student = v))} />
                     <Field label="Jenis lomba" value={item.category} onChange={(v) => patch(item.id, (e) => (e.category = v))} />
                     <div className="grid gap-3 sm:grid-cols-3">
                       <Field label="Tahun" value={item.year} onChange={(v) => patch(item.id, (e) => (e.year = v))} />
                       <Field label="Tingkat" value={item.level} onChange={(v) => patch(item.id, (e) => (e.level = v))} />
-                      <Field label="Hasil" value={item.result} onChange={(v) => patch(item.id, (e) => (e.result = v))} />
+                      <Field label="Capaian prestasi" value={item.result} onChange={(v) => patch(item.id, (e) => (e.result = v))} />
                     </div>
                     <ImageField label="Foto" value={item.image ?? ""} onChange={(v) => patch(item.id, (e) => (e.image = v))} />
-                    <Field label="Catatan" value={item.note} multiline onChange={(v) => patch(item.id, (e) => (e.note = v))} />
+                    <Field label="Deskripsi lomba" value={item.note} multiline onChange={(v) => patch(item.id, (e) => (e.note = v))} />
                     <div className="flex flex-wrap gap-2">
                       <button
                         type="button"

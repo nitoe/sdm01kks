@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
+import type { ProgramGroup } from "@/lib/site/types";
 
 export const Route = createFileRoute("/program/$id")({
   component: ProgramDetail,
@@ -29,13 +30,19 @@ function youtubeEmbed(url: string): string | null {
 
 function ProgramDetail() {
   const { id } = Route.useParams();
-  const program = useSiteStore((state) => state.content.programs.find((item) => item.id === id));
+  const content = useSiteStore((state) => state.content);
   const admin = useSiteStore((state) => state.admin);
+  const group = (content.programGroups ?? []).find((item) => item.id === id);
+  const program = content.programs.find((item) => item.id === id);
+
+  if (group && (group.visible || admin)) {
+    return <GroupPage group={group} />;
+  }
 
   if (!program || (!program.visible && !admin)) {
     return (
       <SiteFrame>
-        <PageIntro kicker="Program" title="Program tidak ditemukan" />
+        <PageIntro kicker="Program" title="Halaman tidak ditemukan" />
         <p className="mx-auto max-w-6xl px-5">
           <Link to="/program" className="font-semibold text-pine">
             Semua program
@@ -46,6 +53,7 @@ function ProgramDetail() {
   }
 
   const media = program.media ?? [];
+  const parent = (content.programGroups ?? []).find((item) => item.id === program.group);
 
   return (
     <SiteFrame>
@@ -106,8 +114,56 @@ function ProgramDetail() {
         ) : null}
 
         <p className="mt-10">
+          <Link to="/program/$id" params={{ id: parent?.id ?? "intrakurikuler" }} className="font-semibold text-pine">
+            {parent ? parent.title : "Semua program"}
+          </Link>
+        </p>
+      </article>
+    </SiteFrame>
+  );
+}
+
+function GroupPage({ group }: { group: ProgramGroup }) {
+  const programs = useSiteStore((state) => state.content.programs);
+  const admin = useSiteStore((state) => state.admin);
+  const items = programs.filter((item) => item.group === group.id && (item.visible || admin));
+
+  return (
+    <SiteFrame>
+      <PageIntro kicker="Program" title={group.title} lead={group.summary} />
+      <article className="mx-auto max-w-3xl px-5 pb-16">
+        {!group.visible ? <p className="mb-4 text-sm text-brass">Tersembunyi dari tamu.</p> : null}
+        {group.image ? <img src={group.image} alt="" className="mb-8 aspect-3/2 w-full rounded-card object-cover" /> : null}
+        {group.body ? <Prose text={group.body} /> : <p className="text-muted">Uraian belum diisi.</p>}
+
+        <section className="mt-12">
+          <h2 className="font-serif text-3xl">Kegiatan di kelompok ini</h2>
+          {items.length === 0 ? (
+            <p className="mt-4 text-muted">Belum ada kegiatan yang dimasukkan ke kelompok ini.</p>
+          ) : (
+            <div className="mt-6 grid gap-4">
+              {items.map((item) => (
+                <Link
+                  key={item.id}
+                  to="/program/$id"
+                  params={{ id: item.id }}
+                  className="overflow-hidden rounded-card border border-line bg-sheet transition-colors hover:border-pine"
+                >
+                  {item.cover ? <img src={item.cover} alt="" className="aspect-16/10 w-full object-cover" /> : null}
+                  <div className="p-5">
+                    {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
+                    <h3 className="font-serif text-2xl text-ink">{item.title}</h3>
+                    <p className="mt-2 text-muted">{item.summary}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <p className="mt-10">
           <Link to="/program" className="font-semibold text-pine">
-            Semua program
+            Semua kelompok
           </Link>
         </p>
       </article>

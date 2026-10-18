@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SiteFrame } from "@/components/site/shell";
 import { formatDate } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
@@ -8,12 +9,12 @@ import type { KelolaTab } from "@/routes/kelola";
 export function HomePage() {
   const content = useSiteStore((state) => state.content);
   const admin = useSiteStore((state) => state.admin);
-  const { identity, hero, show } = content;
-  const announcements = content.announcements.filter((item) => item.visible || admin);
-  const programs = content.programs.filter((item) => item.visible || admin);
+  const { identity, hero, show, welcome } = content;
+  const groups = (content.programGroups ?? []).filter((item) => item.visible || admin);
   const news = content.news.filter((item) => item.visible || admin);
   const gallery = content.gallery.filter((item) => item.visible || admin);
   const achievements = (content.achievements ?? []).filter((item) => item.visible || admin);
+  const values = (content.values ?? []).filter((item) => item.visible || admin);
   const phone = identity.phone.replace(/[^\d+]/g, "");
   const yearFounded = identity.founded.match(/\d{4}/)?.[0] ?? "1981";
 
@@ -83,46 +84,55 @@ export function HomePage() {
         </section>
       </Slot>
 
-      {/* Nilai singkat — kartu soft */}
-      <Slot tab="Identitas">
-        <section className="bg-paper">
-          <div className="mx-auto grid max-w-6xl gap-4 px-5 py-12 sm:grid-cols-3">
-            <ValueCard
-              title="Adab dulu"
-              text="Sholat, doa, dan adab di kelas menjadi ritme harian bersama belajar."
-            />
-            <ValueCard
-              title="Dekat Al-Qur'an"
-              text="BTQ bertahap agar setiap anak nyaman membaca dan mengenal kitab suci."
-            />
-            <ValueCard
-              title="Akrab di Kukusan"
-              text="Sekolah dekat dengan orang tua dan lingkungan — aman dan bersahabat."
-            />
-          </div>
-        </section>
-      </Slot>
-
-      {show.pengumuman || admin ? (
-        <Slot tab="Pengumuman">
-          <section id="pengumuman" className="bg-sheet">
-            <div className="mx-auto max-w-6xl px-5 py-14">
-              <SectionHead title="Pengumuman" subtitle="Informasi untuk keluarga sekolah" />
-              {announcements.length === 0 ? (
-                <Empty>Belum ada pengumuman.</Empty>
-              ) : (
-                <div className="grid gap-4 md:grid-cols-2">
-                  {announcements.slice(0, 4).map((item) => (
-                    <article
-                      key={item.id}
-                      className="rounded-2xl border border-line bg-paper/60 p-6 transition-shadow hover:shadow-sm"
-                    >
-                      <p className="text-sm text-pine">{formatDate(item.date)}</p>
-                      <h3 className="mt-2 text-lg font-semibold text-ink">{item.title}</h3>
-                      <p className="mt-2 text-sm text-muted">{item.excerpt}</p>
-                    </article>
+      {show.sambutan || admin ? (
+        <Slot tab="Sambutan">
+          <section id="sambutan" className="bg-paper">
+            <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 lg:grid-cols-2 lg:py-16">
+              <div className="relative">
+                <div className="absolute -inset-3 rounded-[1.75rem] bg-mint/80 sm:-inset-4" />
+                <figure className="relative overflow-hidden rounded-[1.5rem] border border-line bg-sheet shadow-sm">
+                  {welcome.image ? (
+                    <img
+                      src={welcome.image}
+                      alt={welcome.name || "Kepala sekolah"}
+                      className="aspect-3/4 w-full object-cover"
+                    />
+                  ) : (
+                    <div className="grid aspect-3/4 place-items-center text-muted">Foto kepala sekolah</div>
+                  )}
+                </figure>
+                {welcome.imageCaption ? (
+                  <p className="relative mt-3 text-center text-xs text-muted">{welcome.imageCaption}</p>
+                ) : null}
+              </div>
+              <div>
+                <p className="text-xs font-semibold tracking-wide text-pine uppercase">
+                  {welcome.kicker || "Sambutan kepala sekolah"}
+                </p>
+                <h2 className="mt-3 font-serif text-3xl leading-tight text-ink md:text-4xl">
+                  {welcome.title || "Sambutan kepala sekolah"}
+                </h2>
+                <p className="mt-4 font-semibold text-ink">{welcome.name}</p>
+                {welcome.role ? <p className="text-sm text-muted">{welcome.role}</p> : null}
+                <div className="mt-5 grid max-w-xl gap-4 text-muted">
+                  {welcomeParagraphs(welcome.body).map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
                   ))}
                 </div>
+              </div>
+            </div>
+          </section>
+        </Slot>
+      ) : null}
+
+      {show.nilai || admin ? (
+        <Slot tab="Nilai">
+          <section id="nilai" className="border-t border-line bg-paper">
+            <div className="mx-auto max-w-6xl px-5 py-12">
+              {values.length === 0 ? (
+                <Empty>Belum ada kartu nilai.</Empty>
+              ) : (
+                <ValueStrip items={values} />
               )}
             </div>
           </section>
@@ -135,10 +145,10 @@ export function HomePage() {
             <div className="mx-auto max-w-6xl px-5 py-14">
               <SectionHead
                 title="Program sekolah"
-                subtitle="Kegiatan yang menemani tumbuh kembang anak setiap hari"
+                subtitle="Tiga kelompok kegiatan: di kelas, pendalaman, dan di luar jam belajar"
               />
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
-                {programs.map((item) => (
+              <div className="grid gap-5 lg:grid-cols-3">
+                {groups.map((item) => (
                   <Link
                     key={item.id}
                     to="/program/$id"
@@ -146,26 +156,27 @@ export function HomePage() {
                     className="group overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                   >
                     <div className="aspect-16/10 overflow-hidden bg-mint">
-                      {item.cover ? (
+                      {item.image ? (
                         <img
-                          src={item.cover}
+                          src={item.image}
                           alt=""
                           className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                         />
                       ) : (
-                        <div className="grid size-full place-items-center text-sm text-muted">Foto program</div>
+                        <div className="grid size-full place-items-center text-sm text-muted">Foto kelompok</div>
                       )}
                     </div>
                     <div className="p-5">
+                      {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
                       <h3 className="text-lg font-semibold text-ink group-hover:text-pine">{item.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm text-muted">{item.summary}</p>
-                      <p className="mt-3 text-sm font-semibold text-pine">Lihat detail →</p>
+                      <p className="mt-2 line-clamp-3 text-sm text-muted">{item.summary}</p>
+                      <p className="mt-3 text-sm font-semibold text-pine">Lihat kelompok</p>
                     </div>
                   </Link>
                 ))}
               </div>
               <Link to="/program" className="mt-8 inline-flex text-sm font-semibold text-pine hover:underline">
-                Semua program
+                Halaman program
               </Link>
             </div>
           </section>
@@ -175,35 +186,9 @@ export function HomePage() {
       {show.prestasi || admin ? (
         <Slot tab="Prestasi">
           <section id="prestasi" className="bg-sheet">
-            <div className="mx-auto max-w-6xl px-5 py-14">
-              <SectionHead title="Prestasi siswa" subtitle="Capaian dari proses belajar dan pembiasaan" />
-              {achievements.length === 0 ? (
-                <Empty>Belum ada prestasi.</Empty>
-              ) : (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {achievements.slice(0, 4).map((item) => (
-                    <article
-                      key={item.id}
-                      className="flex gap-4 rounded-2xl border border-line bg-paper/50 p-4"
-                    >
-                      <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-mint text-sm font-bold text-pine">
-                        {item.result.replace(/Juara\s*/i, "J") || "★"}
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-xs text-muted">
-                          {item.year} · {item.level} · {item.category}
-                        </p>
-                        <h3 className="mt-0.5 font-semibold text-ink">{item.title}</h3>
-                        <p className="text-sm text-pine">{item.result}</p>
-                        <p className="text-sm text-muted">{item.student}</p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
-              <Link to="/prestasi" className="mt-6 inline-flex text-sm font-semibold text-pine hover:underline">
-                Semua prestasi
-              </Link>
+            <div className="mx-auto max-w-6xl px-5 py-10">
+              <SectionHead title="Prestasi siswa" subtitle="Cuplikan. Selengkapnya ada di halaman prestasi." />
+              {achievements.length === 0 ? <Empty>Belum ada prestasi.</Empty> : <PrestasiReel items={achievements} />}
             </div>
           </section>
         </Slot>
@@ -213,26 +198,12 @@ export function HomePage() {
         <Slot tab="Berita">
           <section id="berita" className="bg-paper">
             <div className="mx-auto max-w-6xl px-5 py-14">
-              <SectionHead title="Berita" subtitle="Kabar dan kegiatan terbaru" />
-              <div className="grid gap-5 md:grid-cols-2">
-                {news.map((item) => (
-                  <Link
-                    key={item.id}
-                    to="/berita/$id"
-                    params={{ id: item.id }}
-                    className="overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm transition-shadow hover:shadow-md"
-                  >
-                    {item.image ? (
-                      <img src={item.image} alt="" className="aspect-2/1 w-full object-cover" />
-                    ) : null}
-                    <div className="p-5">
-                      <p className="text-sm text-pine">{formatDate(item.date)}</p>
-                      <h3 className="mt-1 text-lg font-semibold text-ink">{item.title}</h3>
-                      <p className="mt-2 text-sm text-muted">{item.excerpt}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+              <SectionHead title="Berita" subtitle="Geser untuk membaca kabar lain. Kartu ini hanya ringkasannya." />
+              {news.length === 0 ? (
+                <Empty>Belum ada berita.</Empty>
+              ) : (
+                <NewsStrip items={news} />
+              )}
               <Link to="/berita" className="mt-6 inline-flex text-sm font-semibold text-pine hover:underline">
                 Semua berita
               </Link>
@@ -341,13 +312,211 @@ function Slot({ tab, children }: { tab: KelolaTab; children: ReactNode }) {
   );
 }
 
-function ValueCard({ title, text }: { title: string; text: string }) {
+function PrestasiReel({
+  items,
+}: {
+  items: Array<{ id: string; title: string; student: string; result: string; image?: string }>;
+}) {
   return (
-    <div className="rounded-2xl border border-line bg-sheet p-6 shadow-sm">
-      <div className="mb-3 size-10 rounded-full bg-mint" />
-      <h3 className="font-semibold text-ink">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
+    <div className="rounded-[1.75rem] border-2 border-pine/25 bg-mint p-3 sm:p-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {items.slice(0, 4).map((item) => (
+          <Link
+            key={item.id}
+            to="/prestasi"
+            className="overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm transition-shadow hover:shadow-md"
+          >
+            <div className="aspect-video bg-sheet">
+              {item.image ? (
+                <img src={item.image} alt="" className="size-full object-cover" />
+              ) : (
+                <div className="grid size-full place-items-center text-xs text-muted">Foto</div>
+              )}
+            </div>
+            <div className="px-3 py-2 text-center">
+              <p className="truncate text-sm font-semibold text-ink">{item.result || "Prestasi"}</p>
+              <p className="truncate text-xs text-muted">{item.student || item.title}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-center">
+        <Link
+          to="/prestasi"
+          className="inline-flex h-11 items-center rounded-full bg-pine px-5 text-sm font-semibold text-sheet transition-colors hover:bg-pine-deep"
+        >
+          Lihat prestasi siswa
+        </Link>
+      </div>
     </div>
+  );
+}
+
+function NewsStrip({
+  items,
+}: {
+  items: Array<{ id: string; date: string; title: string; excerpt: string; image?: string }>;
+}) {
+  const scroller = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ prev: false, next: false });
+
+  function sync() {
+    const el = scroller.current;
+    if (!el) return;
+    setEdges({
+      prev: el.scrollLeft > 8,
+      next: el.scrollLeft + el.clientWidth < el.scrollWidth - 8,
+    });
+  }
+
+  useEffect(() => {
+    sync();
+    const el = scroller.current;
+    if (!el) return;
+    el.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      el.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, [items.length]);
+
+  function move(direction: -1 | 1) {
+    const el = scroller.current;
+    const card = el?.querySelector("a");
+    if (!el || !card) return;
+    el.scrollBy({ left: direction * (card.getBoundingClientRect().width + 16), behavior: "smooth" });
+  }
+
+  return (
+    <div className="relative">
+      <div ref={scroller} className="nilai-track">
+        {items.map((item) => (
+          <Link
+            key={item.id}
+            to="/berita/$id"
+            params={{ id: item.id }}
+            className="overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm"
+          >
+            <div className="aspect-16/10 bg-mint">
+              {item.image ? (
+                <img src={item.image} alt="" className="size-full object-cover" />
+              ) : (
+                <div className="grid size-full place-items-center text-sm text-muted">Foto berita</div>
+              )}
+            </div>
+            <div className="p-5">
+              <p className="text-sm text-pine">{formatDate(item.date)}</p>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{item.title}</h3>
+              {item.excerpt ? <p className="mt-2 line-clamp-3 text-sm text-muted">{item.excerpt}</p> : null}
+            </div>
+          </Link>
+        ))}
+      </div>
+      {edges.prev ? <StripButton label="Berita sebelumnya" side="left" onClick={() => move(-1)} /> : null}
+      {edges.next ? <StripButton label="Berita berikutnya" side="right" onClick={() => move(1)} /> : null}
+    </div>
+  );
+}
+
+function welcomeParagraphs(body: string) {
+  const parts = body
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return parts.length ? parts : [];
+}
+
+function ValueStrip({
+  items,
+}: {
+  items: Array<{ id: string; title: string; text: string; image?: string }>;
+}) {
+  const scroller = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ prev: false, next: false });
+
+  function sync() {
+    const el = scroller.current;
+    if (!el) return;
+    setEdges({
+      prev: el.scrollLeft > 8,
+      next: el.scrollLeft + el.clientWidth < el.scrollWidth - 8,
+    });
+  }
+
+  useEffect(() => {
+    sync();
+    const el = scroller.current;
+    if (!el) return;
+    el.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      el.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, [items.length]);
+
+  function move(direction: -1 | 1) {
+    const el = scroller.current;
+    const card = el?.querySelector("article");
+    if (!el || !card) return;
+    const gap = 16;
+    el.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
+  }
+
+  return (
+    <div className="relative">
+      <div ref={scroller} className="nilai-track">
+        {items.map((item) => (
+          <ValueCard key={item.id} title={item.title} text={item.text} image={item.image} />
+        ))}
+      </div>
+      {edges.prev ? (
+        <StripButton label="Kartu sebelumnya" side="left" onClick={() => move(-1)} />
+      ) : null}
+      {edges.next ? (
+        <StripButton label="Kartu berikutnya" side="right" onClick={() => move(1)} />
+      ) : null}
+    </div>
+  );
+}
+
+function StripButton({
+  label,
+  side,
+  onClick,
+}: {
+  label: string;
+  side: "left" | "right";
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className={`absolute top-12 z-10 grid size-11 place-items-center rounded-full bg-ink/35 text-sheet shadow-sm ring-1 ring-sheet/60 backdrop-blur-md transition-colors hover:bg-ink/55 ${
+        side === "left" ? "left-2" : "right-2"
+      }`}
+    >
+      {side === "left" ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
+    </button>
+  );
+}
+
+function ValueCard({ title, text, image }: { title: string; text: string; image?: string }) {
+  return (
+    <article className="overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm">
+      {image ? (
+        <img src={image} alt="" className="aspect-16/10 w-full object-cover" />
+      ) : (
+        <div className="m-6 mb-0 size-10 rounded-full bg-mint" />
+      )}
+      <div className="p-6">
+        <h3 className="font-semibold text-ink">{title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
+      </div>
+    </article>
   );
 }
 

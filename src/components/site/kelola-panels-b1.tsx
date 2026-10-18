@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { uid } from "@/lib/site/format";
 import { useSiteStore } from "@/lib/site/store";
-import type { Program, ProgramMedia } from "@/lib/site/types";
+import type { Program, ProgramGroup, ProgramGroupId, ProgramMedia } from "@/lib/site/types";
 import { Field, ImageField } from "@/components/site/kelola-panels-a1";
 import { ItemTools, reorder } from "@/components/site/kelola-panels-a2";
 
 export function ProgramPanel() {
   const programs = useSiteStore((state) => state.content.programs);
+  const groups = useSiteStore((state) => state.content.programGroups);
   const update = useSiteStore((state) => state.update);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [openGroup, setOpenGroup] = useState<string | null>(groups[0]?.id ?? null);
 
   const patch = (id: string, recipe: (item: Program) => void) => {
     update((content) => {
@@ -21,11 +23,20 @@ export function ProgramPanel() {
     });
   };
 
+  const patchGroup = (id: ProgramGroupId, recipe: (item: ProgramGroup) => void) => {
+    update((content) => {
+      const item = content.programGroups.find((entry) => entry.id === id);
+      if (item) recipe(item);
+      return content;
+    });
+  };
+
   function add() {
     const id = uid("program");
     update((content) => {
       content.programs.unshift({
         id,
+        group: "intrakurikuler",
         title: "",
         summary: "",
         body: "",
@@ -61,18 +72,71 @@ export function ProgramPanel() {
 
   return (
     <div className="grid gap-4">
+      <h2 className="font-serif text-3xl">Kelompok program</h2>
+      <p className="text-sm text-muted">
+        Tiga kelompok di bawah ini masing-masing punya halaman. Judul, uraian, dan gambar bisa diganti. Kegiatan di
+        dalamnya tetap bisa disusun satu per satu.
+      </p>
+      <div className="grid gap-2">
+        {groups.map((group) => {
+          const open = openGroup === group.id;
+          return (
+            <article key={group.id} className="rounded-xl border border-line">
+              <button
+                type="button"
+                onClick={() => setOpenGroup(open ? null : group.id)}
+                className="flex w-full items-center gap-3 px-4 py-3 text-left"
+              >
+                <span className="min-w-0 flex-1 truncate font-semibold">{group.title}</span>
+                <span className="text-sm text-muted">{group.visible ? "Tampil" : "Tersembunyi"}</span>
+                <span className="text-sm font-semibold text-pine">{open ? "Tutup" : "Ubah"}</span>
+              </button>
+              {open ? (
+                <div className="grid gap-3 border-t border-line p-4">
+                  <Field
+                    label="Judul"
+                    value={group.title}
+                    onChange={(value) => patchGroup(group.id, (entry) => (entry.title = value))}
+                  />
+                  <Field
+                    label="Ringkas"
+                    value={group.summary}
+                    multiline
+                    onChange={(value) => patchGroup(group.id, (entry) => (entry.summary = value))}
+                  />
+                  <Field
+                    label="Uraian di halaman kelompok"
+                    value={group.body}
+                    multiline
+                    rows={6}
+                    onChange={(value) => patchGroup(group.id, (entry) => (entry.body = value))}
+                  />
+                  <ImageField
+                    label="Gambar"
+                    value={group.image}
+                    onChange={(value) => patchGroup(group.id, (entry) => (entry.image = value))}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => patchGroup(group.id, (entry) => (entry.visible = !entry.visible))}
+                    className="h-10 w-fit rounded-full border border-line px-3 text-sm font-semibold"
+                  >
+                    {group.visible ? "Sembunyikan dari tamu" : "Tampilkan ke tamu"}
+                  </button>
+                </div>
+              ) : null}
+            </article>
+          );
+        })}
+      </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-serif text-3xl">Program</h2>
+        <h2 className="font-serif text-3xl">Kegiatan</h2>
         <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
-          Tambah program
+          Tambah kegiatan
         </button>
       </div>
-      <p className="text-sm text-muted">
-        Setiap program punya halaman sendiri. Lampirkan foto, video singkat, atau tautan YouTube / Instagram di bagian
-        dokumentasi.
-      </p>
       {programs.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada program.</p>
+        <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada kegiatan.</p>
       ) : (
         <div className="grid gap-2">
           {programs.map((item, index) => {
@@ -94,10 +158,26 @@ export function ProgramPanel() {
                 {open ? (
                   <div className="grid gap-3 border-t border-line p-4">
                     <Field
-                      label="Nama program"
+                      label="Nama kegiatan"
                       value={item.title}
                       onChange={(value) => patch(item.id, (entry) => (entry.title = value))}
                     />
+                    <label className="block text-sm font-semibold text-muted">
+                      Kelompok
+                      <select
+                        className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
+                        value={item.group}
+                        onChange={(event) =>
+                          patch(item.id, (entry) => (entry.group = event.target.value as ProgramGroupId))
+                        }
+                      >
+                        {groups.map((group) => (
+                          <option key={group.id} value={group.id}>
+                            {group.title}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                     <Field
                       label="Ringkas (daftar & beranda)"
                       value={item.summary}

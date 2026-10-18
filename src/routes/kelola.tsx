@@ -16,11 +16,14 @@ import { ArticlePanel } from "@/components/site/kelola-panels-a2";
 import { ProgramPanel } from "@/components/site/kelola-panels-b1";
 import { GalleryPanel } from "@/components/site/kelola-panels-b2a";
 import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b2b";
+import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
 import { getAdminLoginHint, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
   "Identitas",
   "Beranda",
+  "Sambutan",
+  "Nilai",
   "Pengumuman",
   "Berita",
   "Program",
@@ -47,7 +50,7 @@ export const Route = createFileRoute("/kelola")({
 const GROUPS: { label: string; tabs: Tab[] }[] = [
   {
     label: "Tampil di halaman depan",
-    tabs: ["Identitas", "Beranda", "Pengumuman", "Berita", "Program", "Prestasi", "Galeri", "Visi", "Tampilan"],
+    tabs: ["Identitas", "Beranda", "Sambutan", "Nilai", "Pengumuman", "Berita", "Program", "Prestasi", "Galeri", "Visi", "Tampilan"],
   },
   {
     label: "Guru",
@@ -64,9 +67,11 @@ type Tab = KelolaTab;
 const TAB_HELP: Record<Tab, string> = {
   Identitas: "Nama, NPSN, alamat, dan telepon. Muncul di kepala situs, profil, dan kontak.",
   Beranda: "Judul besar dan gambar di bagian atas halaman depan.",
-  Pengumuman: "Buka satu pengumuman untuk mengubahnya. Urutan atas tampil lebih dulu.",
+  Sambutan: "Foto dan kalimat kepala sekolah, tepat di bawah bagian atas.",
+  Nilai: "Kartu di bawah sambutan. Tiap kartu punya judul, kalimat, dan gambar.",
+  Pengumuman: "Isi jendela yang muncul tiap kunjungan. Halaman Pengumuman tetap bisa dibuka kapan saja.",
   Berita: "Buka satu berita. Gambar dan isi tampil di halaman berita.",
-  Program: "Kegiatan lengkap dengan halaman sendiri dan dokumentasi.",
+  Program: "Tiga kelompok program. Judul, uraian, dan gambar tiap kelompok bisa diubah. Kegiatan di dalamnya tetap punya halaman sendiri.",
   Prestasi: "Catatan lomba siswa. Filter di halaman prestasi memakai jenis, tahun, dan tingkat.",
   Galeri: "Foto suasana sekolah. Pilih berkas dari komputer.",
   Visi: "Visi satu paragraf. Misi diisi satu baris untuk satu butir.",
@@ -249,6 +254,8 @@ function Editor() {
       <section className="rounded-card border border-line bg-sheet p-5">
         {tab === "Identitas" ? <IdentityPanel /> : null}
         {tab === "Beranda" ? <HeroPanel /> : null}
+        {tab === "Sambutan" ? <WelcomePanel /> : null}
+        {tab === "Nilai" ? <ValuesPanel /> : null}
         {tab === "Pengumuman" ? <ArticlePanel kind="announcements" /> : null}
         {tab === "Berita" ? <ArticlePanel kind="news" /> : null}
         {tab === "Program" ? <ProgramPanel /> : null}

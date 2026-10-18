@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { AnnouncementLightbox } from "@/components/site/announcement-lightbox";
 import { useSiteStore } from "@/lib/site/store";
 
 const NAV = [
   { to: "/", label: "Beranda", exact: true },
+  { to: "/pengumuman", label: "Pengumuman", exact: false },
   { to: "/profil", label: "Profil", exact: false },
   { to: "/program", label: "Program", exact: false },
   { to: "/prestasi", label: "Prestasi", exact: false },
@@ -68,38 +70,58 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             </span>
           </Link>
 
-          <nav className="ml-auto hidden items-center gap-0.5 lg:flex">
+          <nav className="ml-auto hidden items-center gap-0.5 xl:flex">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.exact }}
-                className="rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-mint hover:text-pine data-[status=active]:bg-mint data-[status=active]:text-pine"
+                className="rounded-full px-2.5 py-2 text-sm font-medium text-muted transition-colors hover:bg-mint hover:text-pine data-[status=active]:bg-mint data-[status=active]:text-pine"
               >
                 {item.label}
               </Link>
             ))}
             <Link
+              to="/masuk"
+              className="ml-2 inline-flex h-10 items-center rounded-full border border-pine px-4 text-sm font-semibold text-pine transition-colors hover:bg-mint"
+            >
+              Masuk
+            </Link>
+            <Link
               to="/kontak"
-              className="ml-2 rounded-full bg-pine px-4 py-2.5 text-sm font-semibold text-sheet transition-colors hover:bg-pine-deep"
+              className="ml-2 inline-flex h-10 items-center rounded-full bg-pine px-4 text-sm font-semibold text-sheet transition-colors hover:bg-pine-deep"
             >
               Hubungi kami
             </Link>
           </nav>
 
-          <button
-            type="button"
-            className="ml-auto inline-flex size-10 items-center justify-center rounded-full border border-line bg-sheet lg:hidden"
-            aria-expanded={open}
-            aria-label={open ? "Tutup menu" : "Buka menu"}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          <div className="ml-auto flex items-center gap-2 xl:hidden">
+            <Link
+              to="/masuk"
+              className="inline-flex h-10 items-center rounded-full border border-pine px-3 text-sm font-semibold text-pine"
+            >
+              Masuk
+            </Link>
+            <Link
+              to="/kontak"
+              className="hidden h-10 items-center rounded-full bg-pine px-3 text-sm font-semibold text-sheet sm:inline-flex"
+            >
+              Hubungi kami
+            </Link>
+            <button
+              type="button"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-sheet"
+              aria-expanded={open}
+              aria-label={open ? "Tutup menu" : "Buka menu"}
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
 
         {open ? (
-          <nav className="border-t border-line bg-sheet px-5 py-3 lg:hidden">
+          <nav className="border-t border-line bg-sheet px-5 py-3 xl:hidden">
             <ul className="grid gap-1">
               {NAV.map((item) => (
                 <li key={item.to}>
@@ -115,20 +137,20 @@ export function SiteFrame({ children }: { children: ReactNode }) {
               ))}
               <li>
                 <Link
+                  to="/masuk"
+                  className="block rounded-xl px-3 py-3 text-base font-medium data-[status=active]:bg-mint data-[status=active]:text-pine"
+                  onClick={() => setOpen(false)}
+                >
+                  Masuk
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/kontak"
                   className="mt-1 block rounded-xl bg-pine px-3 py-3 text-center text-base font-semibold text-sheet"
                   onClick={() => setOpen(false)}
                 >
                   Hubungi kami
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/masuk"
-                  className="block rounded-xl px-3 py-3 text-center text-sm text-muted"
-                  onClick={() => setOpen(false)}
-                >
-                  Masuk admin / guru
                 </Link>
               </li>
             </ul>
@@ -138,6 +160,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
 
       <main>{children}</main>
       <SiteFooter />
+      <AnnouncementLightbox />
     </div>
   );
 }
@@ -165,6 +188,11 @@ function SiteFooter() {
         <div className="text-sm md:col-span-3">
           <p className="font-semibold text-ink">Tautan</p>
           <ul className="mt-2 grid gap-1.5 text-muted">
+            <li>
+              <Link to="/pengumuman" className="hover:text-pine">
+                Pengumuman
+              </Link>
+            </li>
             <li>
               <Link to="/profil" className="hover:text-pine">
                 Profil

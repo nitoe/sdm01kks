@@ -90,11 +90,22 @@ export function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
 
   return (
     <div className="grid gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-serif text-3xl">{title}</h2>
-        <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
-          Tambah {title.toLowerCase()}
-        </button>
+      <div className="grid gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-serif text-3xl">{title}</h2>
+          <button type="button" className="h-11 rounded-full bg-pine px-4 font-semibold text-sheet" onClick={add}>
+            Tambah {title.toLowerCase()}
+          </button>
+        </div>
+        {kind === "announcements" ? (
+          <p className="text-muted">
+            Yang ditampilkan ke tamu muncul sebagai jendela saat situs dibuka. Orang tua tetap bisa membaca semuanya di menu Pengumuman.
+          </p>
+        ) : (
+          <p className="text-muted">
+            Kartu di beranda menampilkan gambar dan deskripsi singkat. Isi lengkap baru terlihat saat pengunjung membuka beritanya.
+          </p>
+        )}
       </div>
       {items.length === 0 ? (
         <p className="rounded-xl border border-dashed border-line px-4 py-8 text-muted">Belum ada. Tekan tambah untuk menulis yang pertama.</p>
@@ -120,9 +131,20 @@ export function ArticlePanel({ kind }: { kind: "announcements" | "news" }) {
                   <div className="grid gap-3 border-t border-line p-4">
                     <Field label="Judul" value={item.title} onChange={(value) => patch(item.id, (entry) => (entry.title = value))} />
                     <Field label="Tanggal" type="date" value={item.date} onChange={(value) => patch(item.id, (entry) => (entry.date = value))} />
-                    <Field label="Ringkas, tampil di daftar" value={item.excerpt} multiline onChange={(value) => patch(item.id, (entry) => (entry.excerpt = value))} />
                     <ImageField label="Gambar" value={item.image ?? ""} onChange={(value) => patch(item.id, (entry) => (entry.image = value))} />
-                    <Field label="Isi lengkap" value={item.body} multiline rows={10} onChange={(value) => patch(item.id, (entry) => (entry.body = value))} />
+                    <Field
+                      label={kind === "news" ? "Deskripsi singkat, hanya di beranda" : "Ringkas, tampil di daftar"}
+                      value={item.excerpt}
+                      multiline
+                      onChange={(value) => patch(item.id, (entry) => (entry.excerpt = value))}
+                    />
+                    <Field
+                      label={kind === "news" ? "Isi berita" : "Isi lengkap"}
+                      value={item.body}
+                      multiline
+                      rows={10}
+                      onChange={(value) => patch(item.id, (entry) => (entry.body = value))}
+                    />
                     <ItemTools
                       index={index}
                       count={items.length}
