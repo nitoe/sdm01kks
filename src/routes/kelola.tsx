@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Mark, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
@@ -51,8 +52,21 @@ export const Route = createFileRoute("/kelola")({
 
 const GROUPS: { label: string; tabs: Tab[] }[] = [
   {
-    label: "Tampil di halaman depan",
-    tabs: ["Identitas", "Manajerial", "Beranda", "Sambutan", "Nilai", "Pengumuman", "Berita", "Program", "Prestasi", "Galeri", "Visi", "Tampilan"],
+    label: "Konten situs",
+    tabs: [
+      "Identitas",
+      "Manajerial",
+      "Beranda",
+      "Sambutan",
+      "Nilai",
+      "Pengumuman",
+      "Berita",
+      "Program",
+      "Prestasi",
+      "Galeri",
+      "Visi",
+      "Tampilan",
+    ],
   },
   {
     label: "Guru",
@@ -74,7 +88,8 @@ const TAB_HELP: Record<Tab, string> = {
   Nilai: "Kartu di bawah sambutan. Tiap kartu punya judul, kalimat, dan gambar.",
   Pengumuman: "Isi jendela yang muncul tiap kunjungan. Halaman Pengumuman tetap bisa dibuka kapan saja.",
   Berita: "Buka satu berita. Gambar dan isi tampil di halaman berita.",
-  Program: "Tiga kelompok program. Judul, uraian, dan gambar tiap kelompok bisa diubah. Kegiatan di dalamnya tetap punya halaman sendiri.",
+  Program:
+    "Tiga kelompok program. Judul, uraian, dan gambar tiap kelompok bisa diubah. Kegiatan di dalamnya tetap punya halaman sendiri.",
   Prestasi: "Catatan lomba siswa. Filter di halaman prestasi memakai jenis, tahun, dan tingkat.",
   Galeri: "Foto suasana sekolah. Pilih berkas dari komputer.",
   Visi: "Visi satu paragraf. Misi diisi satu baris untuk satu butir.",
@@ -93,26 +108,15 @@ function KelolaPage() {
   const admin = useSiteStore((state) => state.admin);
   return (
     <div className="min-h-screen bg-paper">
-      <header className="border-b border-line bg-sheet">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4">
-          <Mark className="size-10" />
-          <div>
-            <p className="font-serif text-xl">Panel kelola</p>
-            <p className="text-sm text-muted">SD Muhammadiyah 01 Kukusan</p>
-          </div>
-          <div className="ml-auto flex gap-4">
-            <Link to="/" className="text-sm font-semibold text-muted">
-              Halaman depan
-            </Link>
-            <Link to="/guru" className="text-sm font-semibold text-pine">
-              Akun guru
-            </Link>
-          </div>
+      {!ready ? (
+        <p className="p-8 text-muted">Memuat panel…</p>
+      ) : admin ? (
+        <Editor />
+      ) : (
+        <div className="mx-auto max-w-md px-5 py-12">
+          <Gate />
         </div>
-      </header>
-      <div className="mx-auto max-w-6xl px-5 py-8">
-        {!ready ? <p className="text-muted">Memuat panel…</p> : admin ? <Editor /> : <Gate />}
-      </div>
+      )}
     </div>
   );
 }
@@ -133,7 +137,7 @@ function Gate() {
 
   return (
     <form
-      className="mx-auto max-w-md rounded-card border border-line bg-sheet p-6"
+      className="rounded-card border border-line bg-sheet p-6"
       onSubmit={(event) => {
         event.preventDefault();
         setBusy(true);
@@ -193,6 +197,7 @@ function Editor() {
   const navigate = useNavigate();
   const search = Route.useSearch();
   const [tab, setTab] = useState<Tab>(search.tab ?? "Beranda");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const saving = useSiteStore((state) => state.saving);
   const saveError = useSiteStore((state) => state.saveError);
   const source = useSiteStore((state) => state.source);
@@ -204,6 +209,7 @@ function Editor() {
 
   function choose(next: Tab) {
     setTab(next);
+    setSidebarOpen(false);
     void navigate({ to: "/kelola", search: next === "Beranda" ? {} : { tab: next }, replace: true });
   }
 
@@ -216,60 +222,130 @@ function Editor() {
         : "Siap diubah";
 
   return (
-    <div className="grid gap-4">
-      <div className="sticky top-0 z-20 grid gap-3 rounded-card border border-line bg-paper/95 p-3 backdrop-blur-md">
-        <div className="flex flex-wrap items-center gap-3">
-          <p
-            className={
-              saveError
-                ? "inline-flex h-9 items-center rounded-full bg-brass-soft px-3 text-sm font-semibold text-pine-deep"
-                : "inline-flex h-9 items-center rounded-full bg-sheet px-3 text-sm font-semibold text-pine"
-            }
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-line bg-sheet transition-transform lg:static lg:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex items-center gap-3 border-b border-line px-4 py-4">
+          <Mark className="size-9" />
+          <div className="min-w-0">
+            <p className="truncate font-semibold text-ink">Panel kelola</p>
+            <p className="truncate text-xs text-muted">SDM 01 Kukusan</p>
+          </div>
+          <button
+            type="button"
+            className="ml-auto grid size-9 place-items-center rounded-lg lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Tutup menu"
           >
-            {status}
-          </p>
-          <p className="text-sm text-muted">{TAB_HELP[tab]}</p>
-          <button type="button" onClick={lock} className="ml-auto h-9 px-2 text-sm font-semibold text-muted">
-            Keluar
+            <X className="size-5" />
           </button>
         </div>
-        <nav className="flex gap-2 overflow-x-auto">
+
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
           {GROUPS.map((group) => (
-            <div key={group.label} className="flex shrink-0 gap-2">
-              {group.tabs.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => choose(item)}
-                  className={
-                    tab === item
-                      ? "h-10 shrink-0 rounded-full bg-pine px-4 text-sm font-semibold text-sheet"
-                      : "h-10 shrink-0 rounded-full border border-line bg-sheet px-4 text-sm font-semibold text-ink"
-                  }
-                >
-                  {tabLabel(item)}
-                </button>
-              ))}
+            <div key={group.label} className="mb-5">
+              <p className="mb-1.5 px-2 text-xs font-semibold tracking-wide text-muted uppercase">{group.label}</p>
+              <ul className="grid gap-0.5">
+                {group.tabs.map((item) => (
+                  <li key={item}>
+                    <button
+                      type="button"
+                      onClick={() => choose(item)}
+                      className={
+                        tab === item
+                          ? "flex w-full items-center rounded-xl bg-pine px-3 py-2.5 text-left text-sm font-semibold text-sheet"
+                          : "flex w-full items-center rounded-xl px-3 py-2.5 text-left text-sm font-medium text-ink hover:bg-mint"
+                      }
+                    >
+                      {tabLabel(item)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </nav>
+
+        <div className="border-t border-line p-3">
+          <div className="mb-2 flex items-center justify-between gap-2 px-2">
+            <span
+              className={
+                saveError
+                  ? "inline-flex h-7 items-center rounded-full bg-brass-soft px-2.5 text-xs font-semibold text-pine-deep"
+                  : "inline-flex h-7 items-center rounded-full bg-mint px-2.5 text-xs font-semibold text-pine"
+              }
+            >
+              {status}
+            </span>
+          </div>
+          <div className="grid gap-1">
+            <Link
+              to="/"
+              className="rounded-xl px-3 py-2 text-sm font-medium text-muted hover:bg-mint hover:text-ink"
+            >
+              Lihat situs
+            </Link>
+            <button
+              type="button"
+              onClick={lock}
+              className="rounded-xl px-3 py-2 text-left text-sm font-medium text-muted hover:bg-mint hover:text-ink"
+            >
+              Keluar
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Overlay mobile */}
+      {sidebarOpen ? (
+        <button
+          type="button"
+          className="fixed inset-0 z-30 bg-ink/40 lg:hidden"
+          aria-label="Tutup menu"
+          onClick={() => setSidebarOpen(false)}
+        />
+      ) : null}
+
+      {/* Main */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-sheet/95 px-4 py-3 backdrop-blur-md lg:px-6">
+          <button
+            type="button"
+            className="grid size-10 place-items-center rounded-xl border border-line lg:hidden"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Buka menu"
+          >
+            <Menu className="size-5" />
+          </button>
+          <div className="min-w-0 flex-1">
+            <h1 className="truncate font-serif text-xl">{tabLabel(tab)}</h1>
+            <p className="truncate text-sm text-muted">{TAB_HELP[tab]}</p>
+          </div>
+        </header>
+
+        <main className="flex-1 p-4 lg:p-6">
+          <section className="rounded-card border border-line bg-sheet p-5">
+            {tab === "Identitas" ? <IdentityPanel /> : null}
+            {tab === "Manajerial" ? <StaffPanel /> : null}
+            {tab === "Beranda" ? <HeroPanel /> : null}
+            {tab === "Sambutan" ? <WelcomePanel /> : null}
+            {tab === "Nilai" ? <ValuesPanel /> : null}
+            {tab === "Pengumuman" ? <ArticlePanel kind="announcements" /> : null}
+            {tab === "Berita" ? <ArticlePanel kind="news" /> : null}
+            {tab === "Program" ? <ProgramPanel /> : null}
+            {tab === "Prestasi" ? <AchievementPanel Field={Field} ImageField={ImageField} /> : null}
+            {tab === "Galeri" ? <GalleryPanel /> : null}
+            {tab === "Visi" ? <VisiPanel /> : null}
+            {tab === "Tampilan" ? <VisibilityPanel /> : null}
+            {tab === "Sandi" ? <AccountPanel /> : null}
+            {tab === "Akun guru" ? <AdminGuruPanel /> : null}
+          </section>
+        </main>
       </div>
-      <section className="rounded-card border border-line bg-sheet p-5">
-        {tab === "Identitas" ? <IdentityPanel /> : null}
-        {tab === "Manajerial" ? <StaffPanel /> : null}
-        {tab === "Beranda" ? <HeroPanel /> : null}
-        {tab === "Sambutan" ? <WelcomePanel /> : null}
-        {tab === "Nilai" ? <ValuesPanel /> : null}
-        {tab === "Pengumuman" ? <ArticlePanel kind="announcements" /> : null}
-        {tab === "Berita" ? <ArticlePanel kind="news" /> : null}
-        {tab === "Program" ? <ProgramPanel /> : null}
-        {tab === "Prestasi" ? <AchievementPanel Field={Field} ImageField={ImageField} /> : null}
-        {tab === "Galeri" ? <GalleryPanel /> : null}
-        {tab === "Visi" ? <VisiPanel /> : null}
-        {tab === "Tampilan" ? <VisibilityPanel /> : null}
-        {tab === "Sandi" ? <AccountPanel /> : null}
-        {tab === "Akun guru" ? <AdminGuruPanel /> : null}
-      </section>
     </div>
   );
 }
