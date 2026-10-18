@@ -28,11 +28,11 @@ export function SchoolLogo({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
       <rect width="48" height="48" rx="12" className="fill-pine" />
+      <path d="M24 8c-2.2 4.8-2.2 9.6 0 14.4 2.2-4.8 2.2-9.6 0-14.4z" className="fill-brass-soft" opacity="0.9" />
       <path
-        d="M10 34V20l14-8 14 8v14H28v-8h-8v8H10z"
+        d="M12 34V22l12-7 12 7v12h-8v-7h-8v7h-8z"
         className="fill-brass-soft"
       />
-      <circle cx="24" cy="18" r="2.5" className="fill-sheet" />
     </svg>
   );
 }
@@ -61,42 +61,36 @@ export function SiteFrame({ children }: { children: ReactNode }) {
         </div>
       ) : null}
 
-      <div className="border-b border-line bg-pine text-sheet">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-5 py-2 text-sm">
-          <span>NPSN {identity.npsn}</span>
-          <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
-          <span className="ml-auto text-sheet/80">Kukusan, Depok</span>
-        </div>
-      </div>
-
-      <header className="sticky top-0 z-30 border-b border-line bg-sheet/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
+      <header className="sticky top-0 z-30 border-b border-line/80 bg-sheet/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3.5">
           <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
             <SchoolLogo className="size-11 shrink-0" />
             <span className="min-w-0">
-              <span className="block font-serif text-lg leading-tight font-semibold text-ink">
+              <span className="block text-[0.7rem] font-semibold tracking-[0.14em] text-pine uppercase">
+                Muhammadiyah · Depok
+              </span>
+              <span className="block truncate font-serif text-lg leading-tight font-semibold text-ink">
                 {identity.shortName}
               </span>
-              <span className="block truncate text-sm text-muted">{identity.domain}</span>
             </span>
           </Link>
 
-          <nav className="ml-auto hidden items-center gap-1 lg:flex">
+          <nav className="ml-auto hidden items-center gap-0.5 lg:flex">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.exact }}
-                className="rounded-full px-3 py-2 text-sm font-medium text-muted data-[status=active]:bg-brass-soft data-[status=active]:text-pine-deep"
+                className="rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink data-[status=active]:bg-brass-soft data-[status=active]:text-pine-deep"
               >
                 {item.label}
               </Link>
             ))}
             <Link
-              to="/masuk"
-              className="ml-1 rounded-full bg-pine px-4 py-2 text-sm font-semibold text-sheet"
+              to="/kontak"
+              className="ml-2 rounded-full bg-pine px-4 py-2.5 text-sm font-semibold text-sheet shadow-sm transition-colors hover:bg-pine-deep"
             >
-              Masuk
+              Hubungi kami
             </Link>
           </nav>
 
@@ -128,11 +122,20 @@ export function SiteFrame({ children }: { children: ReactNode }) {
               ))}
               <li>
                 <Link
-                  to="/masuk"
+                  to="/kontak"
                   className="block rounded-xl bg-pine px-3 py-3 text-base font-semibold text-sheet"
                   onClick={() => setOpen(false)}
                 >
-                  Masuk
+                  Hubungi kami
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/masuk"
+                  className="block rounded-xl px-3 py-3 text-base font-medium text-muted"
+                  onClick={() => setOpen(false)}
+                >
+                  Masuk (admin / guru)
                 </Link>
               </li>
             </ul>
@@ -149,26 +152,58 @@ export function SiteFrame({ children }: { children: ReactNode }) {
 function SiteFooter() {
   const identity = useSiteStore((state) => state.content.identity);
   return (
-    <footer className="mt-16 border-t border-line bg-pine-deep text-sheet">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-3">
-        <div className="flex gap-4">
-          <SchoolLogo className="size-12 shrink-0" />
-          <div>
-            <p className="font-serif text-2xl">{identity.name}</p>
-            <p className="mt-2 max-w-sm text-sheet/80">{identity.tagline}</p>
+    <footer className="mt-8 border-t border-pine-deep/20 bg-pine-deep text-sheet">
+      <div className="pattern-islamic">
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <div className="flex gap-4">
+              <SchoolLogo className="size-12 shrink-0" />
+              <div>
+                <p className="font-serif text-2xl leading-snug">{identity.name}</p>
+                <p className="mt-2 max-w-sm text-sheet/75">{identity.tagline}</p>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-sheet/60">
+              Bismillah — mendidik dengan adab, ilmu, dan kasih sayang di Kukusan, Depok.
+            </p>
           </div>
-        </div>
-        <div className="text-sm leading-relaxed text-sheet/80">
-          <p>{identity.address}</p>
-          <p className="mt-3">{identity.phone}</p>
-          <p>{identity.email}</p>
-        </div>
-        <div className="text-sm text-sheet/80">
-          <p>{identity.foundation}</p>
-          <p className="mt-3">{identity.domain}</p>
-          <Link to="/masuk" className="mt-4 inline-flex py-2 text-brass-soft hover:underline">
-            Masuk ke situs
-          </Link>
+          <div className="text-sm leading-relaxed text-sheet/80 md:col-span-4">
+            <p className="text-xs font-semibold tracking-wider text-brass-soft uppercase">Alamat</p>
+            <p className="mt-2">{identity.address}</p>
+            <p className="mt-4">{identity.phone}</p>
+            <p>{identity.email}</p>
+          </div>
+          <div className="text-sm text-sheet/80 md:col-span-3">
+            <p className="text-xs font-semibold tracking-wider text-brass-soft uppercase">Navigasi</p>
+            <ul className="mt-2 grid gap-1.5">
+              <li>
+                <Link to="/profil" className="hover:text-brass-soft">
+                  Profil
+                </Link>
+              </li>
+              <li>
+                <Link to="/program" className="hover:text-brass-soft">
+                  Program
+                </Link>
+              </li>
+              <li>
+                <Link to="/prestasi" className="hover:text-brass-soft">
+                  Prestasi
+                </Link>
+              </li>
+              <li>
+                <Link to="/kontak" className="hover:text-brass-soft">
+                  Kontak
+                </Link>
+              </li>
+              <li>
+                <Link to="/masuk" className="hover:text-brass-soft">
+                  Masuk
+                </Link>
+              </li>
+            </ul>
+            <p className="mt-6 text-xs text-sheet/50">{identity.foundation}</p>
+          </div>
         </div>
       </div>
     </footer>
@@ -185,8 +220,8 @@ export function PageIntro({
   lead?: string;
 }) {
   return (
-    <header className="mx-auto max-w-6xl px-5 pt-12 pb-8">
-      <p className="text-sm font-semibold tracking-wide text-pine uppercase">{kicker}</p>
+    <header className="mx-auto max-w-6xl px-5 pt-14 pb-8">
+      <p className="text-sm font-semibold tracking-[0.12em] text-pine uppercase">{kicker}</p>
       <h1 className="mt-3 max-w-3xl font-serif text-4xl text-ink md:text-5xl">{title}</h1>
       {lead ? <p className="mt-4 max-w-2xl text-lg text-muted">{lead}</p> : null}
     </header>

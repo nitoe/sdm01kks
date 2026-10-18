@@ -4,15 +4,16 @@
   --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Newsreader", ui-serif, Georgia, serif;
 
-  --color-paper: #f4efe4;
-  --color-sheet: #fffdf8;
-  --color-ink: #1c241c;
-  --color-muted: #5e675f;
-  --color-line: #e3dac8;
-  --color-pine: #0e6b45;
-  --color-pine-deep: #084830;
-  --color-brass: #a6843d;
-  --color-brass-soft: #f3ead3;
+  --color-paper: #f7f3ea;
+  --color-sheet: #fffcf6;
+  --color-ink: #142018;
+  --color-muted: #5a655c;
+  --color-line: #e0d6c4;
+  --color-pine: #0b5c3b;
+  --color-pine-deep: #063825;
+  --color-brass: #b08d3e;
+  --color-brass-soft: #f4ead0;
+  --color-sand: #ebe3d4;
 
   --radius-card: 1.25rem;
 }
@@ -41,6 +42,20 @@
   .font-serif {
     font-family: var(--font-serif);
     line-height: 1.15;
+  }
+}
+
+@layer utilities {
+  .pattern-islamic {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgb(176 141 62 / 0.08) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 80% 40%, rgb(11 92 59 / 0.06) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 40% 80%, rgb(176 141 62 / 0.07) 0 1.5px, transparent 2px);
+    background-size: 28px 28px, 36px 36px, 22px 22px;
+  }
+
+  .arc-soft {
+    border-radius: 1.5rem 1.5rem 2.5rem 1.5rem;
   }
 }
 
