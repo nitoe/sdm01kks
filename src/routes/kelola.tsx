@@ -222,14 +222,14 @@ function Editor() {
         : "Siap diubah";
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
+    <div className="min-h-screen">
+      {/* Sidebar — selalu fixed, tetap terlihat saat scroll */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-line bg-sheet transition-transform lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-screen w-64 flex-col border-r border-line bg-sheet transition-transform lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center gap-3 border-b border-line px-4 py-4">
+        <div className="flex shrink-0 items-center gap-3 border-b border-line px-4 py-4">
           <Mark className="size-9" />
           <div className="min-w-0">
             <p className="truncate font-semibold text-ink">Panel kelola</p>
@@ -270,7 +270,7 @@ function Editor() {
           ))}
         </nav>
 
-        <div className="border-t border-line p-3">
+        <div className="shrink-0 border-t border-line p-3">
           <div className="mb-2 flex items-center justify-between gap-2 px-2">
             <span
               className={
@@ -310,8 +310,8 @@ function Editor() {
         />
       ) : null}
 
-      {/* Main */}
-      <div className="flex min-w-0 flex-1 flex-col">
+      {/* Main — digeser ke kanan agar tidak tertutup sidebar */}
+      <div className="flex min-h-screen flex-col lg:pl-64">
         <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-sheet/95 px-4 py-3 backdrop-blur-md lg:px-6">
           <button
             type="button"
