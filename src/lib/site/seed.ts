@@ -1,4 +1,4 @@
-import type { ProgramGroup, ProgramGroupId, SiteContent } from "./types";
+import type { ProgramGroup, ProgramGroupId, SiteContent, StaffMember } from "./types";
 
 export const seedContent: SiteContent = {
   identity: {
@@ -60,6 +60,37 @@ export const seedContent: SiteContent = {
       visible: true,
     },
   ],
+  staff: [
+    {
+      id: "kepala",
+      name: "Dwi Sanderayanti",
+      role: "Kepala Sekolah",
+      photo: "/media/kepala.jpg",
+      duties: "Memimpin sekolah, membina guru, dan menjaga hubungan dengan orang tua serta lingkungan Kukusan.",
+      visible: true,
+    },
+    {
+      id: "wakil-kurikulum",
+      name: "Wakil Kepala Bidang Kurikulum",
+      role: "Wakil Kepala Sekolah",
+      duties: "Mengkoordinasikan penyusunan kurikulum, jadwal pelajaran, dan evaluasi pembelajaran.",
+      visible: true,
+    },
+    {
+      id: "wakil-kesiswaan",
+      name: "Wakil Kepala Bidang Kesiswaan",
+      role: "Wakil Kepala Sekolah",
+      duties: "Membina kedisiplinan, kegiatan siswa, dan pembiasaan ibadah serta adab.",
+      visible: true,
+    },
+    {
+      id: "guru-contoh",
+      name: "Guru Kelas",
+      role: "Guru",
+      duties: "Mengajar di kelas, mendampingi siswa, dan berkoordinasi dengan orang tua.",
+      visible: true,
+    },
+  ] as StaffMember[],
   visi:
     "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
   misi: [
@@ -281,6 +312,26 @@ function normalizeValue(item: Partial<SiteContent["values"][number]> | null | un
   };
 }
 
+function normalizeStaff(raw: unknown, base: StaffMember[]): StaffMember[] {
+  if (!Array.isArray(raw)) return base;
+  const items = raw.flatMap((entry) => {
+    if (!entry || typeof entry !== "object") return [];
+    const item = entry as Record<string, unknown>;
+    if (typeof item.id !== "string" || !item.id) return [];
+    return [
+      {
+        id: item.id,
+        name: typeof item.name === "string" ? item.name : "",
+        role: typeof item.role === "string" ? item.role : "",
+        photo: typeof item.photo === "string" ? item.photo : "",
+        duties: typeof item.duties === "string" ? item.duties : "",
+        visible: item.visible !== false,
+      },
+    ];
+  });
+  return items.length ? items : base;
+}
+
 const DEFAULT_GROUP: Record<string, ProgramGroupId> = {
   ibadah: "kokurikuler",
   btq: "intrakurikuler",
@@ -401,6 +452,7 @@ export function mergeContent(raw: Partial<SiteContent> | null | undefined): Site
     values: Array.isArray(raw.values)
       ? raw.values.map(normalizeValue).filter((item): item is NonNullable<typeof item> => Boolean(item))
       : base.values,
+    staff: normalizeStaff(raw.staff, base.staff),
     show: { ...base.show, ...(raw.show ?? {}) },
     misi: Array.isArray(raw.misi) ? raw.misi.filter((item) => typeof item === "string") : base.misi,
     programGroups: normalizeProgramGroups(raw.programGroups, base.programGroups),
