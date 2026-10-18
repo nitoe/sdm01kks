@@ -2,6 +2,9 @@
 
 Hal yang tidak boleh kembali saat mengubah situs ini.
 
+## Beranda
+- Jangan kembalikan blok galeri dan "Siap menyambut orang tua" ke halaman utama. Galeri tetap punya halaman dan menu sendiri.
+
 ## Pengumuman
 - Jangan taruh daftar pengumuman lagi di beranda. Beranda hanya jendela (lightbox).
 - Jangan hapus tautan menu Pengumuman.

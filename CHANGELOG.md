@@ -4,6 +4,9 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 
 ## 2026-10-18
 
+### Beranda
+- Bagian galeri dan blok "Siap menyambut orang tua" tidak lagi ditampilkan di halaman utama. Menu Galeri dan halaman kontak tetap ada.
+
 ### Pengumuman
 - Jendela pengumuman muncul saat situs dibuka, dengan panah jika ada lebih dari satu.
 - Centang **Sudah saya baca** menyimpan pilihan di peramban. Jendela tidak muncul lagi pada kunjungan berikutnya, sampai ada pengumuman baru.

@@ -12,10 +12,8 @@ export function HomePage() {
   const { identity, hero, show, welcome } = content;
   const groups = (content.programGroups ?? []).filter((item) => item.visible || admin);
   const news = content.news.filter((item) => item.visible || admin);
-  const gallery = content.gallery.filter((item) => item.visible || admin);
   const achievements = (content.achievements ?? []).filter((item) => item.visible || admin);
   const values = (content.values ?? []).filter((item) => item.visible || admin);
-  const phone = identity.phone.replace(/[^\d+]/g, "");
   const yearFounded = identity.founded.match(/\d{4}/)?.[0] ?? "1981";
 
   return (
@@ -212,29 +210,6 @@ export function HomePage() {
         </Slot>
       ) : null}
 
-      {show.galeri || admin ? (
-        <Slot tab="Galeri">
-          <section id="galeri" className="bg-sheet">
-            <div className="mx-auto max-w-6xl px-5 py-14">
-              <SectionHead title="Galeri" subtitle="Suasana sekolah" />
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                {gallery.slice(0, 6).map((item) => (
-                  <figure key={item.id} className="overflow-hidden rounded-2xl border border-line bg-paper">
-                    {item.src ? (
-                      <img src={item.src} alt={item.caption} className="aspect-3/2 w-full object-cover" />
-                    ) : null}
-                    <figcaption className="px-3 py-2 text-xs text-muted">{item.caption}</figcaption>
-                  </figure>
-                ))}
-              </div>
-              <Link to="/galeri" className="mt-6 inline-flex text-sm font-semibold text-pine hover:underline">
-                Galeri lengkap
-              </Link>
-            </div>
-          </section>
-        </Slot>
-      ) : null}
-
       {show.visi || admin ? (
         <Slot tab="Visi">
           <section id="visi" className="bg-mint/50">
@@ -253,43 +228,6 @@ export function HomePage() {
           </section>
         </Slot>
       ) : null}
-
-      <Slot tab="Identitas">
-        <section id="kontak" className="bg-sheet">
-          <div className="mx-auto max-w-6xl px-5 py-14">
-            <div className="grid items-center gap-8 rounded-2xl border border-line bg-paper p-8 md:grid-cols-2 md:p-10">
-              <div>
-                <h2 className="font-serif text-3xl text-ink">Siap menyambut orang tua</h2>
-                <p className="mt-3 text-muted">{identity.hours}</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <a
-                    href={`tel:${phone}`}
-                    className="inline-flex h-11 items-center rounded-full bg-pine px-5 text-sm font-semibold text-sheet"
-                  >
-                    {identity.phone}
-                  </a>
-                  <Link
-                    to="/kontak"
-                    className="inline-flex h-11 items-center rounded-full border border-line bg-sheet px-5 text-sm font-semibold text-ink"
-                  >
-                    Halaman kontak
-                  </Link>
-                </div>
-              </div>
-              <div className="text-sm text-muted">
-                <p className="font-semibold text-ink">{identity.name}</p>
-                <p className="mt-2 leading-relaxed">{identity.address}</p>
-                <a className="mt-3 inline-block font-medium text-pine" href={`mailto:${identity.email}`}>
-                  {identity.email}
-                </a>
-                <p className="mt-4 text-xs">
-                  NPSN {identity.npsn} · Akreditasi {identity.accreditation}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </Slot>
     </SiteFrame>
   );
 }
