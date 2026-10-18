@@ -204,8 +204,8 @@ function toTelHref(phone: string) {
 function SiteFooter() {
   const identity = useSiteStore((state) => state.content.identity);
   return (
-    <footer className="mt-6 border-t border-line bg-sheet">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-12">
+    <footer className="mt-4 border-t border-line bg-sheet">
+      <div className="mx-auto grid max-w-6xl gap-6 px-5 py-7 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="flex items-start gap-3">
             <SchoolLogo className="size-11 shrink-0" />
@@ -217,8 +217,8 @@ function SiteFooter() {
         </div>
         <div className="text-sm text-muted md:col-span-7">
           <p className="font-semibold text-ink">Kontak</p>
-          <ul className="mt-3 grid gap-2.5">
-            <li className="flex items-start gap-2.5">
+          <ul className="mt-2 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+            <li className="flex items-start gap-2.5 sm:col-span-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-pine" aria-hidden="true" />
               <span className="leading-relaxed">{identity.address}</span>
             </li>
@@ -260,7 +260,7 @@ function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-line">
-        <p className="mx-auto max-w-6xl px-5 py-4 text-xs text-muted">
+        <p className="mx-auto max-w-6xl px-5 py-3 text-xs text-muted">
           © {new Date().getFullYear()} {identity.shortName} · {identity.foundation}
         </p>
       </div>
