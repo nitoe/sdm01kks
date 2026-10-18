@@ -25,6 +25,7 @@ import { Route as PratinjauGaleriRouteImport } from './routes/pratinjau.galeri'
 import { Route as PratinjauKontakRouteImport } from './routes/pratinjau.kontak'
 import { Route as PratinjauProfilRouteImport } from './routes/pratinjau.profil'
 import { Route as PratinjauProgramRouteImport } from './routes/pratinjau.program'
+import { Route as ProgramIdRouteImport } from './routes/program.$id'
 import { Route as ApiMediaIdRouteImport } from './routes/api/media.$id'
 import { Route as PratinjauBeritaIdRouteImport } from './routes/pratinjau.berita.$id'
 
@@ -108,6 +109,11 @@ const PratinjauProgramRoute = PratinjauProgramRouteImport.update({
   path: '/program',
   getParentRoute: () => PratinjauRoute,
 } as any)
+const ProgramIdRoute = ProgramIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ProgramRoute,
+} as any)
 const ApiMediaIdRoute = ApiMediaIdRouteImport.update({
   id: '/api/media/$id',
   path: '/api/media/$id',
@@ -128,7 +134,7 @@ export interface FileRoutesByFullPath {
   '/kontak': typeof KontakRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
   '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
+  '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
   '/guru/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/pratinjau/kontak': typeof PratinjauKontakRoute
   '/pratinjau/profil': typeof PratinjauProfilRoute
   '/pratinjau/program': typeof PratinjauProgramRoute
+  '/program/$id': typeof ProgramIdRoute
   '/api/media/$id': typeof ApiMediaIdRoute
   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
@@ -148,7 +155,7 @@ export interface FileRoutesByTo {
   '/kontak': typeof KontakRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
   '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
+  '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
   '/guru/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/pratinjau/kontak': typeof PratinjauKontakRoute
   '/pratinjau/profil': typeof PratinjauProfilRoute
   '/pratinjau/program': typeof PratinjauProgramRoute
+  '/program/$id': typeof ProgramIdRoute
   '/api/media/$id': typeof ApiMediaIdRoute
   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
@@ -169,7 +177,7 @@ export interface FileRoutesById {
   '/kontak': typeof KontakRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
   '/profil': typeof ProfilRoute
-  '/program': typeof ProgramRoute
+  '/program': typeof ProgramRouteWithChildren
   '/berita/$id': typeof BeritaIdRoute
   '/guru_/profil': typeof GuruProfilRoute
   '/pratinjau/berita': typeof PratinjauBeritaRouteWithChildren
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/pratinjau/kontak': typeof PratinjauKontakRoute
   '/pratinjau/profil': typeof PratinjauProfilRoute
   '/pratinjau/program': typeof PratinjauProgramRoute
+  '/program/$id': typeof ProgramIdRoute
   '/api/media/$id': typeof ApiMediaIdRoute
   '/pratinjau/berita/$id': typeof PratinjauBeritaIdRoute
 }
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/pratinjau/kontak'
     | '/pratinjau/profil'
     | '/pratinjau/program'
+    | '/program/$id'
     | '/api/media/$id'
     | '/pratinjau/berita/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/pratinjau/kontak'
     | '/pratinjau/profil'
     | '/pratinjau/program'
+    | '/program/$id'
     | '/api/media/$id'
     | '/pratinjau/berita/$id'
   id:
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/pratinjau/kontak'
     | '/pratinjau/profil'
     | '/pratinjau/program'
+    | '/program/$id'
     | '/api/media/$id'
     | '/pratinjau/berita/$id'
   fileRoutesById: FileRoutesById
@@ -252,7 +264,7 @@ export interface RootRouteChildren {
   KontakRoute: typeof KontakRoute
   PratinjauRoute: typeof PratinjauRouteWithChildren
   ProfilRoute: typeof ProfilRoute
-  ProgramRoute: typeof ProgramRoute
+  ProgramRoute: typeof ProgramRouteWithChildren
   GuruProfilRoute: typeof GuruProfilRoute
   ApiMediaIdRoute: typeof ApiMediaIdRoute
 }
@@ -371,6 +383,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PratinjauProgramRouteImport
       parentRoute: typeof PratinjauRoute
     }
+    '/program/$id': {
+      id: '/program/$id'
+      path: '/$id'
+      fullPath: '/program/$id'
+      preLoaderRoute: typeof ProgramIdRouteImport
+      parentRoute: typeof ProgramRoute
+    }
     '/api/media/$id': {
       id: '/api/media/$id'
       path: '/api/media/$id'
@@ -431,6 +450,17 @@ const PratinjauRouteWithChildren = PratinjauRoute._addFileChildren(
   PratinjauRouteChildren,
 )
 
+interface ProgramRouteChildren {
+  ProgramIdRoute: typeof ProgramIdRoute
+}
+
+const ProgramRouteChildren: ProgramRouteChildren = {
+  ProgramIdRoute: ProgramIdRoute,
+}
+
+const ProgramRouteWithChildren =
+  ProgramRoute._addFileChildren(ProgramRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BeritaRoute: BeritaRouteWithChildren,
@@ -440,7 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontakRoute: KontakRoute,
   PratinjauRoute: PratinjauRouteWithChildren,
   ProfilRoute: ProfilRoute,
-  ProgramRoute: ProgramRoute,
+  ProgramRoute: ProgramRouteWithChildren,
   GuruProfilRoute: GuruProfilRoute,
   ApiMediaIdRoute: ApiMediaIdRoute,
 }
