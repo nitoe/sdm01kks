@@ -22,11 +22,11 @@ export const seedContent: SiteContent = {
     logoUrl: "",
   },
   hero: {
-    kicker: "Sekolah Dasar · Kota Depok",
-    title: "Mendidik anak Kukusan dengan adab dan ilmu.",
-    lead: "SD Muhammadiyah 01 Kukusan adalah sekolah dasar swasta terakreditasi A. Sejak 1981, sekolah ini menemani anak-anak belajar, beribadah, dan tumbuh di lingkungan yang akrab — di bawah naungan Pimpinan Daerah Muhammadiyah Kota Depok.",
+    kicker: "Sekolah Dasar Islam · Kota Depok",
+    title: "Tempat anak tumbuh dengan adab, ilmu, dan Al-Qur'an.",
+    lead: "Sejak 1981, SD Muhammadiyah 01 Kukusan menemani anak-anak belajar dan beribadah di lingkungan yang akrab — di bawah naungan Pimpinan Daerah Muhammadiyah Kota Depok.",
     image: "/media/halaman.jpg",
-    imageCaption: "Ilustrasi suasana halaman sekolah. Foto resmi akan dipasang kemudian.",
+    imageCaption: "Ilustrasi suasana sekolah. Ganti dengan foto resmi lewat panel kelola.",
   },
   visi:
     "Terwujudnya peserta didik yang beriman, berakhlak mulia, berilmu, dan mandiri, dengan landasan Al-Qur'an dan Sunnah.",
