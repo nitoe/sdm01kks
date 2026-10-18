@@ -18,7 +18,6 @@ function PengumumanPage() {
   const [query, setQuery] = useState("");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
-  const [onlyImage, setOnlyImage] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
 
   const years = useMemo(() => {
@@ -34,7 +33,6 @@ function PengumumanPage() {
     const q = query.trim().toLowerCase();
     return all
       .filter((item) => {
-        if (onlyImage && !item.image) return false;
         if (year && !item.date.startsWith(year)) return false;
         if (month && item.date.slice(5, 7) !== month) return false;
         if (!q) return true;
@@ -42,7 +40,7 @@ function PengumumanPage() {
         return hay.includes(q);
       })
       .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
-  }, [all, query, year, month, onlyImage]);
+  }, [all, query, year, month]);
 
   const openItem = filtered.find((item) => item.id === openId) ?? null;
 
@@ -55,8 +53,8 @@ function PengumumanPage() {
       />
 
       <div className="mx-auto max-w-6xl px-5 pb-16">
-        <div className="mb-8 grid gap-3 rounded-2xl border border-line bg-sheet p-4 sm:grid-cols-2 lg:grid-cols-4">
-          <label className="relative sm:col-span-2">
+        <div className="mb-8 grid gap-3 rounded-2xl border border-line bg-sheet p-4 sm:grid-cols-2 lg:grid-cols-3">
+          <label className="relative sm:col-span-2 lg:col-span-1">
             <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" />
             <input
               type="search"
@@ -97,15 +95,6 @@ function PengumumanPage() {
             <option value="11">November</option>
             <option value="12">Desember</option>
           </select>
-          <label className="flex items-center gap-2 text-sm sm:col-span-2 lg:col-span-1">
-            <input
-              type="checkbox"
-              checked={onlyImage}
-              onChange={(e) => setOnlyImage(e.target.checked)}
-              className="size-4 accent-pine"
-            />
-            Hanya yang bergambar / flyer
-          </label>
         </div>
 
         {filtered.length === 0 ? (
