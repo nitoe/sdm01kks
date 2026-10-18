@@ -22,8 +22,9 @@ export const seedContent: SiteContent = {
     hours: "Senin–Sabtu, pagi hari",
     studentsNote: "Sekitar 370 peserta didik",
     logoUrl: "",
-    mapLat: "-6.3664483",
-    mapLng: "106.8154283",
+    // Dari Google Maps resmi: https://maps.app.goo.gl/6Ae9iQqaqswDhEq9A
+    mapLat: "-6.3665395",
+    mapLng: "106.8155345",
   },
   hero: {
     kicker: "Sekolah Dasar Islam · Kota Depok",
