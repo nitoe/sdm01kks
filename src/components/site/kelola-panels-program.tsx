@@ -113,13 +113,13 @@ function Switch({
         event.stopPropagation();
         onChange();
       }}
-      className={`relative h-7 w-12 shrink-0 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
+      className={`relative h-5 w-9 shrink-0 rounded-full transition-colors before:absolute before:-inset-2 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
         checked ? "bg-pine" : "bg-line"
       }`}
     >
       <span
-        className={`absolute left-0.5 top-0.5 size-6 rounded-full bg-sheet shadow transition-transform ${
-          checked ? "translate-x-5" : ""
+        className={`absolute left-0.5 top-0.5 size-4 rounded-full bg-sheet shadow transition-transform ${
+          checked ? "translate-x-4" : ""
         }`}
       />
     </button>
@@ -510,7 +510,7 @@ function ActivityEditor({
             <ArrowDown className="size-4" aria-hidden />
           </button>
         </div>
-        <label className="flex items-center gap-2 text-sm font-semibold text-ink">
+        <label className="flex items-center gap-2 text-xs font-semibold text-ink">
           <Switch
             checked={program.visible}
             onChange={onToggle}
@@ -613,7 +613,7 @@ function InfoSection({
         </label>
         {program.group === "ekstrakurikuler" ? (
           <Field
-            label="Kategori (label di kartu: Olahraga, Seni, …)"
+            label="Kategori (label kartu)"
             value={program.category ?? ""}
             onChange={(value) => patch(program.id, (entry) => (entry.category = value))}
           />

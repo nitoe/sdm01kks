@@ -26,7 +26,7 @@ export function ProgramMediaGallery({ media }: { media: ProgramMedia[] }) {
   if (media.length === 0) return null;
   return (
     <section className="mt-12">
-      <h2 className="font-serif text-3xl text-ink">Dokumentasi</h2>
+      <h2 className="font-serif text-2xl text-ink">Dokumentasi</h2>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         {media.map((item) => {
           const yt = item.kind === "url" ? youtubeEmbed(item.src) : null;

@@ -45,7 +45,7 @@ export function ProgramContactCard({ program }: { program: Program }) {
   return (
     <div className="rounded-xl bg-pine-deep p-6 text-sheet">
       <div className="flex items-start justify-between gap-4">
-        <h2 className="font-serif text-2xl">Kontak</h2>
+        <h2 className="font-serif text-xl">Kontak</h2>
         <Link
           to="/kontak"
           aria-label={`Hubungi sekolah tentang ${program.title}`}
@@ -135,7 +135,7 @@ function EkskulCard({ item }: { item: Program }) {
       </div>
       <div className="flex flex-1 flex-col bg-sky p-5">
         {!item.visible ? <p className="mb-1 text-xs text-brass">Tersembunyi dari tamu</p> : null}
-        <h3 className="font-serif text-2xl text-ink group-hover:text-pine">{item.title}</h3>
+        <h3 className="font-serif text-xl text-ink group-hover:text-pine">{item.title}</h3>
         <p className="mt-2 line-clamp-3 text-sm text-muted">{item.summary}</p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-pine">
           Lihat selengkapnya{" "}
@@ -177,7 +177,7 @@ export function EkskulListPage({ group, items }: { group: ProgramGroup; items: P
               <p className="mb-2 text-xs text-brass-soft">Tersembunyi dari tamu</p>
             ) : null}
             <p className={`${kickerClass} opacity-80`}>Ekstrakurikuler</p>
-            <h1 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">
+            <h1 className="mt-3 font-serif text-2xl leading-tight sm:text-3xl">
               {group.title === "Ekstrakurikuler" ? "Kegiatan ekskul kami" : group.title}
             </h1>
           </div>
@@ -276,7 +276,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
             <p className={`${kickerClass} text-muted`}>
               {program.category ? `Ekstrakurikuler · ${program.category}` : "Ekstrakurikuler"}
             </p>
-            <h1 className="mt-3 font-serif text-4xl leading-tight text-ink md:text-5xl">
+            <h1 className="mt-3 font-serif text-3xl leading-tight text-ink md:text-4xl">
               {program.title}
             </h1>
             {program.summary ? <p className="mt-4 text-lg text-muted">{program.summary}</p> : null}
@@ -300,7 +300,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
 
           <hr className="my-10 border-line" />
           <section aria-labelledby="prestasi">
-            <h2 id="prestasi" className="font-serif text-3xl text-ink">
+            <h2 id="prestasi" className="font-serif text-2xl text-ink">
               Prestasi
             </h2>
             {achievements.length > 0 ? (
@@ -311,7 +311,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
                     className="rounded-xl bg-sheet p-5 ring-1 ring-line"
                   >
                     <p className="text-xs font-semibold tracking-wider text-muted">{item.year}</p>
-                    <p className="mt-2 font-serif text-2xl text-ink">{item.title}</p>
+                    <p className="mt-2 font-serif text-xl text-ink">{item.title}</p>
                     <p className="mt-1 text-sm text-muted">{item.result}</p>
                   </div>
                 ))}
@@ -330,7 +330,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
         <aside className="lg:col-span-4">
           <div className="space-y-6 lg:sticky lg:top-24">
             <div className="rounded-xl bg-sheet p-6 ring-1 ring-line">
-              <h2 className="font-serif text-2xl text-ink">Kegiatan kami</h2>
+              <h2 className="font-serif text-xl text-ink">Kegiatan kami</h2>
               {activities.length > 0 ? (
                 <ul className="mt-4 divide-y divide-line">
                   {activities.map((act) => (
@@ -352,7 +352,7 @@ export function EkskulDetailPage({ program }: { program: Program }) {
 
       {others.length > 0 ? (
         <section className="mt-16" aria-labelledby="lainnya">
-          <h2 id="lainnya" className="font-serif text-3xl text-ink">
+          <h2 id="lainnya" className="font-serif text-2xl text-ink">
             Ekstrakurikuler lainnya
           </h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
