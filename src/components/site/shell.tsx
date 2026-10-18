@@ -7,6 +7,7 @@ const NAV = [
   { to: "/", label: "Beranda", exact: true },
   { to: "/profil", label: "Profil", exact: false },
   { to: "/program", label: "Program", exact: false },
+  { to: "/prestasi", label: "Prestasi", exact: false },
   { to: "/berita", label: "Berita", exact: false },
   { to: "/galeri", label: "Galeri", exact: false },
   { to: "/kontak", label: "Kontak", exact: false },
@@ -19,16 +20,26 @@ export function useBootSite() {
   }, [boot]);
 }
 
-export function Mark({ className }: { className?: string }) {
+export function SchoolLogo({ className }: { className?: string }) {
+  const logoUrl = useSiteStore((state) => state.content.identity.logoUrl);
+  if (logoUrl) {
+    return <img src={logoUrl} alt="" className={`rounded-xl object-cover ${className ?? ""}`} />;
+  }
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
       <rect width="48" height="48" rx="12" className="fill-pine" />
       <path
-        d="M24 8l4.2 8.6 9.5 1.4-6.9 6.7 1.6 9.4L24 29.6 15.6 34.1l1.6-9.4-6.9-6.7 9.5-1.4L24 8z"
+        d="M10 34V20l14-8 14 8v14H28v-8h-8v8H10z"
         className="fill-brass-soft"
       />
+      <circle cx="24" cy="18" r="2.5" className="fill-sheet" />
     </svg>
   );
+}
+
+/** @deprecated use SchoolLogo */
+export function Mark({ className }: { className?: string }) {
+  return <SchoolLogo className={className} />;
 }
 
 export function SiteFrame({ children }: { children: ReactNode }) {
@@ -55,8 +66,8 @@ export function SiteFrame({ children }: { children: ReactNode }) {
           <span>NPSN {identity.npsn}</span>
           <span className="text-brass-soft">Akreditasi {identity.accreditation}</span>
           <span className="text-sheet/80">Kukusan, Depok</span>
-          <Link to="/guru" className="ml-auto font-semibold text-brass-soft">
-            Akun guru
+          <Link to="/masuk" className="ml-auto font-semibold text-brass-soft">
+            Masuk
           </Link>
         </div>
       </div>
@@ -64,7 +75,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-line bg-sheet/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
           <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
-            <Mark className="size-11 shrink-0" />
+            <SchoolLogo className="size-11 shrink-0" />
             <span className="min-w-0">
               <span className="block font-serif text-lg leading-tight font-semibold text-ink">
                 {identity.shortName}
@@ -84,6 +95,12 @@ export function SiteFrame({ children }: { children: ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/masuk"
+              className="ml-1 rounded-full bg-pine px-4 py-2 text-sm font-semibold text-sheet"
+            >
+              Masuk
+            </Link>
           </nav>
 
           <button
@@ -112,6 +129,15 @@ export function SiteFrame({ children }: { children: ReactNode }) {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/masuk"
+                  className="block rounded-xl bg-pine px-3 py-3 text-base font-semibold text-sheet"
+                  onClick={() => setOpen(false)}
+                >
+                  Masuk
+                </Link>
+              </li>
             </ul>
           </nav>
         ) : null}
@@ -128,9 +154,12 @@ function SiteFooter() {
   return (
     <footer className="mt-16 border-t border-line bg-pine-deep text-sheet">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-3">
-        <div>
-          <p className="font-serif text-2xl">{identity.name}</p>
-          <p className="mt-3 max-w-sm text-sheet/80">{identity.tagline}</p>
+        <div className="flex gap-4">
+          <SchoolLogo className="size-12 shrink-0" />
+          <div>
+            <p className="font-serif text-2xl">{identity.name}</p>
+            <p className="mt-2 max-w-sm text-sheet/80">{identity.tagline}</p>
+          </div>
         </div>
         <div className="text-sm leading-relaxed text-sheet/80">
           <p>{identity.address}</p>
@@ -140,8 +169,8 @@ function SiteFooter() {
         <div className="text-sm text-sheet/80">
           <p>{identity.foundation}</p>
           <p className="mt-3">{identity.domain}</p>
-          <Link to="/kelola" className="mt-4 inline-flex py-2 text-brass-soft hover:underline">
-            Kelola situs
+          <Link to="/masuk" className="mt-4 inline-flex py-2 text-brass-soft hover:underline">
+            Masuk ke situs
           </Link>
         </div>
       </div>
