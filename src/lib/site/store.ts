@@ -78,7 +78,14 @@ export const useSiteStore = create<SiteState>((set, get) => ({
     scheduleSave(next);
   },
   markAdmin: (email, usingDefaultPassword, role) => {
-    set({ admin: true, adminEmail: email, usingDefaultPassword, role });
+    // Sebelum Publish, pengunjung hanya menerima isi awal. Setelah masuk, muat ulang isi
+    // sebenarnya sebelum panel bisa diubah, supaya isi awal tidak menimpa isi tersimpan.
+    set({ admin: true, adminEmail: email, usingDefaultPassword, role, ready: false });
+    void loadSiteContent()
+      .then((content) => set({ content, ready: true, source: "basis" }))
+      .catch(() =>
+        set({ ready: true, saveError: "Gagal memuat isi terbaru. Muat ulang halaman sebelum mengubah." }),
+      );
   },
   lock: async () => {
     // Anggap keluar seketika agar tampilan tidak tertahan menunggu server.

@@ -130,6 +130,22 @@ Pasang Nginx sebagai reverse proxy ke port aplikasi, lalu SSL dengan Certbot.
 
 ---
 
+## 5b. Mode "sedang dibangun" dan Publish
+
+Setelah deploy pertama, **semua pengunjung hanya melihat halaman 404 "website sedang dibangun"**. Situs sebenarnya hanya terlihat oleh admin/operator yang sudah masuk (lewat tombol **Developer Mode** atau `/masuk`).
+
+Untuk membuka situs: masuk sebagai **admin** → panel kelola → **Pengaturan → Publikasi** → **Publish situs** → centang, ketik `PUBLISH`, masukkan sandi admin. Status tersimpan di basis data (tabel `site_settings`), jadi `DATABASE_URL` production wajib terisi; tanpa itu status hilang saat server restart dan situs kembali ke halaman 404.
+
+Mengembalikan ke mode "sedang dibangun" (tidak ada tombolnya di panel), jalankan di basis data:
+
+```sql
+delete from site_settings where key = 'published';
+```
+
+**Sebelum deploy pertama:** isi `ADMIN_INITIAL_PASSWORD` di environment variables. Tanpa itu, akun admin awal memakai sandi bawaan dari kode, dan halaman masuk sudah terbuka untuk umum. Ganti sandi segera setelah masuk.
+
+---
+
 ## 6. Checklist sebelum go-live
 
 - [ ] Paket Hostinger mendukung Node.js Web Apps atau VPS
@@ -139,6 +155,8 @@ Pasang Nginx sebagai reverse proxy ke port aplikasi, lalu SSL dengan Certbot.
 - [ ] HTTPS aktif
 - [ ] Login admin berhasil; sandi awal diganti
 - [ ] Uji unggah logo dan satu berita/prestasi
+- [ ] `ADMIN_INITIAL_PASSWORD` terisi sebelum deploy pertama
+- [ ] Pengunjung (tanpa login) hanya melihat halaman 404; setelah Publish, situs sebenarnya tampil
 
 ---
 

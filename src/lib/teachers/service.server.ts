@@ -354,3 +354,15 @@ export async function deleteAccount(input: { id: string }): Promise<Result> {
   await sql`delete from admin_accounts where id = ${id}`;
   return { ok: true, message: "Akun dihapus." };
 }
+
+/**
+ * Periksa sandi akun admin yang sedang masuk. Dipakai sebagai verifikasi tambahan
+ * untuk tindakan penting (mis. Publish). Hanya admin; operator ditolak.
+ */
+export async function confirmAdminPassword(password: string): Promise<Result> {
+  const sql = await getSql();
+  const guard = await guardAdmin(sql);
+  if (!guard.ok) return guard;
+  const ok = await verifyPassword(typeof password === "string" ? password : "", guard.session.passwordHash);
+  return ok ? { ok: true } : { ok: false, message: "Sandi tidak sesuai." };
+}

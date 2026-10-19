@@ -4,6 +4,9 @@ import type { SiteContent } from "./types";
 
 export const loadSiteContent = createServerFn({ method: "GET" }).handler(async (): Promise<SiteContent> => {
   try {
+    // Sebelum Publish, isi sebenarnya hanya dikirim ke admin/operator yang sedang masuk.
+    const { canViewSite } = await import("./publish.server.ts");
+    if (!(await canViewSite())) return structuredClone(seedContent);
     const { readSiteContent } = await import("./content.server.ts");
     return await readSiteContent();
   } catch (error) {

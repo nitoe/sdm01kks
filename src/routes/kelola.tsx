@@ -19,6 +19,7 @@ import { VisibilityPanel, AccountPanel } from "@/components/site/kelola-panels-b
 import { WelcomePanel, ValuesPanel } from "@/components/site/kelola-panels-welcome";
 import { StaffPanel } from "@/components/site/kelola-panels-staff";
 import { AccountManagerPanel } from "@/components/site/kelola-panels-accounts";
+import { PublishPanel } from "@/components/site/kelola-panels-publish";
 import { getAdminAccount, loginAdminAccount } from "@/lib/teachers/api";
 
 const TABS = [
@@ -36,6 +37,7 @@ const TABS = [
   "Tampilan",
   "Sandi",
   "Akun",
+  "Publikasi",
 ] as const;
 
 export type KelolaTab = (typeof TABS)[number];
@@ -74,12 +76,12 @@ const GROUPS: { id: string; label: string; tabs: Tab[] }[] = [
   {
     id: "pengaturan",
     label: "Pengaturan",
-    tabs: ["Sandi", "Akun"],
+    tabs: ["Sandi", "Akun", "Publikasi"],
   },
 ];
 
 /** Tab yang hanya boleh dibuka admin. Operator tidak melihatnya. */
-const ADMIN_ONLY_TABS: readonly Tab[] = ["Akun"];
+const ADMIN_ONLY_TABS: readonly Tab[] = ["Akun", "Publikasi"];
 
 type Tab = KelolaTab;
 
@@ -101,11 +103,14 @@ const TAB_HELP: Record<Tab, string> = {
   Tampilan: "Sembunyikan bagian dari tamu tanpa menghapus isinya.",
   Sandi: "Ganti sandi akun yang sedang dipakai.",
   Akun: "Tambah, ubah, atau hapus akun operator dan admin. Hanya admin yang melihat tab ini.",
+  Publikasi:
+    "Buka situs untuk pengunjung. Sebelum Publish, pengunjung hanya melihat halaman 404. Hanya admin.",
 };
 
 function tabLabel(tab: Tab) {
   if (tab === "Visi") return "Visi, misi, dan sejarah";
   if (tab === "Akun") return "Kelola akun";
+  if (tab === "Publikasi") return "Publikasi situs";
   return tab;
 }
 
@@ -400,6 +405,7 @@ function Editor() {
             {tab === "Tampilan" ? <VisibilityPanel /> : null}
             {tab === "Sandi" ? <AccountPanel /> : null}
             {tab === "Akun" && isAdminRole ? <AccountManagerPanel /> : null}
+            {tab === "Publikasi" && isAdminRole ? <PublishPanel /> : null}
           </section>
         </main>
       </div>

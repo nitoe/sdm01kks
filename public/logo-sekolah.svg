@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Logo SD Muhammadiyah 01 Kukusan">
+  <circle cx="60" cy="60" r="58" fill="#0f5a38"/>
+  <circle cx="60" cy="60" r="54" fill="none" stroke="#c4a35a" stroke-width="1.5"/>
+  <g fill="#c4a35a">
+    <polygon points="63.2,26.0 60.0,10.0 56.8,26.0"/>
+    <polygon points="79.8,32.2 85.0,16.7 74.2,29.0"/>
+    <polygon points="91.0,45.8 103.3,35.0 87.8,40.2"/>
+    <polygon points="94.0,63.2 110.0,60.0 94.0,56.8"/>
+    <polygon points="87.8,79.8 103.3,85.0 91.0,74.2"/>
+    <polygon points="74.2,91.0 85.0,103.3 79.8,87.8"/>
+    <polygon points="56.8,94.0 60.0,110.0 63.2,94.0"/>
+    <polygon points="40.2,87.8 35.0,103.3 45.8,91.0"/>
+    <polygon points="29.0,74.2 16.7,85.0 32.2,79.8"/>
+    <polygon points="26.0,56.8 10.0,60.0 26.0,63.2"/>
+    <polygon points="32.2,40.2 16.7,35.0 29.0,45.8"/>
+    <polygon points="45.8,29.0 35.0,16.7 40.2,32.2"/>
+  </g>
+  <circle cx="60" cy="60" r="31" fill="#1a7a4c"/>
+  <circle cx="60" cy="60" r="31" fill="none" stroke="#f7f1e3" stroke-width="1.5"/>
+  <path d="M60 50c-6-4-14-4-20-2v22c6-2 14-2 20 2 6-4 14-4 20-2V48c-6-2-14-2-20 2z" fill="#ffffff"/>
+  <path d="M60 50v22" stroke="#1a7a4c" stroke-width="1.6" fill="none"/>
+</svg>

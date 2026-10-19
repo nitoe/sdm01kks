@@ -47,3 +47,13 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Akun yang sedang dipakai tidak boleh dihapus dan tidak boleh mengubah perannya sendiri, supaya selalu tersisa minimal satu admin.
 - Akun admin bawaan hanya dibuat saat tabel `admin_accounts` kosong. Jangan kembali memeriksanya per surel.
 - Tab "Kelola akun" hanya tampil untuk admin. Jangan pasang kembali "Tambah admin" di tab Sandi.
+
+## Mode sedang dibangun dan Publish (2026-10-19)
+- Sebelum Publish, pengunjung hanya melihat `MaintenancePage` (`src/components/site/maintenance.tsx`). Jangan hapus gerbang di `beforeLoad` dan komponen root pada `src/routes/__root.tsx`.
+- Hanya `/masuk` dan `/kelola` (`OPEN_PATHS`) yang boleh terbuka bagi pengunjung sebelum Publish. Jangan tambah halaman publik lain ke daftar itu.
+- Gerbang harus dijaga di server: `loadSiteContent` memakai `canViewSite`, jangan dikembalikan agar selalu memberi isi dari basis data.
+- Gagal membaca status = tertutup. Tanpa baris `published = 'true'` di `site_settings`, situs belum terbit.
+- Publish hanya admin (`confirmAdminPassword` memakai `guardAdmin`), dengan sandi dan kata `PUBLISH` diperiksa di server. Operator tidak boleh menerbitkan. Tab "Publikasi" ada di `ADMIN_ONLY_TABS`.
+- Tombol **Go Back** mengarah ke `https://www.google.com/`. Tombol **Developer Mode** mengarah ke `/masuk`.
+- `markAdmin` di `src/lib/site/store.ts` memuat ulang isi sebelum panel bisa diubah. Jangan hapus, supaya isi awal tidak menimpa isi tersimpan.
+- Pemeriksaan "sudah terbit" yang disimpan di peramban (`knownPublished`) hanya boleh berlaku di peramban, bukan di server.

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { AnnouncementLightbox } from "@/components/site/announcement-lightbox";
@@ -47,6 +47,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
   const identity = useSiteStore((state) => state.content.identity);
   const admin = useSiteStore((state) => state.admin);
   const role = useSiteStore((state) => state.role);
+  const published = useRouteContext({ from: "__root__", select: (context) => context.gate.published });
   const [open, setOpen] = useState(false);
 
   return (
@@ -55,8 +56,10 @@ export function SiteFrame({ children }: { children: ReactNode }) {
         <div className="bg-pine text-sheet">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 text-sm">
             <p>
-              Anda masuk sebagai {role === "operator" ? "operator" : "admin"}. Perubahan tersimpan dan terbaca
-              pengunjung lain.
+              Anda masuk sebagai {role === "operator" ? "operator" : "admin"}.{" "}
+              {published
+                ? "Perubahan tersimpan dan terbaca pengunjung lain."
+                : "Situs belum dipublikasikan: pengunjung masih melihat halaman 404. Hanya akun yang masuk yang bisa melihat halaman ini."}
             </p>
             <Link to="/kelola" className="shrink-0 font-semibold underline-offset-2 hover:underline">
               Panel kelola

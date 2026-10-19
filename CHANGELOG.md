@@ -42,3 +42,11 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 - Jalur masuk lama dengan sandi-PIN (sandi bawaan `kukusan-admin`) dihapus. Sesi tanpa akun tidak lagi dianggap masuk.
 - Akun admin bawaan hanya dibuat bila belum ada akun sama sekali, sehingga tidak muncul lagi dengan sandi awal setelah surelnya diganti atau akunnya dihapus.
 - Halaman Masuk dan Gate panel kelola tidak lagi mengisi surel admin secara otomatis.
+
+### Mode "sedang dibangun" dan Publish
+- Sebelum admin menekan **Publish**, semua pengunjung yang membuka halaman publik (`/`, `/profil`, `/program`, `/berita`, `/galeri`, `/kontak`, dan seterusnya) hanya melihat halaman 404 "website sedang dibangun": logo dan nama sekolah di kiri atas, keterangan singkat, tombol **Go Back** (ke Google) dan **Developer Mode** (ke `/masuk`).
+- `/masuk` dan `/kelola` tetap bisa dibuka pengunjung sebagai jalan masuk. Admin dan operator yang sudah masuk melihat situs sebenarnya (untuk memeriksa isi) dengan spanduk bahwa situs belum dipublikasikan.
+- Isi situs dari basis data tidak dikirim ke pengunjung sebelum Publish (`loadSiteContent` hanya memberi isi awal bila bukan admin/operator). Setelah login, isi sebenarnya dimuat ulang sebelum panel bisa diubah.
+- Tab baru **Publikasi** (grup Pengaturan, khusus admin). Tombol **Publish situs** membuka jendela verifikasi: centang pemeriksaan isi, ketik `PUBLISH`, dan masukkan sandi admin. Sandi dan kata diperiksa di server. Setelah Publish, halaman 404 tidak dipakai lagi.
+- Status disimpan di tabel `site_settings` (`migrations/0005_site_publish.sql`), kunci `published`. Tanpa baris itu, situs dianggap belum dipublikasikan. Bila status gagal dibaca, pengunjung tetap melihat halaman 404.
+- Berkas baru: `public/logo-sekolah.svg` (logo sementara, dipakai bila logo belum diunggah lewat Identitas) dan `public/media/404-ilustrasi.png`.
