@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 const SCHOOL_NAME = "SD Muhammadiyah 01 Kukusan";
-const FALLBACK_LOGO = "/logo-sekolah.svg";
+const FALLBACK_LOGO = "/logo-sekolah.png";
 const POPPINS = '"Poppins", "Source Sans 3", ui-sans-serif, system-ui, sans-serif';
 
 /**
@@ -16,9 +16,8 @@ export function MaintenancePage({ logoUrl }: { logoUrl?: string }) {
           <img
             src={logoUrl || FALLBACK_LOGO}
             alt=""
-            width={48}
             height={48}
-            className="size-11 shrink-0 rounded-full object-cover sm:size-12"
+            className="h-11 w-auto shrink-0 object-contain sm:h-12"
           />
           <span className="text-base leading-tight font-semibold text-black sm:text-lg">{SCHOOL_NAME}</span>
         </header>

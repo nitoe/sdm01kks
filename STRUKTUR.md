@@ -35,6 +35,6 @@ Hosting belum masuk tahap ini. Isi situs disimpan di basis data. Daftar di bawah
 | `src/components/site/kelola-panels-publish.tsx` | Tab Publikasi dan jendela verifikasi Publish (khusus admin) |
 | `src/lib/site/gate.ts`, `gate-types.ts`, `publish.server.ts` | Gerbang pengunjung dan logika Publish |
 | `migrations/0005_site_publish.sql` | Tabel `site_settings` (status Publish) |
-| `public/logo-sekolah.svg`, `public/media/404-ilustrasi.png` | Logo sementara dan ilustrasi halaman 404 |
+| `public/logo-sekolah.png`, `public/media/404-ilustrasi.png` | Logo sekolah dan ilustrasi halaman 404 |
 
 Berkas lain di repo (skrip, daftar guru lama di `src/lib/teachers/roster.ts`, dan konfigurasi Vite) hanya agar proyek bisa dijalankan. Bukan isi sekolah.

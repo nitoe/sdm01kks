@@ -49,4 +49,4 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 - Isi situs dari basis data tidak dikirim ke pengunjung sebelum Publish (`loadSiteContent` hanya memberi isi awal bila bukan admin/operator). Setelah login, isi sebenarnya dimuat ulang sebelum panel bisa diubah.
 - Tab baru **Publikasi** (grup Pengaturan, khusus admin). Tombol **Publish situs** membuka jendela verifikasi: centang pemeriksaan isi, ketik `PUBLISH`, dan masukkan sandi admin. Sandi dan kata diperiksa di server. Setelah Publish, halaman 404 tidak dipakai lagi.
 - Status disimpan di tabel `site_settings` (`migrations/0005_site_publish.sql`), kunci `published`. Tanpa baris itu, situs dianggap belum dipublikasikan. Bila status gagal dibaca, pengunjung tetap melihat halaman 404.
-- Berkas baru: `public/logo-sekolah.svg` (logo sementara, dipakai bila logo belum diunggah lewat Identitas) dan `public/media/404-ilustrasi.png`.
+- Berkas baru: `public/logo-sekolah.png` (logo sekolah, dipakai bila logo belum diunggah lewat Identitas) dan `public/media/404-ilustrasi.png`.
