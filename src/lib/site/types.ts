@@ -144,6 +144,8 @@ export type SiteContent = {
   staff: StaffMember[];
   visi: string;
   misi: string[];
+  /** Sejarah singkat sekolah (halaman Profil) */
+  sejarah: string;
   programGroups: ProgramGroup[];
   programs: Program[];
   announcements: Article[];
