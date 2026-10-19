@@ -1,7 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageIntro, SiteFrame } from "@/components/site/shell";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
-import type { StaffMember } from "@/lib/site/types";
 
 export const Route = createFileRoute("/profil")({
   component: ProfilPage,
@@ -10,111 +9,148 @@ export const Route = createFileRoute("/profil")({
 function ProfilPage() {
   const content = useSiteStore((state) => state.content);
   const admin = useSiteStore((state) => state.admin);
-  const identity = content.identity;
-  const staff = (content.staff ?? []).filter((item) => item.visible || admin);
+  const { identity, visi, misi, sejarah, values } = content;
+  const nilai = (values ?? []).filter((item) => item.visible || admin);
 
-  const kepala = staff.filter((item) => /kepala\s*sekolah/i.test(item.role) && !/wakil/i.test(item.role));
-  const wakil = staff.filter((item) => /wakil/i.test(item.role));
-  const guru = staff.filter(
-    (item) => !/kepala\s*sekolah/i.test(item.role) && !/wakil/i.test(item.role),
-  );
+  const facts: { label: string; value: string }[] = [
+    { label: "NPSN", value: identity.npsn },
+    { label: "Akreditasi", value: identity.accreditation },
+    { label: "Berdiri", value: identity.founded },
+    { label: "SK pendirian", value: identity.skFounded },
+    { label: "Beroperasi", value: identity.operational },
+    { label: "Kepala sekolah", value: identity.principal },
+    { label: "Naungan", value: identity.foundation },
+    { label: "Peserta didik", value: identity.studentsNote },
+  ].filter((row) => row.value?.trim());
 
   return (
     <SiteFrame>
       <PageIntro
         kicker="Profil"
-        title="Manajerial sekolah"
-        lead={`${identity.name} dipimpin oleh kepala sekolah bersama wakil dan para guru. Mereka yang menemani anak-anak setiap hari.`}
+        title={identity.name}
+        lead={identity.tagline}
       />
 
       <div className="mx-auto max-w-6xl px-5 pb-16">
-        {staff.length === 0 ? (
-          <p className="rounded-2xl border border-dashed border-line px-5 py-12 text-center text-muted">
-            Data manajerial belum diisi. Admin dapat menambahkannya lewat panel kelola tab Manajerial.
+        {/* Identitas ringkas */}
+        <section aria-labelledby="identitas-heading">
+          <h2 id="identitas-heading" className="font-serif text-2xl text-ink md:text-3xl">
+            Identitas sekolah
+          </h2>
+          <p className="mt-2 max-w-2xl text-muted">
+            Data resmi yang dipakai di administrasi dan komunikasi sekolah.
           </p>
-        ) : (
-          <div className="grid gap-12">
-            {kepala.length > 0 ? (
-              <section>
-                <h2 className="font-serif text-2xl text-ink">Kepala Sekolah</h2>
-                <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {kepala.map((item) => (
-                    <StaffCard key={item.id} item={item} featured />
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {wakil.length > 0 ? (
-              <section>
-                <h2 className="font-serif text-2xl text-ink">Wakil Kepala Sekolah</h2>
-                <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {wakil.map((item) => (
-                    <StaffCard key={item.id} item={item} />
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {guru.length > 0 ? (
-              <section>
-                <h2 className="font-serif text-2xl text-ink">Guru</h2>
-                <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {guru.map((item) => (
-                    <StaffCard key={item.id} item={item} />
-                  ))}
-                </div>
-              </section>
-            ) : null}
-          </div>
-        )}
-
-        <section className="mt-14 rounded-2xl border border-line bg-mint/40 p-6">
-          <h2 className="font-serif text-xl text-ink">Identitas sekolah</h2>
-          <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-            <div>
-              <dt className="text-muted">NPSN</dt>
-              <dd className="font-medium">{identity.npsn}</dd>
-            </div>
-            <div>
-              <dt className="text-muted">Akreditasi</dt>
-              <dd className="font-medium">{identity.accreditation}</dd>
-            </div>
-            <div>
-              <dt className="text-muted">Berdiri</dt>
-              <dd className="font-medium">{identity.founded}</dd>
-            </div>
-            <div>
-              <dt className="text-muted">Naungan</dt>
-              <dd className="font-medium">{identity.foundation}</dd>
-            </div>
+          <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {facts.map((row) => (
+              <div
+                key={row.label}
+                className="rounded-2xl border border-line bg-sheet p-4 shadow-sm"
+              >
+                <dt className="text-xs font-semibold tracking-wide text-muted uppercase">{row.label}</dt>
+                <dd className="mt-1.5 text-sm font-medium text-ink">{row.value}</dd>
+              </div>
+            ))}
           </dl>
+          <p className="mt-4 text-sm text-muted">{identity.address}</p>
+        </section>
+
+        {/* Sejarah */}
+        {sejarah?.trim() ? (
+          <section aria-labelledby="sejarah-heading" className="mt-14">
+            <h2 id="sejarah-heading" className="font-serif text-2xl text-ink md:text-3xl">
+              Sejarah singkat
+            </h2>
+            <div className="mt-5 max-w-3xl">
+              <Prose text={sejarah} />
+            </div>
+          </section>
+        ) : null}
+
+        {/* Visi */}
+        <section aria-labelledby="visi-heading" className="mt-14">
+          <div className="overflow-hidden rounded-2xl border border-line bg-mint/50 p-6 md:p-8">
+            <p className="text-sm font-semibold tracking-wide text-pine uppercase">Visi</p>
+            <h2 id="visi-heading" className="mt-3 font-serif text-2xl text-ink md:text-3xl">
+              {visi?.trim() || "Visi belum diisi."}
+            </h2>
+          </div>
+        </section>
+
+        {/* Misi */}
+        <section aria-labelledby="misi-heading" className="mt-10">
+          <h2 id="misi-heading" className="font-serif text-2xl text-ink md:text-3xl">
+            Misi
+          </h2>
+          {misi?.length ? (
+            <ol className="mt-5 grid gap-3">
+              {misi.map((item, index) => (
+                <li
+                  key={`${index}-${item.slice(0, 24)}`}
+                  className="flex gap-4 rounded-2xl border border-line bg-sheet p-4 shadow-sm"
+                >
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-mint text-sm font-semibold text-pine">
+                    {index + 1}
+                  </span>
+                  <span className="pt-1.5 text-ink">{item}</span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="mt-4 text-muted">Misi belum diisi.</p>
+          )}
+        </section>
+
+        {/* Nilai (opsional, dari data yang sama dengan beranda) */}
+        {nilai.length > 0 ? (
+          <section aria-labelledby="nilai-heading" className="mt-14">
+            <h2 id="nilai-heading" className="font-serif text-2xl text-ink md:text-3xl">
+              Nilai yang kami jaga
+            </h2>
+            <p className="mt-2 max-w-2xl text-muted">
+              Ringkasan sikap yang menjadi ritme sehari-hari di sekolah.
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {nilai.map((item) => (
+                <article
+                  key={item.id}
+                  className="rounded-2xl border border-line bg-sheet p-5 shadow-sm"
+                >
+                  <h3 className="font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-2 text-sm text-muted">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {/* Tautan lanjutan */}
+        <section className="mt-14 grid gap-4 rounded-2xl border border-line bg-sheet p-6 sm:grid-cols-2">
+          <div>
+            <h2 className="font-serif text-xl text-ink">Manajerial</h2>
+            <p className="mt-2 text-sm text-muted">
+              Kenali kepala sekolah, wakil, dan para guru yang mendampingi anak setiap hari.
+            </p>
+            <Link
+              to="/manajerial"
+              className="mt-4 inline-flex h-11 items-center rounded-full bg-pine px-5 text-sm font-semibold text-sheet hover:bg-pine-deep"
+            >
+              Lihat manajerial
+            </Link>
+          </div>
+          <div>
+            <h2 className="font-serif text-xl text-ink">Hubungi sekolah</h2>
+            <p className="mt-2 text-sm text-muted">
+              Alamat, telepon, WhatsApp, dan peta lokasi.
+            </p>
+            <Link
+              to="/kontak"
+              className="mt-4 inline-flex h-11 items-center rounded-full border border-pine px-5 text-sm font-semibold text-pine hover:bg-mint"
+            >
+              Halaman kontak
+            </Link>
+          </div>
         </section>
       </div>
     </SiteFrame>
-  );
-}
-
-function StaffCard({ item, featured = false }: { item: StaffMember; featured?: boolean }) {
-  return (
-    <article
-      className={`flex flex-col overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm ${
-        featured ? "sm:col-span-2 lg:col-span-1" : ""
-      }`}
-    >
-      <div className="bg-mint">
-        {item.photo ? (
-          <img src={item.photo} alt="" className="aspect-[4/5] w-full object-cover" />
-        ) : (
-          <div className="grid aspect-[4/5] place-items-center text-sm text-muted">Foto</div>
-        )}
-      </div>
-      <div className="flex flex-1 flex-col p-4">
-        {!item.visible ? <p className="mb-1 text-xs font-semibold text-brass">Tersembunyi dari tamu</p> : null}
-        <h3 className="font-semibold text-ink">{item.name || "Nama belum diisi"}</h3>
-        <p className="mt-0.5 text-sm font-medium text-pine">{item.role}</p>
-        {item.duties ? <p className="mt-2 text-sm text-muted">{item.duties}</p> : null}
-      </div>
-    </article>
   );
 }
