@@ -3,7 +3,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { SchoolLogo, useBootSite } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 import { ExternalLink } from "lucide-react";
-import { PENILAIAN_LOGIN_URL } from "@/lib/site/links";
+import { LEARNER_APPS, STAFF_APPS, type SchoolAppLink } from "@/lib/site/links";
 import { getAdminAccount, loginAdminAccount } from "@/lib/teachers/api";
 
 export const Route = createFileRoute("/masuk")({
@@ -15,6 +15,49 @@ export const Route = createFileRoute("/masuk")({
   }),
   component: MasukPage,
 });
+
+function AppLinkCard({ app }: { app: SchoolAppLink }) {
+  const body = (
+    <>
+      <span className="min-w-0 flex-1">
+        <span className="flex flex-wrap items-center gap-2">
+          <span className="font-semibold text-ink">{app.title}</span>
+          {!app.live ? (
+            <span className="rounded-full bg-paper px-2 py-0.5 text-xs font-semibold text-muted">
+              Segera
+            </span>
+          ) : null}
+        </span>
+        <span className="mt-1 block text-sm text-muted">{app.description}</span>
+      </span>
+      {app.live ? (
+        <ExternalLink className="mt-1 size-5 shrink-0 text-pine" aria-hidden />
+      ) : null}
+    </>
+  );
+
+  if (app.live && app.href) {
+    return (
+      <a
+        href={app.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-start gap-3 rounded-xl border border-line bg-paper p-4 transition-colors hover:border-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+      >
+        {body}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      className="flex items-start gap-3 rounded-xl border border-line border-dashed bg-paper/60 p-4 opacity-80"
+      aria-disabled="true"
+    >
+      {body}
+    </div>
+  );
+}
 
 function MasukPage() {
   useBootSite();
@@ -125,19 +168,29 @@ function MasukPage() {
             </button>
           </form>
 
-          <a
-            href={PENILAIAN_LOGIN_URL}
-            className="group mt-8 flex items-start gap-3 rounded-xl border border-line bg-paper p-4 transition-colors hover:border-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
-          >
-            <span className="min-w-0 flex-1">
-              <span className="block font-semibold text-ink">Guru: aplikasi penilaian</span>
-              <span className="mt-1 block text-sm text-muted">
-                Input nilai dan rapor. Dibuka di penilaian.sdmuhammadiyah01kks.sch.id dengan akun aplikasi
-                penilaian.
-              </span>
-            </span>
-            <ExternalLink className="mt-1 size-5 shrink-0 text-pine" aria-hidden />
-          </a>
+          {/* Gerbang staf: penilaian (live) + sarpras (segera). Tidak di header publik. */}
+          <div className="mt-10">
+            <p className="text-xs font-semibold tracking-wide text-muted uppercase">Khusus guru & staf</p>
+            <p className="mt-1 text-sm text-muted">
+              Bukan untuk pengunjung, murid, atau orang tua. Login di subdomain masing-masing.
+            </p>
+            <div className="mt-3 grid gap-3">
+              {STAFF_APPS.map((app) => (
+                <AppLinkCard key={app.id} app={app} />
+              ))}
+            </div>
+          </div>
+
+          {/* Gerbang murid: LMS + perpustakaan — belum live, hanya penanda slot. */}
+          <div className="mt-8">
+            <p className="text-xs font-semibold tracking-wide text-muted uppercase">Untuk murid</p>
+            <p className="mt-1 text-sm text-muted">LMS dan perpustakaan digital. Akan aktif setelah subdomain siap.</p>
+            <div className="mt-3 grid gap-3">
+              {LEARNER_APPS.map((app) => (
+                <AppLinkCard key={app.id} app={app} />
+              ))}
+            </div>
+          </div>
 
           <p className="mt-8 text-center text-sm text-muted">
             <Link to="/" className="font-semibold text-pine">
