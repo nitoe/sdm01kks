@@ -202,12 +202,23 @@ export function HeroPanel() {
 export function VisiPanel() {
   const visi = useSiteStore((state) => state.content.visi);
   const misi = useSiteStore((state) => state.content.misi);
+  const sejarah = useSiteStore((state) => state.content.sejarah ?? "");
   const update = useSiteStore((state) => state.update);
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-serif text-3xl">Visi dan misi</h2>
-      <p className="text-muted">Tampil di halaman depan bila sakelarnya menyala di tab Tampilan.</p>
+      <h2 className="font-serif text-3xl">Profil: visi, misi, dan sejarah</h2>
+      <p className="text-muted">
+        Tampil lengkap di halaman Profil. Cuplikan visi juga bisa muncul di beranda bila sakelarnya menyala di tab
+        Tampilan.
+      </p>
+      <Field
+        label="Sejarah singkat"
+        value={sejarah}
+        multiline
+        rows={6}
+        onChange={(value) => update((c) => ({ ...c, sejarah: value }))}
+      />
       <Field label="Visi" value={visi} multiline onChange={(value) => update((c) => ({ ...c, visi: value }))} />
       <Field
         label="Misi, satu baris satu butir"
