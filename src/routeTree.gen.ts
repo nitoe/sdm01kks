@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as KelolaRouteImport } from './routes/kelola'
 import { Route as KontakRouteImport } from './routes/kontak'
+import { Route as ManajerialRouteImport } from './routes/manajerial'
 import { Route as MasukRouteImport } from './routes/masuk'
 import { Route as PengumumanRouteImport } from './routes/pengumuman'
 import { Route as PratinjauRouteImport } from './routes/pratinjau'
@@ -48,6 +49,11 @@ const KelolaRoute = KelolaRouteImport.update({
 const KontakRoute = KontakRouteImport.update({
   id: '/kontak',
   path: '/kontak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManajerialRoute = ManajerialRouteImport.update({
+  id: '/manajerial',
+  path: '/manajerial',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MasukRoute = MasukRouteImport.update({
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/manajerial': typeof ManajerialRoute
   '/masuk': typeof MasukRoute
   '/pengumuman': typeof PengumumanRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/manajerial': typeof ManajerialRoute
   '/masuk': typeof MasukRoute
   '/pengumuman': typeof PengumumanRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/galeri': typeof GaleriRoute
   '/kelola': typeof KelolaRoute
   '/kontak': typeof KontakRoute
+  '/manajerial': typeof ManajerialRoute
   '/masuk': typeof MasukRoute
   '/pengumuman': typeof PengumumanRoute
   '/pratinjau': typeof PratinjauRouteWithChildren
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kelola'
     | '/kontak'
+    | '/manajerial'
     | '/masuk'
     | '/pengumuman'
     | '/pratinjau'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kelola'
     | '/kontak'
+    | '/manajerial'
     | '/masuk'
     | '/pengumuman'
     | '/pratinjau'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kelola'
     | '/kontak'
+    | '/manajerial'
     | '/masuk'
     | '/pengumuman'
     | '/pratinjau'
@@ -272,6 +284,7 @@ export interface RootRouteChildren {
   GaleriRoute: typeof GaleriRoute
   KelolaRoute: typeof KelolaRoute
   KontakRoute: typeof KontakRoute
+  ManajerialRoute: typeof ManajerialRoute
   MasukRoute: typeof MasukRoute
   PengumumanRoute: typeof PengumumanRoute
   PratinjauRoute: typeof PratinjauRouteWithChildren
@@ -312,6 +325,13 @@ declare module '@tanstack/react-router' {
       path: '/kontak'
       fullPath: '/kontak'
       preLoaderRoute: typeof KontakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manajerial': {
+      id: '/manajerial'
+      path: '/manajerial'
+      fullPath: '/manajerial'
+      preLoaderRoute: typeof ManajerialRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/masuk': {
@@ -466,6 +486,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriRoute: GaleriRoute,
   KelolaRoute: KelolaRoute,
   KontakRoute: KontakRoute,
+  ManajerialRoute: ManajerialRoute,
   MasukRoute: MasukRoute,
   PengumumanRoute: PengumumanRoute,
   PratinjauRoute: PratinjauRouteWithChildren,
