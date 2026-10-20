@@ -1,5 +1,3 @@
-import { Link } from "@tanstack/react-router";
-
 const SCHOOL_NAME = "SD Muhammadiyah 01 Kukusan";
 const FALLBACK_LOGO = "/logo-sekolah.png";
 const POPPINS = '"Poppins", "Source Sans 3", ui-sans-serif, system-ui, sans-serif';
@@ -41,12 +39,12 @@ export function MaintenancePage({ logoUrl }: { logoUrl?: string }) {
               >
                 Go Back
               </a>
-              <Link
-                to="/masuk"
+              <a
+                href="/masuk"
                 className="inline-flex h-12 items-center justify-center rounded-full border-2 border-black px-7 text-base font-medium text-black transition-colors hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               >
                 Developer Mode
-              </Link>
+              </a>
             </div>
           </div>
 
