@@ -4,7 +4,7 @@
  *
  * - staff: khusus guru/staf (penilaian, sarpras) — jangan di menu publik
  * - learner: guru + murid (lms, perpustakaan)
- * - keuangan: tidak digabung ke portal (mitra bank)
+ * - keuangan / PPDB: tidak digabung ke portal (mitra bank / lembaga keuangan)
  */
 
 export type SchoolAppAudience = "staff" | "learner";
@@ -27,6 +27,8 @@ export type SchoolAppLink = {
 export const PENILAIAN_LOGIN_URL =
   "https://penilaian.sdmuhammadiyah01kks.sch.id/login";
 
+export const SARPRAS_URL = "https://sarpras.sdmuhammadiyah01kks.sch.id/";
+
 /** Khusus guru/staf — off-limit pengunjung, murid, orang tua. */
 export const STAFF_APPS: readonly SchoolAppLink[] = [
   {
@@ -46,28 +48,28 @@ export const STAFF_APPS: readonly SchoolAppLink[] = [
     summary: "Pencatatan inventaris, ruang, dan perawatan fasilitas.",
     audience: "staff",
     audienceLabel: "Guru & staf",
-    href: null,
-    live: false,
+    href: SARPRAS_URL,
+    live: true,
   },
 ] as const;
 
 /** Untuk guru dan murid (bukan pengunjung umum). */
 export const LEARNER_APPS: readonly SchoolAppLink[] = [
   {
-    id: "lms",
-    title: "LMS sekolah",
-    description: "Pembelajaran daring dan materi kelas.",
-    summary: "Materi kelas, tugas, dan aktivitas belajar daring.",
+    id: "perpustakaan",
+    title: "Perpustakaan digital",
+    description: "Katalog dan koleksi digital sekolah. Direncanakan online minggu ini.",
+    summary: "Katalog buku, bacaan digital, dan riwayat pinjam.",
     audience: "learner",
     audienceLabel: "Murid & guru",
     href: null,
     live: false,
   },
   {
-    id: "perpustakaan",
-    title: "Perpustakaan digital",
-    description: "Katalog dan koleksi digital sekolah.",
-    summary: "Katalog buku, bacaan digital, dan riwayat pinjam.",
+    id: "lms",
+    title: "LMS sekolah",
+    description: "Pembelajaran daring dan materi kelas. Menyusul setelah perpustakaan.",
+    summary: "Materi kelas, tugas, dan aktivitas belajar daring.",
     audience: "learner",
     audienceLabel: "Murid & guru",
     href: null,
