@@ -147,6 +147,7 @@ function Gate() {
   return (
     <form
       className="rounded-card border border-line bg-sheet p-6"
+      autoComplete="off"
       onSubmit={(event) => {
         event.preventDefault();
         setBusy(true);
@@ -176,20 +177,25 @@ function Gate() {
         Surel
         <input
           type="email"
+          name="panel-email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
-          autoComplete="username"
+          autoComplete="off"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
         />
       </label>
       <label className="mt-4 block text-sm font-semibold text-muted">
         Sandi
         <input
           type="password"
+          name="panel-password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
-          autoComplete="current-password"
+          autoComplete="new-password"
         />
       </label>
       {error ? <p className="mt-3 text-sm text-pine-deep">{error}</p> : null}
@@ -253,6 +259,13 @@ function Editor() {
       else next.add(id);
       return next;
     });
+  }
+
+  async function handleLogout() {
+    // Hapus sesi dulu, lalu hard redirect agar tidak tertahan di form login /kelola
+    // dan pengunjung melihat halaman 404 "sedang dibangun".
+    await lock();
+    window.location.replace("/");
   }
 
   const status = saveError
@@ -352,10 +365,7 @@ function Editor() {
             </Link>
             <button
               type="button"
-              onClick={() => {
-                void navigate({ to: "/" });
-                void lock();
-              }}
+              onClick={() => void handleLogout()}
               className="rounded-xl px-3 py-2 text-left text-sm font-medium text-muted hover:bg-mint hover:text-ink"
             >
               Keluar
