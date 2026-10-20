@@ -36,6 +36,97 @@ export function Field({
   );
 }
 
+/** Batas sisi terpanjang (px). Cukup tajam di layar retina, hemat storage. */
+const MAX_IMAGE_SIDE = 1600;
+/** Kualitas JPEG 0–1. 0.82 seimbang antara ketajaman dan ukuran. */
+const JPEG_QUALITY = 0.82;
+/** Batas ukuran file asli sebelum diproses (15 MB). */
+const MAX_SOURCE_BYTES = 15_000_000;
+
+/**
+ * Resize + kompres gambar di browser lewat canvas.
+ * Menghasilkan JPEG base64 (tanpa prefix data:).
+ */
+function compressImage(file: File): Promise<{ mime: string; data: string }> {
+  return new Promise((resolve, reject) => {
+    if (!file.type.startsWith("image/")) {
+      reject(new Error("Bukan berkas gambar."));
+      return;
+    }
+    if (file.size > MAX_SOURCE_BYTES) {
+      reject(new Error("Gambar terlalu besar (maksimal 15 MB)."))
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const w = img.naturalWidth || img.width;
+      const h = img.naturalHeight || img.height;
+      if (!w || !h) {
+        reject(new Error("Tidak bisa membaca ukuran gambar."));
+        return;
+      }
+
+      const scale = Math.min(1, MAX_IMAGE_SIDE / Math.max(w, h));
+      const tw = Math.max(1, Math.round(w * scale));
+      const th = Math.max(1, Math.round(h * scale));
+
+      const canvas = document.createElement("canvas");
+      canvas.width = tw;
+      canvas.height = th;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        reject(new Error("Browser tidak mendukung kompresi gambar."));
+        return;
+      }
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, tw, th);
+
+      // Selalu keluarkan JPEG agar ukuran konsisten kecil (kecuali GIF animasi — tetap asli).
+      const isGif = file.type === "image/gif";
+      if (isGif && scale === 1) {
+        // GIF kecil tanpa resize: kirim asli agar animasi tetap.
+        const reader = new FileReader();
+        reader.onload = () => {
+          const raw = typeof reader.result === "string" ? reader.result : "";
+          const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
+          resolve({ mime: "image/gif", data });
+        };
+        reader.onerror = () => reject(new Error("Gagal membaca GIF."));
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error("Gagal mengompres gambar."));
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = () => {
+            const raw = typeof reader.result === "string" ? reader.result : "";
+            const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
+            resolve({ mime: "image/jpeg", data });
+          };
+          reader.onerror = () => reject(new Error("Gagal membaca hasil kompresi."));
+          reader.readAsDataURL(blob);
+        },
+        "image/jpeg",
+        JPEG_QUALITY,
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Gagal memuat gambar."));
+    };
+    img.src = url;
+  });
+}
+
 export function ImageField({
   label,
   value,
@@ -47,28 +138,27 @@ export function ImageField({
 }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState("");
 
-  function readFile(file: File) {
-    if (file.size > 1_200_000) {
-      setError("Gambar maksimal 1,2 MB.");
-      return;
-    }
+  async function readFile(file: File) {
     setBusy(true);
     setError("");
-    const reader = new FileReader();
-    reader.onload = () => {
-      const raw = typeof reader.result === "string" ? reader.result : "";
-      const data = raw.includes(",") ? raw.slice(raw.indexOf(",") + 1) : raw;
-      void uploadSiteMedia({ data: { mime: file.type || "image/jpeg", data } }).then((result) => {
-        setBusy(false);
-        if (!result.ok) {
-          setError(result.message);
-          return;
-        }
-        onChange(result.url);
-      });
-    };
-    reader.readAsDataURL(file);
+    setStatus("Mengompres gambar…");
+    try {
+      const { mime, data } = await compressImage(file);
+      setStatus("Mengunggah…");
+      const result = await uploadSiteMedia({ data: { mime, data } });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      onChange(result.url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gagal memproses gambar.");
+    } finally {
+      setBusy(false);
+      setStatus("");
+    }
   }
 
   return (
@@ -83,7 +173,7 @@ export function ImageField({
       )}
       <div className="flex flex-wrap gap-2">
         <label className="inline-flex h-11 cursor-pointer items-center rounded-full bg-pine px-4 text-sm font-semibold text-sheet">
-          {busy ? "Mengunggah…" : value ? "Ganti gambar" : "Pilih gambar"}
+          {busy ? status || "Mengunggah…" : value ? "Ganti gambar" : "Pilih gambar"}
           <input
             type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
@@ -92,7 +182,7 @@ export function ImageField({
             onChange={(event) => {
               const file = event.target.files?.[0];
               event.target.value = "";
-              if (file) readFile(file);
+              if (file) void readFile(file);
             }}
           />
         </label>
@@ -102,7 +192,9 @@ export function ImageField({
           </button>
         ) : null}
       </div>
-      <p className="text-sm text-muted">JPG, PNG, WEBP, atau GIF. Maksimal 1,2 MB.</p>
+      <p className="text-sm text-muted">
+        JPG, PNG, WEBP, atau GIF. Otomatis dikompres (maks {MAX_IMAGE_SIDE}px) agar hemat ruang.
+      </p>
       <details>
         <summary className="cursor-pointer text-sm font-semibold text-muted">Atau tempel tautan gambar</summary>
         <div className="mt-2">
