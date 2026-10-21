@@ -50,3 +50,10 @@ Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `B
 - Tab baru **Publikasi** (grup Pengaturan, khusus admin). Tombol **Publish situs** membuka jendela verifikasi: centang pemeriksaan isi, ketik `PUBLISH`, dan masukkan sandi admin. Sandi dan kata diperiksa di server. Setelah Publish, halaman 404 tidak dipakai lagi.
 - Status disimpan di tabel `site_settings` (`migrations/0005_site_publish.sql`), kunci `published`. Tanpa baris itu, situs dianggap belum dipublikasikan. Bila status gagal dibaca, pengunjung tetap melihat halaman 404.
 - Berkas baru: `public/logo-sekolah.png` (logo sekolah, dipakai bila logo belum diunggah lewat Identitas) dan `public/media/404-ilustrasi.png`.
+
+## 2026-10-21
+
+### Keamanan dependensi
+- Menanggapi peringatan kerentanan dari Hostinger pada `@grpc/grpc-js` (`getAuthContext` tidak membedakan sertifikat sah dan tidak sah bila `requireClientCertificate` bernilai `false`; diperbaiki di 1.13.6 dan 1.14.5). Paket ini hanya terbawa lewat `firebase` → `@firebase/firestore` dan sebelumnya terkunci di 1.9.16.
+- `package.json`: ditambah `overrides` `"@grpc/grpc-js": "1.14.5"`, karena `@firebase/firestore` 4.18.0 masih membatasi ke `~1.9.0`.
+- `package-lock.json`: `@grpc/grpc-js` naik dari 1.9.16 ke 1.14.5; ikut ditambahkan `@grpc/proto-loader` 0.8.1 (bersarang di bawah grpc-js) dan `@js-sdsl/ordered-map`. Entri lain tidak diubah.

@@ -57,3 +57,8 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Tombol **Go Back** mengarah ke `https://www.google.com/`. Tombol **Developer Mode** mengarah ke `/masuk`.
 - `markAdmin` di `src/lib/site/store.ts` memuat ulang isi sebelum panel bisa diubah. Jangan hapus, supaya isi awal tidak menimpa isi tersimpan.
 - Pemeriksaan "sudah terbit" yang disimpan di peramban (`knownPublished`) hanya boleh berlaku di peramban, bukan di server.
+
+## Dependensi `@grpc/grpc-js` (2026-10-21)
+- Jangan hapus `overrides` `"@grpc/grpc-js": "1.14.5"` di `package.json` selama `@firebase/firestore` masih membatasi `~1.9.0`. Tanpa itu, versi 1.9.16 yang rentan terpasang kembali.
+- Jangan turunkan `@grpc/grpc-js` di bawah 1.14.5 (atau 1.13.6 bila memakai jalur 1.13). Setelah mengubah `firebase`, periksa `npm ls @grpc/grpc-js` dan pastikan versinya tetap yang sudah diperbaiki.
+- Situs ini tidak menjalankan server gRPC dan tidak memakai `getAuthContext`; `firebase/firestore` hanya dimuat dinamis di `src/lib/site/firebase.ts`. Perbaikan ini murni menutup peringatan dependensi.
