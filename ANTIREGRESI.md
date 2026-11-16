@@ -57,6 +57,7 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Tombol **Go Back** mengarah ke `https://www.google.com/`. Tombol **Developer Mode** mengarah ke `/masuk`.
 - `markAdmin` di `src/lib/site/store.ts` memuat ulang isi sebelum panel bisa diubah. Jangan hapus, supaya isi awal tidak menimpa isi tersimpan.
 - Pemeriksaan "sudah terbit" yang disimpan di peramban (`knownPublished`) hanya boleh berlaku di peramban, bukan di server.
+- Sejak 2026-11-16 desain Maintenance memakai palet & tipografi situs utama (pine/mint/paper). Jangan kembalikan ke skema Poppins + oranye yang terpisah dari brand.
 
 ## Dependensi `@grpc/grpc-js` (2026-10-21)
 - Jangan hapus `overrides` `"@grpc/grpc-js": "1.14.5"` di `package.json` selama `@firebase/firestore` masih membatasi `~1.9.0`. Tanpa itu, versi 1.9.16 yang rentan terpasang kembali.

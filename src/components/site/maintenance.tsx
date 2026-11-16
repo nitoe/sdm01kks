@@ -1,60 +1,70 @@
 const SCHOOL_NAME = "SD Muhammadiyah 01 Kukusan";
 const FALLBACK_LOGO = "/logo-sekolah.png";
-const POPPINS = '"Poppins", "Source Sans 3", ui-sans-serif, system-ui, sans-serif';
 
 /**
  * Halaman yang dilihat semua pengunjung sebelum admin menekan Publish.
  * Tidak membaca isi situs apa pun; hanya nama sekolah dan logo.
+ * Desain diselaraskan dengan palet & tipografi situs utama (pine/mint/paper).
  */
 export function MaintenancePage({ logoUrl }: { logoUrl?: string }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#d4d4d4] p-3 sm:p-6" style={{ fontFamily: POPPINS }}>
-      <main className="relative w-full max-w-[1100px] overflow-hidden rounded-[2rem] bg-white px-6 py-8 sm:rounded-[3rem] sm:px-12 sm:py-10 lg:px-16">
-        <header className="flex items-center gap-3">
+    <div className="flex min-h-screen items-center justify-center bg-paper p-4 sm:p-6">
+      <main className="relative w-full max-w-[1100px] overflow-hidden rounded-[1.75rem] border border-line bg-sheet shadow-sm">
+        {/* Header ringan, konsisten dengan shell */}
+        <header className="flex items-center gap-3 border-b border-line px-6 py-4 sm:px-10 sm:py-5">
           <img
             src={logoUrl || FALLBACK_LOGO}
             alt=""
-            height={48}
+            height={44}
             className="h-11 w-auto shrink-0 object-contain sm:h-12"
           />
-          <span className="text-base leading-tight font-semibold text-black sm:text-lg">{SCHOOL_NAME}</span>
+          <div className="min-w-0">
+            <p className="truncate text-base font-semibold text-ink sm:text-lg">{SCHOOL_NAME}</p>
+            <p className="text-xs text-muted sm:text-sm">Depok · Muhammadiyah</p>
+          </div>
         </header>
 
-        <div className="mt-8 grid items-center gap-8 md:mt-4 md:grid-cols-2">
-          <div className="md:py-10">
-            <h1
-              className="text-[6.5rem] leading-[0.9] font-black tracking-tight text-black sm:text-[9rem] lg:text-[11rem]"
-              style={{ fontFamily: POPPINS }}
-            >
-              404
-            </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-neutral-700 sm:text-lg">
-              Website kami sedang dalam proses pembangunan. Kami menyiapkan isinya dengan teliti agar
-              informasi yang disajikan lengkap dan benar. Silakan berkunjung kembali dalam waktu dekat.
+        <div className="grid items-center gap-8 px-6 py-10 sm:px-10 sm:py-12 md:grid-cols-2 md:gap-12 lg:px-14">
+          <div>
+            <p className="text-xs font-semibold tracking-wide text-pine uppercase">
+              Sedang disiapkan
             </p>
+            <h1 className="mt-3 font-serif text-5xl leading-[1.05] text-ink sm:text-6xl lg:text-7xl">
+              Website kami sedang dibangun
+            </h1>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted sm:text-lg">
+              Kami menyiapkan isi situs dengan teliti agar informasi yang disajikan lengkap dan
+              benar. Silakan berkunjung kembali dalam waktu dekat.
+            </p>
+
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="https://www.google.com/"
-                className="inline-flex h-12 min-w-40 items-center justify-center rounded-full bg-[#ff9200] px-8 text-base font-medium text-white transition-colors hover:bg-[#e68200] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff9200]"
+                className="inline-flex h-12 min-w-[9.5rem] items-center justify-center rounded-full bg-pine px-7 text-base font-semibold text-sheet transition-colors hover:bg-pine-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
               >
                 Go Back
               </a>
               <a
                 href="/masuk"
-                className="inline-flex h-12 items-center justify-center rounded-full border-2 border-black px-7 text-base font-medium text-black transition-colors hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-line bg-sheet px-6 text-base font-semibold text-ink transition-colors hover:bg-mint hover:border-pine/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
               >
                 Developer Mode
               </a>
             </div>
           </div>
 
-          <img
-            src="/media/404-ilustrasi.png"
-            alt=""
-            width={780}
-            height={780}
-            className="mx-auto w-full max-w-[22rem] md:max-w-none"
-          />
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-[1.75rem] bg-mint/70 sm:-inset-4" aria-hidden="true" />
+            <figure className="relative overflow-hidden rounded-[1.5rem] border border-line bg-paper">
+              <img
+                src="/media/404-ilustrasi.png"
+                alt=""
+                width={780}
+                height={780}
+                className="mx-auto w-full max-w-[20rem] object-contain md:max-w-none"
+              />
+            </figure>
+          </div>
         </div>
       </main>
     </div>
