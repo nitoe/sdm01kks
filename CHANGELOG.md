@@ -33,6 +33,13 @@ Hanya tata letak, gaya, dan kebiasaan pakai yang berubah. Isi, data, alur Publis
 - **Masuk.** Pita atas berpola dengan label kuning. Alur dan isinya tidak berubah.
 - `SectionTitle` ditambahkan di `src/components/site/ornament.tsx`.
 
+### Tampilan tahap 3: ekstrakurikuler, dokumentasi, dan panel kelola
+
+- **Ekstrakurikuler.** Daftar: banner dengan kartu judul hijau tua bergaris kuning, saringan kategori berbentuk tombol persegi, label kategori kuning di atas foto. Detail: tombol "Daftar sekarang" memakai gaya `.tombol`, prestasi bergaris kuning di kiri, judul bagian memakai `SectionTitle`, dan tombol kembali bergaris. Kartu kontak berlatar hijau tua dengan tombol WhatsApp kuning.
+- **Dokumentasi program** (foto dan video) memakai `SectionTitle` dan kartu lebih membulat.
+- **Panel kelola.** Bilah samping berlatar hijau tua dengan menu aktif berwarna kuning, penanda status simpan lebih jelas, dan garis kuning di atas judul halaman. Formulir masuk panel memakai gaya baru. Daftar tab, kelompok menu, hak akses admin/operator, dan alur simpan tidak berubah.
+- Tampilan slideshow program tidak diubah.
+
 ## 2026-11-16
 
 ### Halaman “sedang dibangun” (Maintenance)

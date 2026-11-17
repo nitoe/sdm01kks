@@ -146,7 +146,7 @@ function Gate() {
 
   return (
     <form
-      className="rounded-card border border-line bg-sheet p-6"
+      className="rounded-3xl border border-line border-t-4 border-t-sun bg-sheet p-6 sm:p-8"
       autoComplete="off"
       onSubmit={(event) => {
         event.preventDefault();
@@ -180,7 +180,7 @@ function Gate() {
           name="panel-email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
+          className="mt-1 h-12 w-full rounded-lg border border-line bg-paper px-3 focus:border-pine focus:outline-none"
           autoComplete="off"
           autoCapitalize="none"
           autoCorrect="off"
@@ -194,7 +194,7 @@ function Gate() {
           name="panel-password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="mt-1 h-12 w-full rounded-xl border border-line bg-paper px-3"
+          className="mt-1 h-12 w-full rounded-lg border border-line bg-paper px-3 focus:border-pine focus:outline-none"
           autoComplete="new-password"
         />
       </label>
@@ -202,7 +202,7 @@ function Gate() {
       <button
         type="submit"
         disabled={busy}
-        className="mt-6 h-12 w-full rounded-full bg-pine font-semibold text-sheet"
+        className="tombol mt-6 h-12 w-full rounded-lg bg-pine font-bold text-sheet hover:bg-pine-deep disabled:opacity-60"
       >
         {busy ? "Memeriksa…" : "Masuk"}
       </button>
@@ -279,19 +279,19 @@ function Editor() {
   return (
     <div className="min-h-screen">
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex h-screen w-64 flex-col border-r border-line bg-sheet transition-transform lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-screen w-64 flex-col bg-forest text-sheet transition-transform lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex shrink-0 items-center gap-3 border-b border-line px-4 py-4">
+        <div className="flex shrink-0 items-center gap-3 border-b border-sheet/15 px-4 py-4">
           <Mark className="size-9" />
           <div className="min-w-0">
-            <p className="truncate font-semibold text-ink">Panel kelola</p>
-            <p className="truncate text-xs text-muted">SDM 01 Kukusan</p>
+            <p className="truncate font-serif text-lg leading-tight font-semibold text-sheet">Panel kelola</p>
+            <p className="truncate text-xs text-sheet/60">SDM 01 Kukusan</p>
           </div>
           <button
             type="button"
-            className="ml-auto grid size-9 place-items-center rounded-lg lg:hidden"
+            className="ml-auto grid size-9 place-items-center rounded-lg text-sheet lg:hidden"
             onClick={() => setSidebarOpen(false)}
             aria-label="Tutup menu"
           >
@@ -310,12 +310,12 @@ function Editor() {
                   type="button"
                   onClick={() => toggleGroup(group.id)}
                   className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-semibold ${
-                    hasActive ? "text-pine" : "text-ink"
-                  } hover:bg-mint/60`}
+                    hasActive ? "text-sun" : "text-sheet/90"
+                  } hover:bg-sheet/10`}
                 >
                   <span>{group.label}</span>
                   <ChevronDown
-                    className={`size-4 shrink-0 text-muted transition-transform ${
+                    className={`size-4 shrink-0 text-sheet/60 transition-transform ${
                       open ? "rotate-0" : "-rotate-90"
                     }`}
                   />
@@ -329,8 +329,8 @@ function Editor() {
                           onClick={() => choose(item)}
                           className={
                             tab === item
-                              ? "flex w-full items-center rounded-lg bg-pine px-3 py-2 text-left text-sm font-semibold text-sheet"
-                              : "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm font-medium text-ink hover:bg-mint"
+                              ? "flex w-full items-center rounded-lg bg-sun px-3 py-2 text-left text-sm font-bold text-ink"
+                              : "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm font-medium text-sheet/80 hover:bg-sheet/10 hover:text-sheet"
                           }
                         >
                           {tabLabel(item)}
@@ -344,13 +344,13 @@ function Editor() {
           })}
         </nav>
 
-        <div className="shrink-0 border-t border-line p-3">
+        <div className="shrink-0 border-t border-sheet/15 p-3">
           <div className="mb-2 flex items-center justify-between gap-2 px-2">
             <span
               className={
                 saveError
-                  ? "inline-flex h-7 items-center rounded-full bg-brass-soft px-2.5 text-xs font-semibold text-pine-deep"
-                  : "inline-flex h-7 items-center rounded-full bg-mint px-2.5 text-xs font-semibold text-pine"
+                  ? "inline-flex h-7 items-center rounded-full bg-sun px-2.5 text-xs font-bold text-ink"
+                  : "inline-flex h-7 items-center rounded-full bg-sheet/10 px-2.5 text-xs font-semibold text-sheet"
               }
             >
               {status}
@@ -359,14 +359,14 @@ function Editor() {
           <div className="grid gap-1">
             <Link
               to="/"
-              className="rounded-xl px-3 py-2 text-sm font-medium text-muted hover:bg-mint hover:text-ink"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-sheet/70 hover:bg-sheet/10 hover:text-sheet"
             >
               Lihat situs
             </Link>
             <button
               type="button"
               onClick={() => void handleLogout()}
-              className="rounded-xl px-3 py-2 text-left text-sm font-medium text-muted hover:bg-mint hover:text-ink"
+              className="rounded-lg px-3 py-2 text-left text-sm font-medium text-sheet/70 hover:bg-sheet/10 hover:text-sheet"
             >
               Keluar
             </button>
@@ -384,7 +384,7 @@ function Editor() {
       ) : null}
 
       <div className="flex min-h-screen flex-col lg:pl-64">
-        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-sheet/95 px-4 py-3 backdrop-blur-md lg:px-6">
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line border-t-4 border-t-sun bg-sheet/95 px-4 py-3 backdrop-blur-md lg:px-6">
           <button
             type="button"
             className="grid size-10 place-items-center rounded-xl border border-line lg:hidden"
@@ -394,7 +394,7 @@ function Editor() {
             <Menu className="size-5" />
           </button>
           <div className="min-w-0 flex-1">
-            <h1 className="truncate font-serif text-xl">{tabLabel(tab)}</h1>
+            <h1 className="truncate font-serif text-xl font-semibold">{tabLabel(tab)}</h1>
             <p className="truncate text-sm text-muted">{TAB_HELP[tab]}</p>
           </div>
         </header>

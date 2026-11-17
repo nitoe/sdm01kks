@@ -77,4 +77,6 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Tautan "Lewati ke isi halaman" dan `id="isi"` pada `<main>` di `SiteFrame` jangan dihapus; keduanya jalan pintas papan ketik.
 - Lebar kontainer diatur lewat token `--container-6xl` yang dinaikkan bertahap di `src/styles.css` (1536px, 1920px, 2400px). Jangan mengganti `max-w-6xl` dengan lebar tetap di halaman, dan jangan menurunkan nilainya; kalau tidak, ruang kosong di kiri dan kanan muncul lagi saat layar lebar atau peramban di-zoom keluar.
 - Judul bagian di halaman dalam memakai `SectionTitle` dari `ornament.tsx`, bukan `h2` lepas, agar gaya tetap seragam.
+- Bilah samping panel kelola (`kelola.tsx`) berlatar `bg-forest`, jadi semua teks dan tombol di dalamnya memakai warna terang (`text-sheet`, `bg-sun`). Jangan menempelkan kelas teks gelap (`text-ink`, `text-muted`) di sana tanpa latar terang.
+- Penyaring kategori ekskul tetap memakai `aria-pressed` dan `role="group"`; jangan dihapus saat mengubah gayanya.
 

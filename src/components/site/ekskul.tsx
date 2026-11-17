@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Mail,
@@ -10,6 +11,7 @@ import {
   Plus,
   User,
 } from "lucide-react";
+import { SectionTitle } from "@/components/site/ornament";
 import { Prose } from "@/components/site/shell";
 import { ProgramMediaGallery } from "@/components/site/program-media";
 import { ProgramSlideshow } from "@/components/site/program-slideshow";
@@ -17,7 +19,7 @@ import { programImages, telLink, whatsappLink } from "@/lib/site/program";
 import { useSiteStore } from "@/lib/site/store";
 import type { Program, ProgramGroup } from "@/lib/site/types";
 
-const kickerClass = "text-xs font-semibold uppercase tracking-[0.2em]";
+const kickerClass = "text-xs font-bold uppercase tracking-[0.16em]";
 
 function Cover({ program, className }: { program: Program; className: string }) {
   const src = programImages(program)[0]?.src;
@@ -43,13 +45,13 @@ export function ProgramContactCard({ program }: { program: Program }) {
   const wa = phone ? whatsappLink(phone) : null;
   const rowClass = "flex gap-3";
   return (
-    <div className="rounded-xl bg-pine-deep p-6 text-sheet">
+    <div className="rounded-2xl bg-forest p-6 text-sheet">
       <div className="flex items-start justify-between gap-4">
-        <h2 className="font-serif text-xl">Kontak</h2>
+        <h2 className="font-serif text-2xl font-semibold">Kontak</h2>
         <Link
           to="/kontak"
           aria-label={`Hubungi sekolah tentang ${program.title}`}
-          className="grid size-10 shrink-0 place-items-center rounded-full bg-sheet text-pine-deep transition-colors hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sheet"
+          className="grid size-10 shrink-0 place-items-center rounded-full bg-sun text-ink transition-colors hover:bg-sheet focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sheet"
         >
           <ArrowUpRight className="size-5" aria-hidden />
         </Link>
@@ -76,7 +78,7 @@ export function ProgramContactCard({ program }: { program: Program }) {
                   href={wa}
                   target="_blank"
                   rel="noreferrer"
-                  className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-full bg-sheet px-3 text-xs font-semibold text-pine-deep hover:bg-mint"
+                  className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-lg bg-sun px-3 text-xs font-bold text-ink hover:bg-sheet"
                 >
                   <MessageCircle className="size-4" aria-hidden /> WhatsApp
                 </a>
@@ -122,22 +124,22 @@ function EkskulCard({ item }: { item: Program }) {
     <Link
       to="/program/$id"
       params={{ id: item.id }}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-sheet ring-1 ring-line transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-sheet ring-1 ring-line transition duration-200 hover:-translate-y-1 hover:ring-pine/40 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
     >
       <div className="relative overflow-hidden">
         <Cover
           program={item}
           className="aspect-[4/3] w-full transition-transform duration-300 group-hover:scale-105"
         />
-        <span className="absolute left-0 top-5 bg-pine-deep px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sheet">
+        <span className="absolute left-0 top-5 rounded-r-md bg-sun px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-ink">
           {item.category || "Ekskul"}
         </span>
       </div>
       <div className="flex flex-1 flex-col bg-sky p-5">
         {!item.visible ? <p className="mb-1 text-xs text-brass">Tersembunyi dari tamu</p> : null}
-        <h3 className="font-serif text-xl text-ink group-hover:text-pine">{item.title}</h3>
+        <h3 className="font-serif text-xl font-semibold text-ink group-hover:text-pine">{item.title}</h3>
         <p className="mt-2 line-clamp-3 text-sm text-muted">{item.summary}</p>
-        <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-pine">
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-bold text-pine">
           Lihat selengkapnya{" "}
           <ArrowRight
             className="size-4 transition-transform group-hover:translate-x-1"
@@ -172,12 +174,12 @@ export function EkskulListPage({ group, items }: { group: ProgramGroup; items: P
           ) : (
             <div className="aspect-[16/10] w-full rounded-2xl bg-mint sm:aspect-[21/9]" />
           )}
-          <div className="relative -mt-8 ml-3 mr-3 max-w-md bg-pine-deep p-5 text-sheet shadow-lg sm:-mt-16 sm:ml-8 sm:mr-0 sm:p-8">
+          <div className="relative -mt-8 ml-3 mr-3 max-w-md rounded-xl border-t-4 border-sun bg-forest p-5 text-sheet shadow-lg sm:-mt-16 sm:ml-8 sm:mr-0 sm:p-8">
             {!group.visible ? (
               <p className="mb-2 text-xs text-brass-soft">Tersembunyi dari tamu</p>
             ) : null}
-            <p className={`${kickerClass} opacity-80`}>Ekstrakurikuler</p>
-            <h1 className="mt-3 font-serif text-2xl leading-tight sm:text-3xl">
+            <p className={`${kickerClass} text-sun`}>Ekstrakurikuler</p>
+            <h1 className="mt-3 font-serif text-2xl leading-tight font-semibold sm:text-4xl">
               {group.title === "Ekstrakurikuler" ? "Kegiatan ekskul kami" : group.title}
             </h1>
           </div>
@@ -204,9 +206,9 @@ export function EkskulListPage({ group, items }: { group: ProgramGroup; items: P
                 type="button"
                 aria-pressed={filter === name}
                 onClick={() => setFilter(name)}
-                className={`h-10 rounded-full px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
+                className={`h-10 rounded-lg px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
                   filter === name
-                    ? "bg-pine-deep text-sheet"
+                    ? "bg-pine text-sheet"
                     : "border border-line bg-sheet text-ink hover:border-pine"
                 }`}
               >
@@ -230,8 +232,12 @@ export function EkskulListPage({ group, items }: { group: ProgramGroup; items: P
         )}
 
         <p className="mt-12">
-          <Link to="/program" className="font-semibold text-pine hover:underline">
-            ← Semua kelompok program
+          <Link
+            to="/program"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border-2 border-pine px-5 text-sm font-bold text-pine transition-colors hover:bg-pine hover:text-sheet"
+          >
+            <ArrowLeft className="size-4" aria-hidden />
+            Semua kelompok program
           </Link>
         </p>
       </section>
@@ -276,15 +282,16 @@ export function EkskulDetailPage({ program }: { program: Program }) {
             <p className={`${kickerClass} text-muted`}>
               {program.category ? `Ekstrakurikuler · ${program.category}` : "Ekstrakurikuler"}
             </p>
-            <h1 className="mt-3 font-serif text-3xl leading-tight text-ink md:text-4xl">
+            <h1 className="mt-3 font-serif text-3xl leading-tight font-semibold text-ink md:text-5xl">
               {program.title}
             </h1>
             {program.summary ? <p className="mt-4 text-lg text-muted">{program.summary}</p> : null}
             <Link
               to="/kontak"
-              className="mt-6 inline-flex h-12 items-center rounded-md bg-pine-deep px-6 text-sm font-semibold text-sheet transition-colors hover:bg-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+              className="tombol mt-6 inline-flex h-12 items-center gap-2 rounded-lg bg-pine px-6 text-sm font-bold text-sheet hover:bg-pine-deep"
             >
               Daftar sekarang
+              <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
         </div>
@@ -300,15 +307,13 @@ export function EkskulDetailPage({ program }: { program: Program }) {
 
           <hr className="my-10 border-line" />
           <section aria-labelledby="prestasi">
-            <h2 id="prestasi" className="font-serif text-2xl text-ink">
-              Prestasi
-            </h2>
+            <SectionTitle id="prestasi">Prestasi</SectionTitle>
             {achievements.length > 0 ? (
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {achievements.map((item) => (
                   <div
                     key={item.id || item.title}
-                    className="rounded-xl bg-sheet p-5 ring-1 ring-line"
+                    className="rounded-xl border-l-4 border-sun bg-sheet p-5 ring-1 ring-line"
                   >
                     <p className="text-xs font-semibold tracking-wider text-muted">{item.year}</p>
                     <p className="mt-2 font-serif text-xl text-ink">{item.title}</p>
@@ -330,12 +335,12 @@ export function EkskulDetailPage({ program }: { program: Program }) {
         <aside className="lg:col-span-4">
           <div className="space-y-6 lg:sticky lg:top-24">
             <div className="rounded-xl bg-sheet p-6 ring-1 ring-line">
-              <h2 className="font-serif text-xl text-ink">Kegiatan kami</h2>
+              <h2 className="font-serif text-xl font-semibold text-ink">Kegiatan kami</h2>
               {activities.length > 0 ? (
                 <ul className="mt-4 divide-y divide-line">
                   {activities.map((act) => (
                     <li key={act} className="flex items-center gap-3 py-3 text-sm text-ink">
-                      <Plus className="size-4 shrink-0 text-pine" aria-hidden />
+                      <Plus className="size-4 shrink-0 text-brass" aria-hidden />
                       {act}
                     </li>
                   ))}
@@ -352,10 +357,8 @@ export function EkskulDetailPage({ program }: { program: Program }) {
 
       {others.length > 0 ? (
         <section className="mt-16" aria-labelledby="lainnya">
-          <h2 id="lainnya" className="font-serif text-2xl text-ink">
-            Ekstrakurikuler lainnya
-          </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <SectionTitle id="lainnya">Ekstrakurikuler lainnya</SectionTitle>
+          <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {others.slice(0, 4).map((item) => (
               <EkskulCard key={item.id} item={item} />
             ))}
@@ -367,9 +370,10 @@ export function EkskulDetailPage({ program }: { program: Program }) {
         <Link
           to="/program/$id"
           params={{ id: "ekstrakurikuler" }}
-          className="font-semibold text-pine hover:underline"
+          className="inline-flex h-11 items-center gap-2 rounded-lg border-2 border-pine px-5 text-sm font-bold text-pine transition-colors hover:bg-pine hover:text-sheet"
         >
-          ← Semua ekstrakurikuler
+          <ArrowLeft className="size-4" aria-hidden />
+          Semua ekstrakurikuler
         </Link>
       </p>
     </article>

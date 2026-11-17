@@ -1,4 +1,5 @@
 import type { ProgramMedia } from "@/lib/site/types";
+import { SectionTitle } from "@/components/site/ornament";
 
 function youtubeEmbed(url: string): string | null {
   try {
@@ -26,14 +27,14 @@ export function ProgramMediaGallery({ media }: { media: ProgramMedia[] }) {
   if (media.length === 0) return null;
   return (
     <section className="mt-12">
-      <h2 className="font-serif text-2xl text-ink">Dokumentasi</h2>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+      <SectionTitle>Dokumentasi</SectionTitle>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {media.map((item) => {
           const yt = item.kind === "url" ? youtubeEmbed(item.src) : null;
           return (
             <figure
               key={item.id}
-              className="overflow-hidden rounded-xl border border-line bg-sheet"
+              className="overflow-hidden rounded-2xl border border-line bg-sheet"
             >
               {item.kind === "image" && item.src ? (
                 <img
