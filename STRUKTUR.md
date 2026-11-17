@@ -22,7 +22,9 @@ Hosting belum masuk tahap ini. Isi situs disimpan di basis data. Daftar di bawah
 | Path | Peran |
 |---|---|
 | `src/components/site/home-page.tsx` | Isi halaman depan |
-| `src/components/site/shell.tsx` | Kepala dan kaki |
+| `src/components/site/shell.tsx` | Kepala, menu ponsel, kaki, dan judul halaman (`PageIntro`) |
+| `src/components/site/ornament.tsx` | Bintang bersudut delapan dan label kecil (`Eyebrow`) |
+| `src/styles.css` | Token warna dan font, bingkai lengkung, pola bintang, tombol, animasi |
 | `src/lib/site/seed.ts` | Naskah dan data awal |
 | `src/lib/site/content.server.ts` | Simpanan di basis data |
 | `src/lib/site/types.ts` | Bentuk data |

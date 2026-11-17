@@ -63,3 +63,16 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Jangan hapus `overrides` `"@grpc/grpc-js": "1.14.5"` di `package.json` selama `@firebase/firestore` masih membatasi `~1.9.0`. Tanpa itu, versi 1.9.16 yang rentan terpasang kembali.
 - Jangan turunkan `@grpc/grpc-js` di bawah 1.14.5 (atau 1.13.6 bila memakai jalur 1.13). Setelah mengubah `firebase`, periksa `npm ls @grpc/grpc-js` dan pastikan versinya tetap yang sudah diperbaiki.
 - Situs ini tidak menjalankan server gRPC dan tidak memakai `getAuthContext`; `firebase/firestore` hanya dimuat dinamis di `src/lib/site/firebase.ts`. Perbaikan ini murni menutup peringatan dependensi.
+
+## Tampilan dan desain (2026-11-17)
+- Nama token warna di `src/styles.css` tetap: `paper`, `sheet`, `ink`, `muted`, `line`, `pine`, `pine-deep`, `brass`, `brass-soft`, `mint`, `sky`. Panel kelola, halaman Masuk, `holding.tsx`, dan `ekskul.tsx` memakainya. Yang boleh berubah nilainya; jangan ganti atau hapus namanya. Token baru: `forest`, `sun`, `sun-soft`.
+- `brass-soft` dipakai sebagai teks terang di atas latar gelap (`holding.tsx`, `ekskul.tsx`). Jangan dijadikan warna gelap.
+- Font hanya Fraunces (judul) dan Plus Jakarta Sans (isi), lewat satu tautan di `src/routes/__root.tsx`. Jangan tambahkan lagi tautan Poppins, Newsreader, atau Source Sans 3.
+- Kartu nilai di beranda tetap elemen `article` dan kartu berita tetap tautan `a` di dalam `.nilai-track`, karena tombol panah memakai `querySelector("article")` dan `querySelector("a")` untuk menghitung lebar geser. Jangan ganti elemennya.
+- Bingkai prestasi di beranda tetap `bg-mint` dengan garis hijau (`border-pine/25`), paling banyak empat kartu. Kartu tanpa foto memakai ikon piala, bukan kotak kosong.
+- `PageIntro` kini pita penuh dengan margin bawah sendiri (`mb-8 md:mb-10`). Halaman yang memakainya tidak perlu dan tidak boleh menambah jarak atas lagi di bawahnya.
+- Menu ponsel mengunci gulir `document.body`. Nilai `overflow` sebelumnya harus dikembalikan saat menu ditutup (pembersihan efek di `SiteFrame`), dan tombol Esc harus menutupnya.
+- Tautan Masuk tetap kelihatan di bar atas layar kecil walau menu tertutup (lihat aturan Header 2026-10-19).
+- Animasi `.rise` dan efek tekan `.tombol` wajib punya pengecualian `prefers-reduced-motion` di `src/styles.css`.
+- Tautan "Lewati ke isi halaman" dan `id="isi"` pada `<main>` di `SiteFrame` jangan dihapus; keduanya jalan pintas papan ketik.
+

@@ -53,13 +53,11 @@ export const Route = createRootRoute({
         { rel: "stylesheet", href: appCss },
         { rel: "manifest", href: "/__grok/manifest.webmanifest" },
         { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,650&family=Source+Sans+3:wght@400;500;600;700&display=swap",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;900&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
         },
       ],
     };
@@ -89,11 +87,19 @@ function RootDocument() {
 
 function NotFound() {
   return (
-    <main className="mx-auto max-w-xl px-5 py-24">
-      <h1 className="font-serif text-4xl">Halaman tidak ditemukan</h1>
-      <Link to="/" className="mt-6 inline-flex font-semibold text-pine">
-        Kembali ke beranda
-      </Link>
+    <main className="relative grid min-h-screen place-items-center overflow-hidden bg-paper px-5 py-24">
+      <div className="pola-bintang pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="relative max-w-xl text-center">
+        <p className="font-serif text-8xl font-semibold text-pine/20">404</p>
+        <h1 className="-mt-4 font-serif text-4xl font-semibold text-ink">Halaman tidak ditemukan</h1>
+        <p className="mt-3 text-muted">Alamat yang Anda buka tidak ada atau sudah dipindahkan.</p>
+        <Link
+          to="/"
+          className="tombol mt-8 inline-flex h-12 items-center rounded-lg bg-pine px-6 font-bold text-sheet hover:bg-pine-deep"
+        >
+          Kembali ke beranda
+        </Link>
+      </div>
     </main>
   );
 }

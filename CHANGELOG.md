@@ -2,6 +2,24 @@
 
 Catatan ini merangkum perubahan situs SD Muhammadiyah 01 Kukusan sejak commit `Beranda terang` di GitHub.
 
+## 2026-11-17
+
+### Tampilan dan pengalaman pakai (UI/UX)
+
+Hanya tata letak, gaya, dan kebiasaan pakai yang berubah. Isi, data, alur Publish, peran akun, dan gerbang halaman 404 tidak disentuh.
+
+- **Identitas visual baru.** Kertas krem hangat (`paper`), hijau pinus yang lebih dalam (`pine`, `pine-deep`, `forest`), dan kuning matahari (`sun`, `sun-soft`) sebagai aksen. Nama token lama dipertahankan, jadi panel kelola dan halaman lain ikut berubah warna tanpa diedit.
+- **Tipografi.** Newsreader dan Source Sans 3 diganti **Fraunces** (judul) dan **Plus Jakarta Sans** (isi). Tautan font Poppins yang tidak terpakai dihapus; kini satu tautan Google Fonts dengan `preconnect`.
+- **Motif.** Bingkai foto berbentuk lengkung (`.arch`) dan pola bintang bersudut delapan yang samar (`.pola-bintang`, `.pola-bintang-gelap`). Tombol utama memakai gaya "alas" (`.tombol`). Animasi masuk `.rise` di hero.
+- **Header.** Menu memakai garis kuning di bawah tautan aktif (bukan latar bulat). Bilah info jam layanan, telepon, dan surel di layar lebar. Tautan "Lewati ke isi halaman" untuk pembaca layar dan papan ketik. Tautan Masuk tetap tepat setelah Kontak dan tetap kelihatan di layar kecil.
+- **Menu ponsel.** Menu layar penuh bernomor, gulir latar dikunci selama terbuka, bisa ditutup dengan tombol Esc, dan memuat tombol Masuk serta nomor telepon.
+- **Footer.** Latar hijau tua dengan tiga kolom: identitas, daftar halaman (Jelajahi), dan kontak. Menambah tautan Masuk di baris bawah.
+- **Judul halaman (`PageIntro`).** Kini pita penuh dengan pola, jejak halaman "Beranda / halaman", dan judul lebih besar. Berlaku otomatis ke Profil, Manajerial, Program, Berita, Galeri, Kontak, dan halaman lain yang memakainya.
+- **Beranda.** Hero dua kolom dengan foto berbingkai lengkung dan blok kuning di belakangnya; angka Berdiri, Akreditasi, dan Peserta didik memakai huruf judul. Sambutan kepala sekolah di bagian hijau gelap dengan tanda tangan nama dan jabatan di bawah isi. Kartu nilai bernomor dan diberi judul bagian "Nilai yang kami jaga". Kartu program bernomor dengan panah. Prestasi tetap empat kartu kecil dalam bingkai hijau muda; kartu tanpa foto menampilkan ikon piala. Berita menampilkan tanggal sebagai label. Visi di pita kuning lembut. Tautan "Halaman program" dan "Semua berita" dipindah ke kanan judul bagian.
+- **Halaman tidak ditemukan** (404 biasa untuk alamat yang salah) didesain ulang; tidak sama dengan halaman "sedang dibangun".
+- Berkas baru: `src/components/site/ornament.tsx` (bintang dan label kecil bersama).
+- Halaman "sedang dibangun" (`maintenance.tsx`) tidak diubah; ia ikut berganti warna dan font karena memakai token yang sama.
+
 ## 2026-11-16
 
 ### Halaman “sedang dibangun” (Maintenance)
