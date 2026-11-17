@@ -81,7 +81,7 @@ export function HomePage() {
             </div>
 
             <div className="rise lg:col-span-5" style={{ "--d": "200ms" } as CSSProperties}>
-              <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+              <div className="relative mx-auto w-full max-w-md lg:max-w-lg 2xl:max-w-xl">
                 <div className="arch absolute inset-0 translate-x-4 translate-y-4 bg-sun" aria-hidden="true" />
                 <figure className="arch relative overflow-hidden border-4 border-sheet bg-mint shadow-lg">
                   {hero.image ? (
@@ -105,7 +105,7 @@ export function HomePage() {
           <section id="sambutan" className="relative overflow-hidden bg-forest text-sheet">
             <div className="pola-bintang-gelap pointer-events-none absolute inset-0" aria-hidden="true" />
             <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 lg:grid-cols-12 lg:gap-14 lg:py-24">
-              <div className="mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-none">
+              <div className="mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-md 2xl:max-w-lg">
                 <figure className="arch overflow-hidden border-4 border-sun bg-pine-deep">
                   {welcome.image ? (
                     <img

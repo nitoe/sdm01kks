@@ -75,4 +75,6 @@ Hal yang tidak boleh kembali saat mengubah situs ini.
 - Tautan Masuk tetap kelihatan di bar atas layar kecil walau menu tertutup (lihat aturan Header 2026-10-19).
 - Animasi `.rise` dan efek tekan `.tombol` wajib punya pengecualian `prefers-reduced-motion` di `src/styles.css`.
 - Tautan "Lewati ke isi halaman" dan `id="isi"` pada `<main>` di `SiteFrame` jangan dihapus; keduanya jalan pintas papan ketik.
+- Lebar kontainer diatur lewat token `--container-6xl` yang dinaikkan bertahap di `src/styles.css` (1536px, 1920px, 2400px). Jangan mengganti `max-w-6xl` dengan lebar tetap di halaman, dan jangan menurunkan nilainya; kalau tidak, ruang kosong di kiri dan kanan muncul lagi saat layar lebar atau peramban di-zoom keluar.
+- Judul bagian di halaman dalam memakai `SectionTitle` dari `ornament.tsx`, bukan `h2` lepas, agar gaya tetap seragam.
 

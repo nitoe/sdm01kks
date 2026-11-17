@@ -20,6 +20,19 @@ Hanya tata letak, gaya, dan kebiasaan pakai yang berubah. Isi, data, alur Publis
 - Berkas baru: `src/components/site/ornament.tsx` (bintang dan label kecil bersama).
 - Halaman "sedang dibangun" (`maintenance.tsx`) tidak diubah; ia ikut berganti warna dan font karena memakai token yang sama.
 
+### Tampilan tahap 2: halaman dalam dan lebar layar
+
+- **Ruang kosong di kiri dan kanan saat layar lebar atau peramban di-zoom keluar diperbaiki.** Lebar kontainer konten (`max-w-6xl`) kini melebar bertahap: 72rem, lalu 80rem mulai layar 1536px, 90rem mulai 1920px, dan 100rem mulai 2400px. Pengaturannya satu tempat di `src/styles.css`, jadi semua halaman ikut. Foto hero dan sambutan di beranda dibatasi lebarnya agar tidak membesar berlebihan.
+- **Profil.** Judul bagian memakai `SectionTitle`, kartu identitas bergaris kuning, Visi di blok kuning lembut berpola, nomor misi berlatar kuning, nilai bergaris hijau di atas, dan tautan Manajerial serta Hubungi sekolah di blok hijau tua.
+- **Program.** Halaman daftar memakai `PageIntro`. Nomor kelompok besar berwarna kuning, kegiatan berupa label hijau muda, dan tombol memakai gaya `.tombol`. Halaman kelompok menampilkan kegiatan dalam dua kolom, dan tombol kembali jadi tombol bergaris.
+- **Prestasi dan Pengumuman.** Kotak pencarian dan saringan bergaris kuning di atas. Tahun, tingkat, dan jenis lomba (Prestasi) serta tanggal (Pengumuman) tampil sebagai label.
+- **Berita.** Daftar tiga kolom dengan label tanggal dan tautan "Baca selengkapnya". Halaman artikel memakai huruf isi lebih besar dan tombol kembali.
+- **Galeri.** Tiga kolom, keterangan muncul di atas foto dengan latar gradasi hijau.
+- **Manajerial.** Kartu staf bergaris kuning di bawah foto, judul bagian memakai `SectionTitle`.
+- **Kontak.** Dua kolom: kartu kontak dengan tombol WhatsApp dan Telepon, serta peta yang lebih besar. Isi kontak tidak berubah.
+- **Masuk.** Pita atas berpola dengan label kuning. Alur dan isinya tidak berubah.
+- `SectionTitle` ditambahkan di `src/components/site/ornament.tsx`.
+
 ## 2026-11-16
 
 ### Halaman “sedang dibangun” (Maintenance)

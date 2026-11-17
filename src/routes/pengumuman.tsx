@@ -53,7 +53,7 @@ function PengumumanPage() {
       />
 
       <div className="mx-auto max-w-6xl px-5 pb-16">
-        <div className="mb-8 grid gap-3 rounded-2xl border border-line bg-sheet p-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid gap-3 rounded-2xl border border-line border-t-4 border-t-sun bg-sheet p-4 sm:grid-cols-2 lg:grid-cols-3">
           <label className="relative sm:col-span-2 lg:col-span-1">
             <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" />
             <input
@@ -61,13 +61,13 @@ function PengumumanPage() {
               placeholder="Cari judul atau isi…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="h-11 w-full rounded-xl border border-line bg-paper pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-pine/30"
+              className="h-11 w-full rounded-lg border border-line bg-paper pl-9 pr-3 text-sm outline-none focus:border-pine focus:ring-2 focus:ring-pine/20"
             />
           </label>
           <select
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            className="h-11 rounded-xl border border-line bg-paper px-3 text-sm"
+            className="h-11 rounded-lg border border-line bg-paper px-3 text-sm"
           >
             <option value="">Semua tahun</option>
             {years.map((y) => (
@@ -79,7 +79,7 @@ function PengumumanPage() {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="h-11 rounded-xl border border-line bg-paper px-3 text-sm"
+            className="h-11 rounded-lg border border-line bg-paper px-3 text-sm"
           >
             <option value="">Semua bulan</option>
             <option value="01">Januari</option>
@@ -106,7 +106,7 @@ function PengumumanPage() {
             {filtered.map((item) => (
               <article
                 key={item.id}
-                className="flex flex-col overflow-hidden rounded-2xl border border-line bg-sheet shadow-sm"
+                className="flex flex-col overflow-hidden rounded-2xl border border-line bg-sheet transition-shadow hover:shadow-lg"
               >
                 {item.image ? (
                   <button
@@ -128,13 +128,15 @@ function PengumumanPage() {
                   {!item.visible ? (
                     <p className="mb-1 text-xs font-semibold text-brass">Tersembunyi dari tamu</p>
                   ) : null}
-                  <p className="text-sm text-pine">{formatDate(item.date)}</p>
-                  <h2 className="mt-1 font-serif text-2xl leading-tight text-ink">{item.title}</h2>
+                  <p className="inline-flex w-fit rounded-md bg-sun-soft px-2 py-0.5 text-xs font-bold text-ink">
+                    {formatDate(item.date)}
+                  </p>
+                  <h2 className="mt-3 font-serif text-2xl leading-tight font-semibold text-ink">{item.title}</h2>
                   {item.excerpt ? <p className="mt-2 line-clamp-3 text-sm text-muted">{item.excerpt}</p> : null}
                   <button
                     type="button"
                     onClick={() => setOpenId(item.id)}
-                    className="mt-4 self-start text-sm font-semibold text-pine hover:underline"
+                    className="mt-4 self-start text-sm font-bold text-pine hover:underline"
                   >
                     Baca lengkap
                   </button>

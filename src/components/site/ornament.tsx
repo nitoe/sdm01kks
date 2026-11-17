@@ -29,3 +29,24 @@ export function Eyebrow({
     </p>
   );
 }
+
+/** Judul bagian di halaman dalam: judul serif dengan garis kuning pendek. */
+export function SectionTitle({
+  children,
+  sub,
+  id,
+}: {
+  children: ReactNode;
+  sub?: string;
+  id?: string;
+}) {
+  return (
+    <div>
+      <h2 id={id} className="font-serif text-2xl font-semibold text-ink md:text-3xl">
+        {children}
+      </h2>
+      <span className="mt-3 block h-1 w-10 rounded-full bg-sun" aria-hidden="true" />
+      {sub ? <p className="mt-3 max-w-2xl text-muted">{sub}</p> : null}
+    </div>
+  );
+}

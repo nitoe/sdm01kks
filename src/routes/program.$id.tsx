@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { SectionTitle } from "@/components/site/ornament";
 import { PageIntro, Prose, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 import { EkskulDetailPage, EkskulListPage, ProgramContactCard } from "@/components/site/ekskul";
@@ -74,12 +76,12 @@ function ProgramPage({ program }: { program: Program }) {
 
             {achievements.length > 0 ? (
               <section className="mt-10">
-                <h2 className="text-2xl font-semibold text-ink">Prestasi</h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <SectionTitle>Prestasi</SectionTitle>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {achievements.map((item) => (
                     <div
                       key={item.id || item.title}
-                      className="rounded-xl border border-line bg-sheet p-4"
+                      className="rounded-xl border border-line border-l-4 border-l-sun bg-sheet p-4"
                     >
                       <p className="text-sm font-semibold text-pine">{item.year}</p>
                       <p className="mt-1 font-semibold text-ink">{item.title}</p>
@@ -97,11 +99,11 @@ function ProgramPage({ program }: { program: Program }) {
             <div className="sticky top-24 space-y-6">
               {activities.length > 0 ? (
                 <div className="rounded-2xl border border-line bg-sheet p-6">
-                  <h3 className="font-semibold text-ink">Kegiatan kami</h3>
+                  <h3 className="font-serif text-xl font-semibold text-ink">Kegiatan kami</h3>
                   <ul className="mt-3 space-y-2 text-sm text-muted">
                     {activities.map((act) => (
                       <li key={act} className="flex items-start gap-2">
-                        <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-pine" />
+                        <span className="mt-1.5 size-2 shrink-0 rotate-45 bg-sun" />
                         <span>{act}</span>
                       </li>
                     ))}
@@ -118,9 +120,10 @@ function ProgramPage({ program }: { program: Program }) {
           <Link
             to="/program/$id"
             params={{ id: parent?.id ?? "ekstrakurikuler" }}
-            className="font-semibold text-pine"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border-2 border-pine px-5 text-sm font-bold text-pine transition-colors hover:bg-pine hover:text-sheet"
           >
-            ← {parent ? parent.title : "Semua program"}
+            <ArrowLeft className="size-4" aria-hidden="true" />
+            {parent ? parent.title : "Semua program"}
           </Link>
         </p>
       </article>
@@ -157,21 +160,17 @@ function GroupPage({ group }: { group: ProgramGroup }) {
         {group.body ? <Prose text={group.body} /> : null}
 
         <section className="mt-12">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-2xl font-semibold text-ink md:text-3xl">
-              Kegiatan di kelompok ini
-            </h2>
-          </div>
+          <SectionTitle>Kegiatan di kelompok ini</SectionTitle>
           {items.length === 0 ? (
             <p className="mt-4 text-muted">Belum ada kegiatan yang dimasukkan ke kelompok ini.</p>
           ) : (
-            <div className="mt-6 grid gap-4">
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
               {items.map((item) => (
                 <Link
                   key={item.id}
                   to="/program/$id"
                   params={{ id: item.id }}
-                  className="overflow-hidden rounded-2xl border border-line bg-sheet transition-colors hover:border-pine"
+                  className="group overflow-hidden rounded-2xl border border-line bg-sheet transition-all hover:-translate-y-1 hover:border-pine/40 hover:shadow-lg"
                 >
                   {item.cover ? (
                     <img src={item.cover} alt="" className="aspect-[16/7] w-full object-cover" />
@@ -180,7 +179,10 @@ function GroupPage({ group }: { group: ProgramGroup }) {
                     {!item.visible ? (
                       <p className="text-sm text-brass">Tersembunyi dari tamu</p>
                     ) : null}
-                    <h3 className="text-xl font-semibold text-ink">{item.title}</h3>
+                    <h3 className="flex items-center justify-between gap-3 font-serif text-2xl font-semibold text-ink group-hover:text-pine">
+                      {item.title}
+                      <ArrowUpRight className="size-5 shrink-0" aria-hidden="true" />
+                    </h3>
                     <p className="mt-2 text-muted">{item.summary}</p>
                   </div>
                 </Link>
@@ -190,8 +192,12 @@ function GroupPage({ group }: { group: ProgramGroup }) {
         </section>
 
         <p className="mt-10">
-          <Link to="/program" className="font-semibold text-pine">
-            ← Semua kelompok program
+          <Link
+            to="/program"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border-2 border-pine px-5 text-sm font-bold text-pine transition-colors hover:bg-pine hover:text-sheet"
+          >
+            <ArrowLeft className="size-4" aria-hidden="true" />
+            Semua kelompok program
           </Link>
         </p>
       </article>

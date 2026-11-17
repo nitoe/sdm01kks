@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AtSign, ExternalLink, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageIntro, SiteFrame } from "@/components/site/shell";
 import { useSiteStore } from "@/lib/site/store";
 
@@ -41,66 +42,118 @@ function KontakPage() {
   const identity = useSiteStore((state) => state.content.identity);
   const wa = identity.whatsapp?.replace(/\D/g, "") ?? "";
   const ig = identity.instagram?.replace(/^@/, "").trim() ?? "";
+  const telHref = `tel:${identity.phone.replace(/[^\d+]/g, "")}`;
 
   return (
     <SiteFrame>
       <PageIntro kicker="Kontak" title="Datang atau hubungi sekolah" lead={identity.hours} />
-      <div className="mx-auto grid max-w-6xl gap-6 px-5 lg:grid-cols-2">
-        <div className="rounded-card border border-line bg-sheet p-6">
-          <h2 className="font-serif text-3xl">Alamat</h2>
-          <p className="mt-3">{identity.address}</p>
-          <p className="mt-4">
-            <span className="text-muted">Telepon </span>
-            <a className="font-semibold text-pine" href={`tel:${identity.phone.replace(/[^\d+]/g, "")}`}>
-              {identity.phone}
-            </a>
-          </p>
-          {wa ? (
-            <p className="mt-2">
-              <span className="text-muted">WhatsApp </span>
+      <div className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 lg:grid-cols-5">
+        <div className="rounded-3xl border border-line border-t-4 border-t-sun bg-sheet p-6 sm:p-8 lg:col-span-2">
+          <div className="flex flex-wrap gap-3">
+            {wa ? (
               <a
-                className="font-semibold text-pine"
                 href={`https://wa.me/${wa}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="tombol inline-flex h-12 items-center gap-2 rounded-lg bg-pine px-5 text-sm font-bold text-sheet hover:bg-pine-deep"
               >
-                {formatWhatsAppLabel(wa)}
+                <MessageCircle className="size-4" aria-hidden="true" />
+                Chat WhatsApp
               </a>
-            </p>
-          ) : null}
-          <p className="mt-2">
-            <span className="text-muted">Surel </span>
-            <a className="font-semibold text-pine" href={`mailto:${identity.email}`}>
-              {identity.email}
-            </a>
-          </p>
-          {ig ? (
-            <p className="mt-2">
-              <span className="text-muted">Instagram </span>
-              <a
-                className="font-semibold text-pine"
-                href={`https://www.instagram.com/${ig}/`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @{ig}
-              </a>
-            </p>
-          ) : null}
-          <p className="mt-4">
+            ) : null}
             <a
-              className="text-sm font-semibold text-pine underline-offset-2 hover:underline"
-              href="https://maps.app.goo.gl/6Ae9iQqaqswDhEq9A"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={telHref}
+              className="inline-flex h-12 items-center gap-2 rounded-lg border-2 border-pine px-5 text-sm font-bold text-pine transition-colors hover:bg-pine hover:text-sheet"
             >
-              Buka di Google Maps
+              <Phone className="size-4" aria-hidden="true" />
+              Telepon
             </a>
-          </p>
+          </div>
+
+          <dl className="mt-8 grid gap-6">
+            <div className="flex gap-4">
+              <MapPin className="mt-1 size-5 shrink-0 text-pine" aria-hidden="true" />
+              <div>
+                <dt className="text-xs font-bold tracking-wider text-muted uppercase">Alamat</dt>
+                <dd className="mt-1">{identity.address}</dd>
+                <dd className="mt-2">
+                  <a
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-pine underline-offset-2 hover:underline"
+                    href="https://maps.app.goo.gl/6Ae9iQqaqswDhEq9A"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Buka di Google Maps
+                    <ExternalLink className="size-3.5" aria-hidden="true" />
+                  </a>
+                </dd>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Phone className="mt-1 size-5 shrink-0 text-pine" aria-hidden="true" />
+              <div>
+                <dt className="text-xs font-bold tracking-wider text-muted uppercase">Telepon</dt>
+                <dd className="mt-1">
+                  <a className="font-semibold text-pine hover:underline" href={telHref}>
+                    {identity.phone}
+                  </a>
+                </dd>
+              </div>
+            </div>
+            {wa ? (
+              <div className="flex gap-4">
+                <MessageCircle className="mt-1 size-5 shrink-0 text-pine" aria-hidden="true" />
+                <div>
+                  <dt className="text-xs font-bold tracking-wider text-muted uppercase">WhatsApp</dt>
+                  <dd className="mt-1">
+                    <a
+                      className="font-semibold text-pine hover:underline"
+                      href={`https://wa.me/${wa}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {formatWhatsAppLabel(wa)}
+                    </a>
+                  </dd>
+                </div>
+              </div>
+            ) : null}
+            <div className="flex gap-4">
+              <AtSign className="mt-1 size-5 shrink-0 text-pine" aria-hidden="true" />
+              <div>
+                <dt className="text-xs font-bold tracking-wider text-muted uppercase">Surel</dt>
+                <dd className="mt-1 break-all">
+                  <a className="font-semibold text-pine hover:underline" href={`mailto:${identity.email}`}>
+                    {identity.email}
+                  </a>
+                </dd>
+              </div>
+            </div>
+            {ig ? (
+              <div className="flex gap-4">
+                <span className="mt-1 w-5 shrink-0 text-center font-bold text-pine" aria-hidden="true">
+                  IG
+                </span>
+                <div>
+                  <dt className="text-xs font-bold tracking-wider text-muted uppercase">Instagram</dt>
+                  <dd className="mt-1">
+                    <a
+                      className="font-semibold text-pine hover:underline"
+                      href={`https://www.instagram.com/${ig}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      @{ig}
+                    </a>
+                  </dd>
+                </div>
+              </div>
+            ) : null}
+          </dl>
         </div>
         <iframe
           title="Peta lokasi SD Muhammadiyah 01 Kukusan"
-          className="min-h-80 w-full rounded-card border border-line"
+          className="min-h-96 w-full rounded-3xl border border-line lg:col-span-3 lg:h-full"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen

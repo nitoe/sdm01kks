@@ -23,6 +23,26 @@
   --radius-card: 1.25rem;
 }
 
+/* Kontainer konten melebar bertahap di layar besar (atau saat peramban di-zoom keluar),
+   supaya tidak ada ruang kosong yang terlalu lebar di kiri dan kanan. */
+@media (min-width: 1536px) {
+  :root {
+    --container-6xl: 80rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-6xl: 90rem;
+  }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --container-6xl: 100rem;
+  }
+}
+
 @layer base {
   button:not(:disabled),
   [role="button"]:not(:disabled) {

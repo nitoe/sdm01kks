@@ -152,8 +152,9 @@ function MasukPage() {
   return (
     <div className="min-h-screen bg-paper">
       {/* Hero lembut */}
-      <div className="border-b border-line bg-sheet">
-        <div className="mx-auto max-w-6xl px-5 pt-8 pb-10 md:pt-10 md:pb-12">
+      <div className="relative overflow-hidden border-b border-line bg-mint/70">
+        <div className="pola-bintang pointer-events-none absolute inset-0" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-5 pt-8 pb-10 md:pt-10 md:pb-12">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-3">
               <SchoolLogo className="size-11" />
@@ -171,7 +172,7 @@ function MasukPage() {
           </div>
 
           <div className="mt-10 max-w-2xl">
-            <span className="inline-flex items-center rounded-full bg-mint px-3 py-1 text-xs font-semibold tracking-wide text-pine uppercase">
+            <span className="inline-flex items-center rounded-md bg-sun px-3 py-1 text-xs font-bold tracking-wide text-ink uppercase">
               Masuk & aplikasi
             </span>
             <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">

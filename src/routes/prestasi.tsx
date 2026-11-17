@@ -53,14 +53,14 @@ function PrestasiPage() {
         <p className="mx-auto max-w-6xl px-5 text-muted">Bagian prestasi sedang tidak ditampilkan.</p>
       ) : (
         <div className="mx-auto max-w-6xl px-5 pb-16">
-          <div className="grid gap-3 rounded-card border border-line bg-sheet p-4 md:grid-cols-4">
+          <div className="grid gap-3 rounded-2xl border border-line border-t-4 border-t-sun bg-sheet p-4 md:grid-cols-4">
             <label className="text-sm font-semibold text-muted">
               Cari
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Nama, lomba, hasil…"
-                className="mt-1 h-11 w-full rounded-xl border border-line bg-paper px-3 font-normal text-ink"
+                className="mt-1 h-11 w-full rounded-lg border border-line bg-paper px-3 font-normal text-ink focus:border-pine focus:outline-none"
               />
             </label>
             <label className="text-sm font-semibold text-muted">
@@ -68,7 +68,7 @@ function PrestasiPage() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="mt-1 h-11 w-full rounded-xl border border-line bg-paper px-3 font-normal text-ink"
+                className="mt-1 h-11 w-full rounded-lg border border-line bg-paper px-3 font-normal text-ink focus:border-pine focus:outline-none"
               >
                 <option value="semua">Semua</option>
                 {categories.map((c) => (
@@ -83,7 +83,7 @@ function PrestasiPage() {
               <select
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                className="mt-1 h-11 w-full rounded-xl border border-line bg-paper px-3 font-normal text-ink"
+                className="mt-1 h-11 w-full rounded-lg border border-line bg-paper px-3 font-normal text-ink focus:border-pine focus:outline-none"
               >
                 <option value="semua">Semua</option>
                 {years.map((y) => (
@@ -98,7 +98,7 @@ function PrestasiPage() {
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="mt-1 h-11 w-full rounded-xl border border-line bg-paper px-3 font-normal text-ink"
+                className="mt-1 h-11 w-full rounded-lg border border-line bg-paper px-3 font-normal text-ink focus:border-pine focus:outline-none"
               >
                 <option value="semua">Semua</option>
                 {levels.map((l) => (
@@ -116,17 +116,17 @@ function PrestasiPage() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {filtered.map((item) => (
-              <article key={item.id} className="overflow-hidden rounded-card border border-line bg-sheet">
+              <article key={item.id} className="overflow-hidden rounded-2xl border border-line bg-sheet transition-shadow hover:shadow-lg">
                 {item.image ? (
                   <img src={item.image} alt="" className="aspect-3/2 w-full object-cover" />
                 ) : null}
                 <div className="p-6">
                   {!item.visible ? <p className="text-sm text-brass">Tersembunyi dari tamu</p> : null}
-                  <p className="text-sm text-brass">
+                  <p className="inline-flex rounded-md bg-sun-soft px-2 py-0.5 text-xs font-bold text-ink">
                     {item.year} · {item.level} · {item.category}
                   </p>
-                  <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
-                  <p className="mt-2 font-semibold text-pine">{item.result}</p>
+                  <h2 className="mt-3 font-serif text-2xl font-semibold">{item.title}</h2>
+                  <p className="mt-2 font-bold text-pine">{item.result}</p>
                   <p className="mt-2 text-muted">{item.student}</p>
                   {item.note ? <p className="mt-3 text-sm text-muted">{item.note}</p> : null}
                 </div>
